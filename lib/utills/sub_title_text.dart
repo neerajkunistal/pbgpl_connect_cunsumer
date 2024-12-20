@@ -5,14 +5,15 @@ class SubTitleText extends StatelessWidget {
   final double? fontSize;
   final Color? color;
   final FontWeight fontWeight;
+
   const SubTitleText(
       {Key? key,
       this.text,
       this.fontSize = 16,
       this.color = Colors.black,
-      this.fontWeight = FontWeight.w500
-      })
+      this.fontWeight = FontWeight.w500})
       : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Text(text!,

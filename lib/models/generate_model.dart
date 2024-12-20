@@ -23,8 +23,7 @@ class GenerateModel {
   }
 }
 
-
-class GenerateRequestModel{
+class GenerateRequestModel {
   final String? schema;
   final String? bpNumber;
   final String? meter_reading;
@@ -35,17 +34,17 @@ class GenerateRequestModel{
   final String? latitude;
   final String? longitude;
 
-  const GenerateRequestModel( {
-    this.bpNumber,
-    this.schema,
-    this.meter_reading,
-    this.old_reading,
-    this.generate_by_customer,
-    this.latitude,
-    this.longitude,
-    this.meter_image_file,
-    this.meter_serial
-});
+  const GenerateRequestModel(
+      {this.bpNumber,
+      this.schema,
+      this.meter_reading,
+      this.old_reading,
+      this.generate_by_customer,
+      this.latitude,
+      this.longitude,
+      this.meter_image_file,
+      this.meter_serial});
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       "bpNumber": bpNumber!.trim(),
@@ -58,7 +57,6 @@ class GenerateRequestModel{
       "latitude": latitude.toString().trim(),
       "longitude": longitude.toString().trim(),
     };
-    return map ;
+    return map;
   }
 }
-

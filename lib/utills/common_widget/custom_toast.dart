@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class CustomToast {
-
   static showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -11,15 +10,11 @@ class CustomToast {
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.green,
         textColor: Colors.white,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
   }
-
-
 }
 
 class ShowCustomToast {
-
   static showToast(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -28,14 +23,11 @@ class ShowCustomToast {
         timeInSecForIosWeb: 5,
         backgroundColor: Colors.red,
         textColor: Colors.white,
-        fontSize: 16.0
-    );
+        fontSize: 16.0);
   }
-
-
 }
 
-class ValidateCustomToast{
+class ValidateCustomToast {
   static _showToastMsg(String msgType, String msg) {
     if (msgType == "success") {
       return Fluttertoast.showToast(
@@ -68,7 +60,8 @@ class ValidateCustomToast{
   }
 }
 
-Future<void> _showMyDialog(String myReading, previousReading, msg, Function() onPressed) async {
+Future<void> _showMyDialog(
+    String myReading, previousReading, msg, Function() onPressed) async {
   var context;
   return showDialog<void>(
     context: context,
@@ -77,10 +70,7 @@ Future<void> _showMyDialog(String myReading, previousReading, msg, Function() on
       return AlertDialog(
         title: Text(myReading),
         actions: <Widget>[
-          TextButton(
-              child: Text('Ok'),
-              onPressed:onPressed
-          ),
+          TextButton(child: Text('Ok'), onPressed: onPressed),
           TextButton(
             child: Text('Cancel'),
             onPressed: () {
@@ -92,5 +82,3 @@ Future<void> _showMyDialog(String myReading, previousReading, msg, Function() on
     },
   );
 }
-
-

@@ -32,11 +32,11 @@ class Data {
 
   Data(
       {this.code,
-        this.rrnNumber,
-        this.transaction_status,
-        this.transactionReferenceNumber,
-        this.billNo,
-        this.transactionTimestamp});
+      this.rrnNumber,
+      this.transaction_status,
+      this.transactionReferenceNumber,
+      this.billNo,
+      this.transactionTimestamp});
 
   Data.fromJson(Map<String, dynamic> json) {
     code = json['code'];

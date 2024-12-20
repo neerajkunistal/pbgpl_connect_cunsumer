@@ -24,7 +24,8 @@ class LaunchMobilePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Center(
-                      child: Text('Emergency',
+                      child: Text(
+                        'Emergency',
                         textAlign: TextAlign.right,
                         style: (TextStyle(
                           color: Colors.black,
@@ -36,10 +37,14 @@ class LaunchMobilePage extends StatelessWidget {
                       onTap: () {
                         Navigator.pop(context);
                       },
-                      child: Icon( Icons.close,color:Colors.black, ),
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.black,
+                      ),
                     )
                   ],
-                ),  ListView(
+                ),
+                ListView(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
                   children: [
@@ -49,7 +54,8 @@ class LaunchMobilePage extends StatelessWidget {
                         launch("tel:1800111817");
                       },
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
+                        padding: EdgeInsets.symmetric(
+                            vertical: 0.0, horizontal: 20.0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Container(
@@ -61,15 +67,19 @@ class LaunchMobilePage extends StatelessWidget {
                                   color: Colors.red,
                                   width: 70,
                                   height: 70,
-                                  child: Icon(Icons.phone,color: Colors.white),
+                                  child: Icon(Icons.phone, color: Colors.white),
                                 ),
-                                SizedBox(height: 20,),
+                                SizedBox(
+                                  height: 20,
+                                ),
                                 Expanded(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: <Widget>[
-                                      Text('1800-111-817',style: TextStyle(color: Colors.grey))
+                                      Text('1800-111-817',
+                                          style: TextStyle(color: Colors.grey))
                                     ],
                                   ),
                                 ),
@@ -84,7 +94,6 @@ class LaunchMobilePage extends StatelessWidget {
               ],
             ),
           ),
-        )
-    );
+        ));
   }
 }

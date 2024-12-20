@@ -1,0 +1,10 @@
+class AppIcon {
+  static get appLogo => "assets/images/logo.png";
+
+  static get meterIcon => "assets/images/meter.png";
+
+  static get paymentSuccessIcon => "assets/icons/ic_payment_success.png";
+
+  static get paymentFailIcon => "assets/icons/ic_payment_fail.png";
+
+}

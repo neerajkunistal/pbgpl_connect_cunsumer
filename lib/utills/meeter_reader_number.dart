@@ -8,7 +8,11 @@ class MeterNumber extends StatelessWidget {
   final TextInputAction textInputAction;
   final Color color;
   final ValueChanged onChanged;
-  const MeterNumber(this.controller,this.autoFocus,this.enabled,this.textInputAction,this.onChanged,this.color,{Key? key}) : super(key: key);
+
+  const MeterNumber(this.controller, this.autoFocus, this.enabled,
+      this.textInputAction, this.onChanged, this.color,
+      {Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +20,8 @@ class MeterNumber extends StatelessWidget {
       alignment: Alignment.center,
       height: 60,
       width: 30,
-
       child: TextField(
-        autofocus: autoFocus ?? false ,
+        autofocus: autoFocus ?? false,
         enabled: enabled ?? false,
         controller: controller,
         inputFormatters: <TextInputFormatter>[
@@ -33,18 +36,21 @@ class MeterNumber extends StatelessWidget {
             isDense: true,
             contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 10),
             enabledBorder: OutlineInputBorder(
-                borderSide:BorderSide(color: color,)),
+                borderSide: BorderSide(
+              color: color,
+            )),
             focusedBorder: OutlineInputBorder(
-                borderSide:BorderSide(color: color,)),
+                borderSide: BorderSide(
+              color: color,
+            )),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
-                borderSide: BorderSide(color: color,)
-            ),
+                borderSide: BorderSide(
+                  color: color,
+                )),
             counterText: '',
             hintStyle: TextStyle(color: Colors.black, fontSize: 8.0)),
-
       ),
     );
   }
 }
-

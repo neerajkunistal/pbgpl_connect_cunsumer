@@ -3,8 +3,10 @@ class BpNumberModel {
   int? code;
   bool? error;
   String? status;
+
 //  List<DataList> data;
   dynamic data;
+
   BpNumberModel({this.success, this.code, this.error, this.status, this.data});
 
   BpNumberModel.fromJson(Map<String, dynamic> json) {
@@ -12,14 +14,14 @@ class BpNumberModel {
     code = json['code'];
     error = json['error'];
     status = json['status'];
-    try{
+    try {
       if (json['data'] != null) {
         data = <DataList>[];
         json['data'].forEach((v) {
           data.add(new DataList.fromJson(v));
         });
-      } }
-    catch(exception ) {
+      }
+    } catch (exception) {
       data = json['data'];
       print('catch error--> : $exception');
     }
@@ -153,94 +155,94 @@ class DataList {
 
   DataList(
       {this.firstName,
-        this.middleName,
-        this.lastName,
-        this.crn,
-        this.bpNumber,
-        this.houseNumber,
-        this.locality,
-        this.town,
-        this.pinCode,
-        this.amount,
-        this.oldReading,
-        this.billNo,
-        this.currentBillReading,
-        this.meterSerialNumber,
-        this.depositName,
-        this.depositAmount,
-        this.createdOn,
-        this.status,
-        this.schemeMonth,
-        this.schemeType,
-        this.dateFrom,
-        this.dateTo,
-        this.schemeCode,
-        this.gasDepositAmount,
-        this.equipmentDepositAmount,
-        this.id,
-        this.interestAmount,
-        this.createdAt,
-        this.updatedAt,
-        this.rejectComments,
-        this.customerCount,
-        this.registrationGst,
-        this.interestTax,
-        this.rebateId,
-        this.totalAmount,
-        this.firstDepositAmount,
-        this.nextCycleAmount,
-        this.equipmentIncludeInBill,
-        this.registrationRefunded,
-        this.equipmentRefunded,
-        this.gasRefunded,
-        this.totalAmountWith,
-        this.firstDepositAmountWith,
-        this.depositAmountExcludingTaxWith,
-        this.registrationGstWith,
-        this.depositAmountWith,
-        this.benifitApplicable,
-        this.approvalStatus,
-        this.approvalDate,
-        this.gasDepositInFirstBill,
-        this.dmaId,
-        this.actualWorkStart,
-        this.delayReason,
-        this.meterType,
-        this.meterMake,
-        this.meterNumber,
-        this.pipe,
-        this.fittings,
-        this.meterReading,
-        this.meterReadingDate,
-        this.meterPhoto,
-        this.tfNumber,
-        this.latitudeTf,
-        this.longitudeTf,
-        this.latitudeHg,
-        this.longitudeHg,
-        this.workCompletedDate,
-        this.workCompletedImage,
-        this.custAckImage,
-        this.custAckDate,
-        this.feasibilityId,
-        this.extraPipe,
-        this.extraPrice,
-        this.cementingOfHoles,
-        this.clampingPvc,
-        this.claminngCopper,
-        this.meterTesting,
-        this.paintaingofGIpipe,
-        this.conversionDate,
-        this.typeOfNr,
-        this.ngc,
-        this.regulators,
-        this.extraPipeId,
-        this.isometricImage,
-        this.isometricDate,
-        this.pneumaticDate,
-        this.pneumaticImage,
-        this.mobileNumber,
-        this.custId});
+      this.middleName,
+      this.lastName,
+      this.crn,
+      this.bpNumber,
+      this.houseNumber,
+      this.locality,
+      this.town,
+      this.pinCode,
+      this.amount,
+      this.oldReading,
+      this.billNo,
+      this.currentBillReading,
+      this.meterSerialNumber,
+      this.depositName,
+      this.depositAmount,
+      this.createdOn,
+      this.status,
+      this.schemeMonth,
+      this.schemeType,
+      this.dateFrom,
+      this.dateTo,
+      this.schemeCode,
+      this.gasDepositAmount,
+      this.equipmentDepositAmount,
+      this.id,
+      this.interestAmount,
+      this.createdAt,
+      this.updatedAt,
+      this.rejectComments,
+      this.customerCount,
+      this.registrationGst,
+      this.interestTax,
+      this.rebateId,
+      this.totalAmount,
+      this.firstDepositAmount,
+      this.nextCycleAmount,
+      this.equipmentIncludeInBill,
+      this.registrationRefunded,
+      this.equipmentRefunded,
+      this.gasRefunded,
+      this.totalAmountWith,
+      this.firstDepositAmountWith,
+      this.depositAmountExcludingTaxWith,
+      this.registrationGstWith,
+      this.depositAmountWith,
+      this.benifitApplicable,
+      this.approvalStatus,
+      this.approvalDate,
+      this.gasDepositInFirstBill,
+      this.dmaId,
+      this.actualWorkStart,
+      this.delayReason,
+      this.meterType,
+      this.meterMake,
+      this.meterNumber,
+      this.pipe,
+      this.fittings,
+      this.meterReading,
+      this.meterReadingDate,
+      this.meterPhoto,
+      this.tfNumber,
+      this.latitudeTf,
+      this.longitudeTf,
+      this.latitudeHg,
+      this.longitudeHg,
+      this.workCompletedDate,
+      this.workCompletedImage,
+      this.custAckImage,
+      this.custAckDate,
+      this.feasibilityId,
+      this.extraPipe,
+      this.extraPrice,
+      this.cementingOfHoles,
+      this.clampingPvc,
+      this.claminngCopper,
+      this.meterTesting,
+      this.paintaingofGIpipe,
+      this.conversionDate,
+      this.typeOfNr,
+      this.ngc,
+      this.regulators,
+      this.extraPipeId,
+      this.isometricImage,
+      this.isometricDate,
+      this.pneumaticDate,
+      this.pneumaticImage,
+      this.mobileNumber,
+      this.custId});
 
   DataList.fromJson(Map<String, dynamic> json) {
     firstName = json['first_name'] ?? "";
@@ -286,7 +288,8 @@ class DataList {
     gasRefunded = json['gas_refunded'] ?? "";
     totalAmountWith = json['totalAmountWith'] ?? "";
     firstDepositAmountWith = json['firstDepositAmountWith'] ?? "";
-    depositAmountExcludingTaxWith = json['deposit_amount_excluding_tax_with'] ?? "";
+    depositAmountExcludingTaxWith =
+        json['deposit_amount_excluding_tax_with'] ?? "";
     registrationGstWith = json['registration_gst_with'] ?? "";
     depositAmountWith = json['deposit_amount_with'] ?? "";
     benifitApplicable = json['benifit_applicable'] ?? "";
@@ -430,7 +433,6 @@ class DataList {
   }
 }
 
-
 class Datum {
   Datum({
     this.billNo,
@@ -475,59 +477,61 @@ class Datum {
   String? billFetchRef;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-    billNo: json["bill_no"],
-    amount: json["amount"],
-    billDueDate: DateTime.parse(json["bill_due_date"]),
-    billGeneratedDate: DateTime.parse(json["bill_generated_date"]),
-    houseNumber: json["house_number"],
-    locality: json["locality"],
-    town: json["town"],
-    pinCode: json["pin_code"],
-    address: json["address"],
-    crn: json["crn"],
-    meterSerialNumber: json["meter_serial_number"],
-    oldReading: json["old_reading"],
-    currentBillReading: json["current_bill_reading"],
-    perScmAmt: json["per_scm_amt"],
-    bpNumber: json["bp_number"],
-    firstName: json["first_name"],
-    middleName: json["middle_name"],
-    lastName: json["last_name"],
-    billFetchRef: json["bill_fetch_ref"],
-  );
+        billNo: json["bill_no"],
+        amount: json["amount"],
+        billDueDate: DateTime.parse(json["bill_due_date"]),
+        billGeneratedDate: DateTime.parse(json["bill_generated_date"]),
+        houseNumber: json["house_number"],
+        locality: json["locality"],
+        town: json["town"],
+        pinCode: json["pin_code"],
+        address: json["address"],
+        crn: json["crn"],
+        meterSerialNumber: json["meter_serial_number"],
+        oldReading: json["old_reading"],
+        currentBillReading: json["current_bill_reading"],
+        perScmAmt: json["per_scm_amt"],
+        bpNumber: json["bp_number"],
+        firstName: json["first_name"],
+        middleName: json["middle_name"],
+        lastName: json["last_name"],
+        billFetchRef: json["bill_fetch_ref"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "bill_no": billNo,
-    "amount": amount,
-    "bill_due_date": billDueDate,
-    "bill_generated_date": billGeneratedDate,
-    "house_number": houseNumber,
-    "locality": locality,
-    "town": town,
-    "pin_code": pinCode,
-    "address": address,
-    "crn": crn,
-    "meter_serial_number": meterSerialNumber,
-    "old_reading": oldReading,
-    "current_bill_reading": currentBillReading,
-    "per_scm_amt": perScmAmt,
-    "bp_number": bpNumber,
-    "first_name": firstName,
-    "middle_name": middleName,
-    "last_name": lastName,
-    "bill_fetch_ref": billFetchRef,
-  };
+        "bill_no": billNo,
+        "amount": amount,
+        "bill_due_date": billDueDate,
+        "bill_generated_date": billGeneratedDate,
+        "house_number": houseNumber,
+        "locality": locality,
+        "town": town,
+        "pin_code": pinCode,
+        "address": address,
+        "crn": crn,
+        "meter_serial_number": meterSerialNumber,
+        "old_reading": oldReading,
+        "current_bill_reading": currentBillReading,
+        "per_scm_amt": perScmAmt,
+        "bp_number": bpNumber,
+        "first_name": firstName,
+        "middle_name": middleName,
+        "last_name": lastName,
+        "bill_fetch_ref": billFetchRef,
+      };
 }
 
-class BPNumberRequestModel{
+class BPNumberRequestModel {
   final String? schema;
   final String? bpNumber;
-  BPNumberRequestModel({ this.schema, this.bpNumber});
+
+  BPNumberRequestModel({this.schema, this.bpNumber});
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       "schema": schema!.trim(),
       "bpNumber": bpNumber!.trim(),
     };
-    return map ;
+    return map;
   }
 }

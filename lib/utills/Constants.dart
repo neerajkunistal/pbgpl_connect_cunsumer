@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Color primaryColor = const Color.fromRGBO(21, 29, 86, 1);
-Color accentColor =  Colors.lightBlueAccent;
+Color accentColor = Colors.lightBlueAccent;
 Color greyColor = const Color.fromRGBO(131, 146, 165, 1);
 Color brightGreyColor = const Color.fromRGBO(241, 243, 249, 1);
 Color orangeColor = const Color.fromRGBO(243, 120, 53, 1);
@@ -164,10 +164,7 @@ TextStyle headingStyle = TextStyle(
   fontWeight: FontWeight.w500,
 );
 
-TextStyle menuTitle = TextStyle(
-    fontSize: 12,
-    color: Colors.black87
-);
+TextStyle menuTitle = TextStyle(fontSize: 12, color: Colors.black87);
 
 TextStyle pngServices = TextStyle(
   fontFamily: "Netflix",
@@ -178,71 +175,50 @@ TextStyle pngServices = TextStyle(
 );
 
 TextStyle policy = TextStyle(
-    fontWeight:FontWeight.bold,
+    fontWeight: FontWeight.bold,
     fontSize: 16,
     decoration: TextDecoration.underline,
-    color: Colors.white
-);
+    color: Colors.white);
 
-TextStyle amountUser =TextStyle(
+TextStyle amountUser = TextStyle(
     fontWeight: FontWeight.w200,
     color: Colors.green,
     fontSize: 16,
     shadows: [
-      Shadow(
-          color: Colors.black,
-          blurRadius: 1,
-          offset: Offset(1, 1)),
+      Shadow(color: Colors.black, blurRadius: 1, offset: Offset(1, 1)),
     ]);
 
-TextStyle billAmountStyle = TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 16,
-    color: Colors.black87
-);
-TextStyle userStyle = TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 16,
-    color: Colors.green);
+TextStyle billAmountStyle =
+    TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.black87);
+TextStyle userStyle =
+    TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.green);
 TextStyle payNowStyle = TextStyle(
     fontWeight: FontWeight.normal,
     letterSpacing: 0.1,
     fontSize: 14,
-    color: Colors.black
-);
-TextStyle connection =  TextStyle(
-    fontWeight:
-    FontWeight.bold,
-    fontSize: 18,
-    color: Colors.black87);
-TextStyle cardUserDetails =  TextStyle(
-    fontWeight:FontWeight.w300,
-    fontSize:16,
-    decoration:TextDecoration.underline,
-    color: Colors.black87
-);
-TextStyle cardUser =  TextStyle(
-    fontWeight:FontWeight.w300,
-    fontSize:16,
-    color: Colors.green);
-TextStyle selfBilling =  TextStyle(fontSize: 16, color: Colors.black);
-TextStyle meterReader =  TextStyle(
-    fontWeight: FontWeight.bold,
-    fontSize: 20,
     color: Colors.black);
-TextStyle CONTINUE =  TextStyle(
-    fontWeight: FontWeight.bold,
+TextStyle connection =
+    TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black87);
+TextStyle cardUserDetails = TextStyle(
+    fontWeight: FontWeight.w300,
     fontSize: 16,
-    color: Colors.white);
-TextStyle submit =  TextStyle(
+    decoration: TextDecoration.underline,
+    color: Colors.black87);
+TextStyle cardUser =
+    TextStyle(fontWeight: FontWeight.w300, fontSize: 16, color: Colors.green);
+TextStyle selfBilling = TextStyle(fontSize: 16, color: Colors.black);
+TextStyle meterReader =
+    TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.black);
+TextStyle CONTINUE =
+    TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.white);
+TextStyle submit = TextStyle(
   fontFamily: "Netflix",
   fontWeight: FontWeight.w700,
   fontSize: 18,
   letterSpacing: 0.0,
   color: Colors.white,
 );
-TextStyle emergency =  TextStyle(
+TextStyle emergency = TextStyle(
   color: Colors.black,
   fontSize: 18.0,
 );
-

@@ -1,15 +1,17 @@
+import 'dart:io';
+
+import 'package:customer_connect/utills/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:customer_connect/utills/Constants.dart';
-import 'dart:io';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import '../utills/CustomEmailTextFieldU.dart';
 import '../utills/launch_mobile.dart';
 import '../utills/photo_controller.dart';
 
-
 class SelfBilling extends StatefulWidget {
   static String tag = 'login-page';
+
   @override
   State<StatefulWidget> createState() {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
@@ -23,7 +25,7 @@ class _FilterList extends State<SelfBilling> {
   File? meterImage;
   PhotoController meterPhotoContrller = new PhotoController();
 
-  int _selectedIndex=0;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -37,9 +39,8 @@ class _FilterList extends State<SelfBilling> {
       backgroundColor: Colors.white,
       appBar: new AppBar(
           actionsIconTheme:
-          IconThemeData(size: 30.0, color: Colors.black, opacity: 10.0),
-          actions: <Widget>[
-          ],
+              IconThemeData(size: 30.0, color: Colors.black, opacity: 10.0),
+          actions: <Widget>[],
           title: new Text(
             "Self Billing Generation",
             style: whiteheadingStyle,
@@ -49,10 +50,9 @@ class _FilterList extends State<SelfBilling> {
                 Icons.arrow_back,
                 color: Colors.white,
               ),
-              onPressed: () {
-              }),
+              onPressed: () {}),
           backgroundColor: Colors.lightBlueAccent),
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,21 +65,20 @@ class _FilterList extends State<SelfBilling> {
                     validate: true,
                     labelText: "Meter Reading",
                     hintText: "Meter Reading",
-                    filledColor: Colors.lightBlueAccent.shade100
-                        .withOpacity(.1),
-
+                    filledColor:
+                        Colors.lightBlueAccent.shade100.withOpacity(.1),
                   )),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Row(
                 children: [
                   Text(
                     "Meter Image",
                     style: TextStyle(fontSize: 16),
                   ),
-                  Text("",
+                  Text(
+                    "",
                     style: TextStyle(color: Colors.red),
                   ),
                 ],
@@ -94,9 +93,8 @@ class _FilterList extends State<SelfBilling> {
                     validate: true,
                     labelText: "Meter Serial Number",
                     hintText: "Meter Serial Number",
-                    filledColor: Colors.lightBlueAccent.shade100
-                        .withOpacity(.1),
-
+                    filledColor:
+                        Colors.lightBlueAccent.shade100.withOpacity(.1),
                   )),
             ),
             Padding(
@@ -154,9 +152,21 @@ class _FilterList extends State<SelfBilling> {
         onTap: _onItemTapped,
         backgroundColor: Colors.lightBlueAccent,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home',),
-          BottomNavigationBarItem(icon: Icon(Icons.account_box,), label: "Dial Before Dig"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat,), label: "Ask Maitri",)
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.account_box,
+              ),
+              label: "Dial Before Dig"),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.chat,
+            ),
+            label: "Ask Maitri",
+          )
         ],
       ),
     );
@@ -168,14 +178,13 @@ class _FilterList extends State<SelfBilling> {
       if (_selectedIndex == 0) {
         EasyLoading.dismiss();
         Navigator.of(context).pop();
-
-      }
-      else if (_selectedIndex == 1) {
-        showBottomSheet(context: context,  builder: (builder) {
+      } else if (_selectedIndex == 1) {
+        showBottomSheet(
+            context: context,
+            builder: (builder) {
               return LaunchMobilePage();
             });
       }
-
     });
   }
 }

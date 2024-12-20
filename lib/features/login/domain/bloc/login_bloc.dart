@@ -1,15 +1,14 @@
-import 'package:customer_connect/Views/dashboard.dart';
+import 'package:customer_connect/ExportFile/app_export_file.dart';
+import 'package:customer_connect/features/dashboard/preshantation/page/dashboard.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_event.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_state.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/login/helper/login_helper.dart';
-import 'package:customer_connect/utills/common_widget/custom_toast.dart';
-import 'package:customer_connect/utills/global_constant.dart';
+import 'package:customer_connect/features/login/presentation/pages/login_page.dart';
+import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState>{
+class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitState()) {
     on<LoginPageLoadingEvent>(_pageLoader);
     on<LoginSetBpNumberEvent>(_setBpNumber);
@@ -22,91 +21,81 @@ class LoginBloc extends Bloc<LoginEvent, LoginState>{
   String password = "";
 
   bool _isPassword = true;
+
   bool get isPassword => _isPassword;
   bool _isLoader = false;
+
   bool get isLoader => _isLoader;
 
-  TextEditingController bpNumberTextFiledController =  TextEditingController();
-  TextEditingController passwordTextFieldController =  TextEditingController();
+  TextEditingController bpNumberTextFiledController = TextEditingController();
+  TextEditingController passwordTextFieldController = TextEditingController();
 
-  _setBpNumber(LoginSetBpNumberEvent event, emit){
+  LoginModel _userData =  LoginModel();
+  LoginModel get userData => _userData;
+
+  _setBpNumber(LoginSetBpNumberEvent event, emit) {
     bpNumber = event.bpNumber;
   }
 
-  _setPassword(LoginSetPasswordEvent event, emit){
+  _setPassword(LoginSetPasswordEvent event, emit) {
     password = event.password;
   }
 
-
-  _setHideShowPassword(LoginPasswordHideShowEvent event, emit){
+  _setHideShowPassword(LoginPasswordHideShowEvent event, emit) {
     _isPassword = event.isPassword;
   }
 
-  _pageLoader(LoginPageLoadingEvent event, emit){
+  _pageLoader(LoginPageLoadingEvent event, emit) {
     bpNumber = "";
-    password ="";
+    password = "";
     _isPassword = true;
     _isLoader = false;
+    _userData =  LoginModel();
     bpNumberTextFiledController.text = "";
     passwordTextFieldController.text = "";
     _eventCompleted(emit);
   }
 
   _submitLoginData(LoginSubmitDataEvent event, emit) async {
-    var textValidationCheck = await LoginHelper.textFieldValidation(bpNumber: bpNumber, password: password, context: event.context);
-    if(textValidationCheck == true) {
-      _isLoader = false;
+    var textValidationCheck = await LoginHelper.textFieldValidation(
+        bpNumber: bpNumber, password: password, context: event.context);
+    if (textValidationCheck == true) {
+      _isLoader = true;
       _eventCompleted(emit);
       var res = await LoginHelper.loginApiData(
-          loginRequestModel:LoginRequestModel(
-            bpNumber:bpNumber ,
+          loginRequestModel: LoginRequestModel(
+            bpNumber: bpNumber,
             password: password,
           ),
           context: event.context);
-      _isLoader =  true;
+      _isLoader = false;
       _eventCompleted(emit);
-      if(res != null){
-        _isLoader =  false;
+      if (res != null) {
+        _userData =  res;
+        UserInfo.instance!.setUserInfo(userData);
         _eventCompleted(emit);
-        CustomToast.showToast(res.messages.toString());
-        print(res.messages);
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        prefs.setString(GlobalConstants.dmaId, res.user.dmaId.toString());
-        prefs.setString(GlobalConstants.token, res.token.toString());
-        prefs.setString(GlobalConstants.bpNumber,res.user.bpNumber.toString());
-        prefs.setString(GlobalConstants.meterSerialNumber,res.user.serialNumber.toString());
-        prefs.setString(GlobalConstants.crn,res.user.crn.toString());
-        prefs.setString(GlobalConstants.username,res.user.name);
-        prefs.setString(GlobalConstants.schema, res.user.schema);
-        prefs.setString(GlobalConstants.email, res.user.email);
-        prefs.setString(GlobalConstants.mobileNumber, res.user.mobileNumber);
-        prefs.setString(GlobalConstants.address, res.user.address);
-        prefs.setString(GlobalConstants.pinCode, res.user.pincode);
-        prefs.setString(GlobalConstants.town, res.user.town);
-        prefs.setString(GlobalConstants.locality, res.user.locality);
-        prefs.setString(GlobalConstants.states, res.user.states);
-        prefs.setString(GlobalConstants.dmaId, res.user.dmaId);
-        prefs.setBool(GlobalConstants.isUserLogIn, true);
-        Navigator.pushReplacement(event.context,MaterialPageRoute(builder: (context) => BillAmountDashboard()));
-      } else{
+        await SharedPreferencesUtils.setString(key: PreferencesName.userName, value: bpNumber);
+        await SharedPreferencesUtils.setString(key: PreferencesName.password, value: password);
+        Navigator.pushReplacement(event.context,
+            MaterialPageRoute(builder: (context) => DashboardPage()));
+            // MaterialPageRoute(builder: (context) => BillAmountDashboard()));
+      } else {
+        if(event.isLoginPage == false){
+          Navigator.pushReplacement(event.context,
+              MaterialPageRoute(builder: (context) => LoginView()));
+        }
         print("Not Data Here");
         return null;
       }
-
     }
-
   }
 
-
-  _eventCompleted(Emitter<LoginState> emit)  {
+  _eventCompleted(Emitter<LoginState> emit) {
     emit(LoginSubmitState(
       isLoader: isLoader,
       isPassword: isPassword,
       bpNumberTextFiledController: bpNumberTextFiledController,
-      passwordTextFieldController: passwordTextFieldController      ,
-
-
+      passwordTextFieldController: passwordTextFieldController,
     ));
   }
-
 }

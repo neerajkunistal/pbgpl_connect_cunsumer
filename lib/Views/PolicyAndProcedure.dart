@@ -1,64 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_inappbrowser/flutter_inappbrowser.dart';
-import '../utills/launch_mobile.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
+import '../utills/launch_mobile.dart';
 
 class PolicyProcedure extends StatefulWidget {
   @override
   _WebViewWebPageState createState() => _WebViewWebPageState();
 }
-class _WebViewWebPageState extends State<PolicyProcedure> {
 
+class _WebViewWebPageState extends State<PolicyProcedure> {
   // URL to load
   var URL = "https://citygas.hpcl.co.in/termsandconditions";
+
   // Webview progress
   double progress = 0;
 
   int _selectedIndex = 0;
+
+  late WebViewController controller;
+  @override
+  void initState() {
+    super.initState();
+    controller = WebViewController()
+      ..setNavigationDelegate(NavigationDelegate(
+        onPageStarted: (url) {
+          setState(() {
+            this.progress = 0;
+          });
+        },
+        onProgress: (progress) {
+          setState(() {
+            this.progress = double.parse(progress.toString());
+          });
+        },
+        onPageFinished: (url) {
+          setState(() {
+            this.progress = progress / 100;
+          });
+        },
+      ))
+      ..loadRequest(
+        Uri.parse(URL),
+      );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.lightBlueAccent,
-          title: Text("Terms and Conditions"),
-        ),
-        body:  Card(
-          elevation: 1,
-          shadowColor: Colors.white,
-          child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                    children: <Widget>[
-                      (progress != 1.0)
-                          ? LinearProgressIndicator(
-                          value: progress,
-                          backgroundColor: Colors.green,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.purple))
-                          : Container(),    // Should be removed while showing
-                      Expanded(
-                        child: Container(
-                          child: InAppWebView(
-                            initialUrl: URL,
-                            initialHeaders: {},
-                          //  initialOptions: {},
-                            onWebViewCreated: (InAppWebViewController controller) {
-                            },
-                            onLoadStart: (InAppWebViewController controller, String url) {
-                            },
-                            onProgressChanged:
-                                (InAppWebViewController controller, int progress) {
-                              setState(() {
-                                this.progress = progress / 100;
-                              });
-                            },
-                          ),
-                        ),
-                      )
-                    ].where((Object o) => o != null).toList()),
-              )),
-        ),
+      appBar: AppBar(
+        backgroundColor: Colors.lightBlueAccent,
+        title: Text("Terms and Conditions"),
+      ),
+      body: Card(
+        elevation: 1,
+        shadowColor: Colors.white,
+        child: Container(
+            child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+              children: <Widget>[
+            (progress != 1.0)
+                ? LinearProgressIndicator(
+                    value: progress,
+                    backgroundColor: Colors.green,
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.purple))
+                : Container(), // Should be removed while showing
+                Expanded(
+                  child: Container(
+                    child: WebViewWidget(
+                      controller: controller,
+                    ),
+                  ),
+                )
+          ].where((Object o) => o != null).toList()),
+        )),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
         currentIndex: _selectedIndex,
@@ -67,13 +84,24 @@ class _WebViewWebPageState extends State<PolicyProcedure> {
         onTap: _onItemTapped,
         backgroundColor: Colors.lightBlueAccent,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home',),
-          BottomNavigationBarItem(icon: Icon(Icons.account_box,), label: "Dial Before Dig"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat,), label: "Ask Maitri",)
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.account_box,
+              ),
+              label: "Dial Before Dig"),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.chat,
+            ),
+            label: "Ask Maitri",
+          )
         ],
       ),
-    );//Remove null widgets,
-
+    ); //Remove null widgets,
   }
 
   void _onItemTapped(int index) {
@@ -243,7 +271,9 @@ class _WebViewWebPageState extends State<PolicyProcedure> {
             context, MaterialPageRoute(builder: (context) => DialBeforeDig()));*/ /*
       }*/
       else if (_selectedIndex == 1) {
-        showBottomSheet(context: context,  builder: (builder) {
+        showBottomSheet(
+            context: context,
+            builder: (builder) {
               return LaunchMobilePage();
             });
       }

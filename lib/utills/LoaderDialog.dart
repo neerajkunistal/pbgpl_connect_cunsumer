@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
-import 'Constants.dart';
 class LoaderDialog {
   static Future<void> showLoadingDialog(
       BuildContext context, GlobalKey key) async {
@@ -26,11 +24,14 @@ class LoaderDialog {
                               SpinKitFadingCircle(
                                 color: Colors.teal,
                                 size: 50.0,
-
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text("Please Wait",style: TextStyle(color:Colors.black,fontSize: 16),),
+                                child: Text(
+                                  "Please Wait",
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 16),
+                                ),
                               ),
                             ],
                           ),

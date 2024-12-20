@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import '../utills/launch_mobile.dart';
 
 class PngServiceChange extends StatefulWidget {
@@ -10,10 +11,9 @@ class PngServiceChange extends StatefulWidget {
 }
 
 class _PngServiceChangeState extends State<PngServiceChange> {
-
   List<Item>? _items;
 
-  int _selectedIndex=0;
+  int _selectedIndex = 0;
 
   @override
   void initState() {
@@ -22,6 +22,7 @@ class _PngServiceChangeState extends State<PngServiceChange> {
       _items = _generateItems();
     });
   }
+
   List<Item> _generateItems() {
     return List.generate(20, (int index) {
       return Item(
@@ -31,6 +32,7 @@ class _PngServiceChangeState extends State<PngServiceChange> {
       );
     });
   }
+
   ExpansionPanel _buildExpansionPanel(Item item) {
     return ExpansionPanel(
       isExpanded: item.isExpanded!,
@@ -57,7 +59,7 @@ class _PngServiceChangeState extends State<PngServiceChange> {
         title: const Text("PNG SERVICE CHARGE"),
       ),
       body: SingleChildScrollView(
-        child:ExpansionPanelList(
+        child: ExpansionPanelList(
           animationDuration: const Duration(seconds: 2),
           expandedHeaderPadding: EdgeInsets.all(10),
           dividerColor: Colors.grey,
@@ -78,9 +80,21 @@ class _PngServiceChangeState extends State<PngServiceChange> {
         onTap: _onItemTapped,
         backgroundColor: Colors.lightBlueAccent,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home',),
-          BottomNavigationBarItem(icon: Icon(Icons.account_box,), label: "Dial Before Dig"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat,), label: "Ask Maitri",)
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.account_box,
+              ),
+              label: "Dial Before Dig"),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.chat,
+            ),
+            label: "Ask Maitri",
+          )
         ],
       ),
     );
@@ -92,18 +106,16 @@ class _PngServiceChangeState extends State<PngServiceChange> {
       if (_selectedIndex == 0) {
         EasyLoading.dismiss();
         Navigator.of(context).pop();
+      } else if (_selectedIndex == 1) {
+        showBottomSheet(
+            context: context,
+            builder: (builder) {
+              return LaunchMobilePage();
+            });
       }
-      else if (_selectedIndex == 1) {
-        showBottomSheet(context: context,  builder: (builder) {
-          return LaunchMobilePage();
-        });
-      }
-
     });
   }
 }
-
-
 
 class Item {
   Item({

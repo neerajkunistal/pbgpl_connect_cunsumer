@@ -3,7 +3,9 @@ class Generatebill {
   int? code;
   bool? error;
   List<Data>? data;
+
   Generatebill({this.success, this.code, this.error, this.data});
+
   Generatebill.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     code = json['code'];
@@ -15,7 +17,8 @@ class Generatebill {
       });
     }
   }
-    Map<String, dynamic> toJson() {
+
+  Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['success'] = this.success;
     data['code'] = this.code;
@@ -27,6 +30,7 @@ class Generatebill {
     return data;
   }
 }
+
 class Data {
   Cycle? cycle;
   String? billNo;
@@ -51,25 +55,25 @@ class Data {
 
   Data(
       {this.cycle,
-        this.billNo,
-        this.amount,
-        this.billDueDate,
-        this.billGeneratedDate,
-        this.address,
-        this.crn,
-        this.meterSerialNumber,
-        this.oldReading,
-        this.currentBillReading,
-        this.perScmAmt,
-        this.bpNumber,
-        this.firstName,
-        this.middleName,
-        this.lastName,
-        this.billFetchRef,
-        this.lateFee,
-        this.billApproved,
-        this.rejectReason,
-        this.rejectDate});
+      this.billNo,
+      this.amount,
+      this.billDueDate,
+      this.billGeneratedDate,
+      this.address,
+      this.crn,
+      this.meterSerialNumber,
+      this.oldReading,
+      this.currentBillReading,
+      this.perScmAmt,
+      this.bpNumber,
+      this.firstName,
+      this.middleName,
+      this.lastName,
+      this.billFetchRef,
+      this.lateFee,
+      this.billApproved,
+      this.rejectReason,
+      this.rejectDate});
 
   Data.fromJson(Map<String, dynamic> json) {
     cycle = json['cycle'] ?? new Cycle.fromJson(json['cycle']);
@@ -121,11 +125,13 @@ class Data {
     return data;
   }
 }
+
 class Cycle {
   String? period;
   int? interval;
   String? fromDate;
   String? toDate;
+
   Cycle({this.period, this.interval, this.fromDate, this.toDate});
 
   Cycle.fromJson(Map<String, dynamic> json) {

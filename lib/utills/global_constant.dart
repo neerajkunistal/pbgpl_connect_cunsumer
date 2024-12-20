@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 class GlobalConstants {
   bool isLoggedIn = false;
   static final GlobalKey<NavigatorState> navState = GlobalKey<NavigatorState>();
-  static String isUserLogIn  = "IsUserLogIn";
+  static String isUserLogIn = "IsUserLogIn";
   static String username = "username";
   static String password = "password";
   static String token = "token";

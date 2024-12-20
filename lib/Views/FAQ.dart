@@ -3,7 +3,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../utills/launch_mobile.dart';
 
-
 class FAQList extends StatefulWidget {
   @override
   _FAQListState createState() => new _FAQListState();
@@ -42,7 +41,7 @@ class _FAQListState extends State<FAQList> {
           },
         ),
       ),
-      body:Container(),
+      body: Container(),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
         currentIndex: _selectedIndex,
@@ -51,15 +50,25 @@ class _FAQListState extends State<FAQList> {
         onTap: _onItemTapped,
         backgroundColor: Colors.lightBlueAccent,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home',),
-          BottomNavigationBarItem(icon: Icon(Icons.account_box,), label: "Dial Before Dig"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat,), label: "Ask Maitri",)
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.account_box,
+              ),
+              label: "Dial Before Dig"),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.chat,
+            ),
+            label: "Ask Maitri",
+          )
         ],
       ),
     );
-
   }
-
 
   void _onItemTapped(int index) {
     setState(() {
@@ -121,7 +130,7 @@ class _FAQListState extends State<FAQList> {
                                 child: CircleAvatar(
                                   radius: 30.0,
                                   backgroundImage:
-                                  AssetImage("assets/icons/user.png"),
+                                      AssetImage("assets/icons/user.png"),
                                   backgroundColor: Colors.transparent,
                                 ),
                               ),
@@ -150,9 +159,9 @@ class _FAQListState extends State<FAQList> {
                                           Expanded(
                                             child: Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text('1800-102-5109',
                                                     style: TextStyle(
@@ -196,9 +205,9 @@ class _FAQListState extends State<FAQList> {
                                           Expanded(
                                             child: Column(
                                               mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                                  MainAxisAlignment.center,
                                               crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.start,
                                               children: <Widget>[
                                                 Text('1800-180-5109',
                                                     style: TextStyle(
@@ -222,10 +231,11 @@ class _FAQListState extends State<FAQList> {
                   ));
             });
       } else if (_selectedIndex == 1) {
-     // Navigator.push(context, MaterialPageRoute(builder: (context) => DialBeforeDig()));
-      }
-      else if (_selectedIndex == 2) {
-        showBottomSheet(context: context, builder: (builder) {
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => DialBeforeDig()));
+      } else if (_selectedIndex == 2) {
+        showBottomSheet(
+            context: context,
+            builder: (builder) {
               return LaunchMobilePage();
             });
       } else if (_selectedIndex == 3) {

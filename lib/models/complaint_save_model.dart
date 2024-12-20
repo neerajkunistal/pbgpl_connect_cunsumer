@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-ComplaintSaveModel complaintSaveModelFromJson(String? str) => ComplaintSaveModel.fromJson(json.decode(str!));
+ComplaintSaveModel complaintSaveModelFromJson(String? str) =>
+    ComplaintSaveModel.fromJson(json.decode(str!));
 
-String? complaintSaveModelToJson(ComplaintSaveModel data) => json.encode(data.toJson());
+String? complaintSaveModelToJson(ComplaintSaveModel data) =>
+    json.encode(data.toJson());
 
 class ComplaintSaveModel {
   ComplaintSaveModel({
@@ -19,21 +21,21 @@ class ComplaintSaveModel {
   int? status;
   String? data;
 
-  factory ComplaintSaveModel.fromJson(Map<String, dynamic> json) => ComplaintSaveModel(
-    error: json["error"] ?? '',
-    status: json["status"] ?? "",
-    data: json["data"] ?? "",
-  );
+  factory ComplaintSaveModel.fromJson(Map<String, dynamic> json) =>
+      ComplaintSaveModel(
+        error: json["error"] ?? '',
+        status: json["status"] ?? "",
+        data: json["data"] ?? "",
+      );
 
   Map<String, dynamic> toJson() => {
-    "error": error,
-    "status": status,
-    "data": data,
-  };
+        "error": error,
+        "status": status,
+        "data": data,
+      };
 }
 
-
-class ComplaintSaveRequestModel{
+class ComplaintSaveRequestModel {
   final String? schema;
   final String? dmaId;
   final String? complainCat;
@@ -43,15 +45,15 @@ class ComplaintSaveRequestModel{
   final String? attachedDoc;
 
   const ComplaintSaveRequestModel({
-  this.schema,
-  this.dmaId,
-  this.complainCat,
-  this.complainSubCat,
-  this.description,
-  this.priority,
-  this.attachedDoc,
-
+    this.schema,
+    this.dmaId,
+    this.complainCat,
+    this.complainSubCat,
+    this.description,
+    this.priority,
+    this.attachedDoc,
   });
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       "schema": schema.toString().trim(),
@@ -62,8 +64,6 @@ class ComplaintSaveRequestModel{
       "priority": priority.toString().trim(),
       "attached_doc": attachedDoc.toString().trim(),
     };
-    return map ;
+    return map;
   }
 }
-
-

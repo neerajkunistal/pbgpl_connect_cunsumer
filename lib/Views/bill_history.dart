@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:customer_connect/utills/CardText.dart';
 import 'package:customer_connect/utills/Constants.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+
 import '../utills/launch_mobile.dart';
 import 'dashboard.dart';
 
@@ -9,15 +10,15 @@ class BillHistory extends StatefulWidget {
   @override
   _BillHistoryState createState() => _BillHistoryState();
 }
-class _BillHistoryState extends State<BillHistory> {
-  
 
+class _BillHistoryState extends State<BillHistory> {
   var billdetailsCheck = false;
   var noRecords = false;
   var numberOfCameras = 0;
   var tableResponse;
-  int _selectedIndex=0;
- // ScanResult scanResult;
+  int _selectedIndex = 0;
+
+  // ScanResult scanResult;
   String inVoiceNo = '';
   String billPeriod = '';
   String currency = '';
@@ -42,265 +43,299 @@ class _BillHistoryState extends State<BillHistory> {
   // static final _possibleFormats = BarcodeFormat.values.toList()..removeWhere((e) => e == BarcodeFormat.unknown);
   // List<BarcodeFormat> selectedFormats = [..._possibleFormats];
 
-
-
   @override
   void initState() {
     super.initState();
   }
+
   @override
   void dispose() {
     _text.dispose();
     mobileNo.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-        key: scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          leading: new IconButton(
-            icon: new Icon(Icons.arrow_back, color: Colors.black),
-            onPressed: () {
-              Navigator.push(context,MaterialPageRoute(builder: (context) => BillAmountDashboard()));
-            },
-          ),
-          title:Text("Approved Bill",style: TextStyle(fontSize: 16, color: Colors.black),
-          ),
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        centerTitle: true,
+        leading: new IconButton(
+          icon: new Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => BillAmountDashboard()));
+          },
         ),
-        body: Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Card(
-            color: Colors.white,
+        title: Text(
+          "Approved Bill",
+          style: TextStyle(fontSize: 16, color: Colors.black),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Card(
+          color: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(5),
             child: Padding(
-              padding: const EdgeInsets.all(5),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 18.0),
-                child: ListView(
-                  children: <Widget>[
-                    Visibility(
-                      visible: billdetailsCheck,
-                      child:Card(
-                        shadowColor: Colors.teal,
-                        elevation: 2,
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.white12, width: 1),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        margin: EdgeInsets.all(4.0),
-                        child: Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Container(
-                            child: Column(
-                              children: [
-                                Card(
-                                  elevation: 1.0,
-                                  shadowColor: Colors.teal,
-                                  color: Colors.white,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      crossAxisAlignment:CrossAxisAlignment.start,
-                                      mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Flexible(
-                                          child: CardText(text: "User  Name "),
-                                          flex: 0,
-                                        ),
-                                        Flexible(
-                                          child: CardText(text: firstName + " " + lastName),
-                                          flex: 0,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Card(
-                                  elevation: 1.0,
-                                  shadowColor: Colors.teal,
-                                  color: Colors.white,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Flexible(
-                                          child: CardText(text: "BP Number "),
-                                          flex: 0,
-                                        ),
-                                        Flexible(
-                                          child: CardText(text: bpnumber),
-                                          flex: 0,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Card(
-                                  elevation: 1.0,
-                                  shadowColor: Colors.teal,
-                                  color: Colors.white,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      crossAxisAlignment:CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Flexible(
-                                          child: CardText(text: "Address"),
-                                          flex: 0,
-                                        ),
-                                        Flexible(
-                                          child: CardText(text: address),
-                                          flex: 0,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Card(
-                                  elevation: 1.0,
-                                  shadowColor: Colors.teal,
-                                  color: Colors.white,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      crossAxisAlignment:CrossAxisAlignment.start,
-                                      mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Flexible(
-                                          child: CardText(text: "Bill No"),
-                                          flex: 0,
-                                        ),
-                                        Flexible(
-                                          child: CardText(text: billNo),
-                                          flex: 0,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                Card(
-                                  elevation: 1,
-                                  shadowColor: Colors.blue,
-                                  child: Column(
+              padding: const EdgeInsets.only(top: 18.0),
+              child: ListView(
+                children: <Widget>[
+                  Visibility(
+                    visible: billdetailsCheck,
+                    child: Card(
+                      shadowColor: Colors.teal,
+                      elevation: 2,
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(color: Colors.white12, width: 1),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      margin: EdgeInsets.all(4.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Container(
+                          child: Column(
+                            children: [
+                              Card(
+                                elevation: 1.0,
+                                shadowColor: Colors.teal,
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
                                     crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Card(
-                                          shadowColor: Colors.lightBlueAccent,
-                                          color: Colors.white70,
-                                          child: Center(child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Text("LAST BILL ",style: listItemTitleStyle,),
-                                          ))),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child:Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Flexible(
-                                              child: CardText(text: "Last Reading Meter Number"),
-                                              flex: 0,
-                                            ),
-                                            Flexible(
-                                              child: CardText(text: oldReaading.toString()),
-                                              flex: 0,
-                                            ),
-                                          ],
-                                        ),
+                                      Flexible(
+                                        child: CardText(text: "User  Name "),
+                                        flex: 0,
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child:Row(
-                                          crossAxisAlignment:CrossAxisAlignment.start,
-                                          mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Flexible(
-                                              child: CardText(text: "Per SCM Amount"),
-                                              flex: 0,
-                                            ),
-                                            Flexible(
-                                              child: CardText(text: " "+scmAmount.toString()),
-                                              flex: 0,
-                                            ),
-                                          ],
-                                        ),
+                                      Flexible(
+                                        child: CardText(
+                                            text: firstName + " " + lastName),
+                                        flex: 0,
                                       ),
                                     ],
                                   ),
                                 ),
-                                Card(
-                                  elevation: 1.0,
-                                  shadowColor: Colors.lightBlueAccent,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      crossAxisAlignment:CrossAxisAlignment.start,
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        CardText(text: "Due Date         "),
-                                        CardText(text: dueDate.split(' ').first),
-                                      ],
-                                    ),
+                              ),
+                              Card(
+                                elevation: 1.0,
+                                shadowColor: Colors.teal,
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Flexible(
+                                        child: CardText(text: "BP Number "),
+                                        flex: 0,
+                                      ),
+                                      Flexible(
+                                        child: CardText(text: bpnumber),
+                                        flex: 0,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Card(
-                                  elevation: 1.0,
-                                  shadowColor: Colors.lightBlueAccent,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      mainAxisAlignment:MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        CardText(text: "Bill Period        "),
-                                        CardText(text: billPeriod.split(' ').first),
-                                      ],
-                                    ),
+                              ),
+                              Card(
+                                elevation: 1.0,
+                                shadowColor: Colors.teal,
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Flexible(
+                                        child: CardText(text: "Address"),
+                                        flex: 0,
+                                      ),
+                                      Flexible(
+                                        child: CardText(text: address),
+                                        flex: 0,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Card(
-                                  elevation: 1.0,
-                                  shadowColor: Colors.lightBlueAccent,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10.0),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        CardText(text: "Last Bill Amount        "),
-                                        CardText(text: "${amount}"),
-                                      ],
-                                    ),
+                              ),
+                              Card(
+                                elevation: 1.0,
+                                shadowColor: Colors.teal,
+                                color: Colors.white,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Flexible(
+                                        child: CardText(text: "Bill No"),
+                                        flex: 0,
+                                      ),
+                                      Flexible(
+                                        child: CardText(text: billNo),
+                                        flex: 0,
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                SizedBox(height: 12.0,),
-                              ],
-                            ),
+                              ),
+                              Card(
+                                elevation: 1,
+                                shadowColor: Colors.blue,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Card(
+                                        shadowColor: Colors.lightBlueAccent,
+                                        color: Colors.white70,
+                                        child: Center(
+                                            child: Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            "LAST BILL ",
+                                            style: listItemTitleStyle,
+                                          ),
+                                        ))),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Flexible(
+                                            child: CardText(
+                                                text:
+                                                    "Last Reading Meter Number"),
+                                            flex: 0,
+                                          ),
+                                          Flexible(
+                                            child: CardText(
+                                                text: oldReaading.toString()),
+                                            flex: 0,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Flexible(
+                                            child: CardText(
+                                                text: "Per SCM Amount"),
+                                            flex: 0,
+                                          ),
+                                          Flexible(
+                                            child: CardText(
+                                                text:
+                                                    " " + scmAmount.toString()),
+                                            flex: 0,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Card(
+                                elevation: 1.0,
+                                shadowColor: Colors.lightBlueAccent,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CardText(text: "Due Date         "),
+                                      CardText(text: dueDate.split(' ').first),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Card(
+                                elevation: 1.0,
+                                shadowColor: Colors.lightBlueAccent,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CardText(text: "Bill Period        "),
+                                      CardText(
+                                          text: billPeriod.split(' ').first),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Card(
+                                elevation: 1.0,
+                                shadowColor: Colors.lightBlueAccent,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CardText(
+                                          text: "Last Bill Amount        "),
+                                      CardText(text: "${amount}"),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 12.0,
+                              ),
+                            ],
                           ),
                         ),
                       ),
                     ),
-                    Visibility(
-                        visible: noRecords,
-                        child: Center(
-                            child: Text("NO RECORD FOUND!!!!!",style: TextStyle(color: Colors.red,fontSize: 18))))
-                  ],
-                ),
+                  ),
+                  Visibility(
+                      visible: noRecords,
+                      child: Center(
+                          child: Text("NO RECORD FOUND!!!!!",
+                              style:
+                                  TextStyle(color: Colors.red, fontSize: 18))))
+                ],
               ),
             ),
           ),
         ),
-
+      ),
       bottomNavigationBar: BottomNavigationBar(
         elevation: 0,
         currentIndex: _selectedIndex,
@@ -309,9 +344,21 @@ class _BillHistoryState extends State<BillHistory> {
         onTap: _onItemTapped,
         backgroundColor: Colors.lightBlueAccent,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home',),
-          BottomNavigationBarItem(icon: Icon(Icons.account_box,), label: "Dial Before Dig"),
-          BottomNavigationBarItem(icon: Icon(Icons.chat,), label: "Ask Maitri",)
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(
+                Icons.account_box,
+              ),
+              label: "Dial Before Dig"),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.chat,
+            ),
+            label: "Ask Maitri",
+          )
         ],
       ),
     );
@@ -340,15 +387,16 @@ class _BillHistoryState extends State<BillHistory> {
   //   }
   // }
 
-
-    void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       if (_selectedIndex == 0) {
         EasyLoading.dismiss();
         Navigator.of(context).pop();
       } else if (_selectedIndex == 1) {
-        showBottomSheet(context: context, builder: (builder) {
+        showBottomSheet(
+            context: context,
+            builder: (builder) {
               return LaunchMobilePage();
             });
       }

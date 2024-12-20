@@ -33,25 +33,25 @@ class CustomAlertDialog extends StatelessWidget {
       actions: <Widget>[
         negativeBtnText != null
             ? TextButton(
-          child: Text(negativeBtnText!),
-          onPressed: () {
-            Navigator.of(context).pop();
-            if (onNegativePressed != null) {
-              onNegativePressed!();
-            }
-          },
-        )
+                child: Text(negativeBtnText!),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  if (onNegativePressed != null) {
+                    onNegativePressed!();
+                  }
+                },
+              )
             : Container(),
         positiveBtnText != null
             ? TextButton(
-          child: Text(positiveBtnText!),
-          onPressed: () {
-            Navigator.of(context).pop();
-            if (onPostivePressed != null) {
-              onPostivePressed!();
-            }
-          },
-        )
+                child: Text(positiveBtnText!),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  if (onPostivePressed != null) {
+                    onPostivePressed!();
+                  }
+                },
+              )
             : Container(),
       ],
     );

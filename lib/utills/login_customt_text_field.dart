@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+
 import 'Constants.dart';
 
 class UserTextField extends StatelessWidget {
   final TextEditingController? controller;
   final FormFieldValidator<String>? validator;
-  final String?  labelText;
+  final String? labelText;
   final int? maxLength;
   final bool? obscureText;
   final IconButton? suffixIcon;
@@ -12,7 +13,8 @@ class UserTextField extends StatelessWidget {
   final FormFieldSetter<String>? onSaved;
   final ValueChanged<String>? onChanged;
 
-  const UserTextField({Key? key,
+  const UserTextField({
+    Key? key,
     this.controller,
     this.validator,
     this.labelText,
@@ -34,18 +36,18 @@ class UserTextField extends StatelessWidget {
         keyboardType: keyboardType,
         controller: controller,
         maxLength: maxLength,
-        onSaved:onSaved,
+        onSaved: onSaved,
         onChanged: onChanged,
         decoration: InputDecoration(
           contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-          labelStyle: listItemSubTitleStyle.copyWith(fontSize: 16, color: Colors.black87),
+          labelStyle: listItemSubTitleStyle.copyWith(
+              fontSize: 16, color: Colors.black87),
           border: new OutlineInputBorder(
-            borderSide:new BorderSide(color: Colors.white),
+            borderSide: new BorderSide(color: Colors.white),
             borderRadius: const BorderRadius.all(const Radius.circular(10.0)),
           ),
-          labelText:  labelText,
+          labelText: labelText,
           suffixIcon: suffixIcon,
-
         ),
       ),
     );

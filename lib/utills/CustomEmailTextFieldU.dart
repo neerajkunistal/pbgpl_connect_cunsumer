@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
+
 import 'Constants.dart';
 
 class CustomTextEmailField extends StatelessWidget {
-  CustomTextEmailField({
-    this.controller,
-    this.hintText,
-    this.labelText,
-    this.helpText,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.isPassword,
-    this.enabled,
-    this.readOnly,
-    this.borderColor,
-    this.onChanged,
-    this.validate,
-    this.errortxt,
-    this.onTap,
-    this.filledColor,
-    this.prefixWidget,
-    this.initialValue,
-    this.horizontalPadding = 15,
-    this.verticalPadding = 0,
-    this.maxLines ,
-    this.keyboardType ,
-    this.textInputAction
-  });
+  CustomTextEmailField(
+      {this.controller,
+      this.hintText,
+      this.labelText,
+      this.helpText,
+      this.prefixIcon,
+      this.suffixIcon,
+      this.isPassword,
+      this.enabled,
+      this.readOnly,
+      this.borderColor,
+      this.onChanged,
+      this.validate,
+      this.errortxt,
+      this.onTap,
+      this.filledColor,
+      this.prefixWidget,
+      this.initialValue,
+      this.horizontalPadding = 15,
+      this.verticalPadding = 0,
+      this.maxLines,
+      this.keyboardType,
+      this.textInputAction});
 
   final TextEditingController? controller;
   final String? hintText;
@@ -49,6 +49,7 @@ class CustomTextEmailField extends StatelessWidget {
   final int? maxLines;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+
   // final bool autofocus;
 
   @override
@@ -58,11 +59,11 @@ class CustomTextEmailField extends StatelessWidget {
           horizontal: horizontalPadding!, vertical: verticalPadding!),
       child: TextFormField(
         readOnly: false,
-       // enableInteractiveSelection: true,
+        // enableInteractiveSelection: true,
         initialValue: initialValue,
         maxLines: maxLines,
         keyboardType: keyboardType,
-        textInputAction :textInputAction,
+        textInputAction: textInputAction,
         controller: controller,
         obscureText: null == isPassword ? false : true,
         onChanged: onChanged,
@@ -81,14 +82,20 @@ class CustomTextEmailField extends StatelessWidget {
             contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             labelStyle: listItemSubTitleStyle.copyWith(
                 fontSize: 16, color: Colors.black87),
-           errorText: validate! ? null : errortxt,
+            errorText: validate! ? null : errortxt,
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(10)),
-              borderSide: BorderSide(color: greyColor,width: 1.0,),
+              borderSide: BorderSide(
+                color: greyColor,
+                width: 1.0,
+              ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: greyColor, width: 1.0,),
+              borderSide: BorderSide(
+                color: greyColor,
+                width: 1.0,
+              ),
             ),
             border: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -103,7 +110,7 @@ class CustomTextEmailField extends StatelessWidget {
                 fontSize: 14, color: Colors.grey),
             helperText: null == helpText ? '' : helpText,
             prefixIcon: null == prefixIcon ? null : Icon(prefixIcon),
-            suffixIcon: suffixIcon ,
+            suffixIcon: suffixIcon,
             enabled: enabled!,
             prefix: prefixWidget),
       ),

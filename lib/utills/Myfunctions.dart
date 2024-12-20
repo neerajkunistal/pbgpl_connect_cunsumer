@@ -1,8 +1,8 @@
-import 'package:http/http.dart' as http;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import 'Constants.dart';
+
 class GeneralFunctions {
   static bool isDialogShowing = false;
 
@@ -18,7 +18,7 @@ class GeneralFunctions {
               width: 30,
               height: 30,
             ),
-            contentTextStyle:TextStyle(fontSize: 16),
+            contentTextStyle: TextStyle(fontSize: 16),
             content: Text(
                 'Your earlier session has been expired. Please Login again to continue.'),
             actions: <Widget>[
@@ -30,7 +30,7 @@ class GeneralFunctions {
                 onPressed: () async {
                   isDialogShowing = false;
                   SharedPreferences prefs =
-                  await SharedPreferences.getInstance();
+                      await SharedPreferences.getInstance();
                   String? deviceId = prefs.getString("device_id");
                   prefs.clear();
                   prefs.setString("device_id", deviceId!);
@@ -45,8 +45,8 @@ class GeneralFunctions {
         });
   }
 }
-showErrorMessage(String message,BuildContext context) async {
 
+showErrorMessage(String message, BuildContext context) async {
   ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
     content: new Text(message),
     action: SnackBarAction(
@@ -57,6 +57,7 @@ showErrorMessage(String message,BuildContext context) async {
     ),
   ));
 }
+
 showErrorDialog(BuildContext context, String message) {
   showDialog<void>(
     context: context,
@@ -85,6 +86,7 @@ showErrorDialog(BuildContext context, String message) {
     },
   );
 }
+
 showSuccessDialog(BuildContext context, String message) {
   return showDialog<void>(
     context: context,
@@ -113,4 +115,3 @@ showSuccessDialog(BuildContext context, String message) {
     },
   );
 }
-

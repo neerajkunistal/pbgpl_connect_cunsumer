@@ -47,21 +47,21 @@ class GetCategoryData {
 
   GetCategoryData(
       {this.id,
-        this.parentId,
-        this.title,
-        this.description,
-        this.createdAt,
-        this.updatedAt,
-        this.deletedAt,
-        this.escalationDays,
-        this.complaintMobiles,
-        this.formType,
-        this.price,
-        this.qty,
-        this.unit,
-        this.servicePrice,
-        this.priceTax,
-        this.priority});
+      this.parentId,
+      this.title,
+      this.description,
+      this.createdAt,
+      this.updatedAt,
+      this.deletedAt,
+      this.escalationDays,
+      this.complaintMobiles,
+      this.formType,
+      this.price,
+      this.qty,
+      this.unit,
+      this.servicePrice,
+      this.priceTax,
+      this.priority});
 
   GetCategoryData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -104,14 +104,17 @@ class GetCategoryData {
   }
 }
 
-
-class GetCategoryRequestModel{
+class GetCategoryRequestModel {
   final String? schema;
-  GetCategoryRequestModel({ this.schema,});
+
+  GetCategoryRequestModel({
+    this.schema,
+  });
+
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       "schema": schema.toString().trim(),
     };
-    return map ;
+    return map;
   }
 }
