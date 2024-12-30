@@ -19,6 +19,7 @@ class BPNumberModel {
   InstallLmcModel? installLmcData;
   NgcModel? ngcData;
   List<PaymentHistoryModel>? paymentHistoryList;
+  dynamic mobileChangeStatus;
 
   BPNumberModel(
       {this.totalAmount,
@@ -34,6 +35,7 @@ class BPNumberModel {
       this.ngcData,
       this.transactionList,
       this.paymentHistoryList,
+      this.mobileChangeStatus,
       });
 
 
@@ -47,6 +49,7 @@ class BPNumberModel {
       billLate: json['bill_late'] ?? "",
       billOnTime: json['bill_ontime'] ?? "",
       consumptionString: json['consumptionString'] ?? "",
+      mobileChangeStatus: json['mobile_change_status'] ?? "",
       customerData: json['dmaData'] != null ? CustomerModel.fromJson(json['dmaData']) : CustomerModel(),
       installLmcData: json['instal_lmcdata'] != null ? InstallLmcModel.fromJson(json['instal_lmcdata']) : InstallLmcModel(),
       ngcData: json['ngc_data'] != null ? NgcModel.fromJson(json['ngc_data']) : NgcModel(),
