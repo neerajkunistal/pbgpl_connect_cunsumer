@@ -1,13 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:customer_connect/ExportFile/app_export_file.dart';
+import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
+import 'package:customer_connect/features/dashboard/domain/model/customer_model.dart';
 import 'package:customer_connect/features/dashboard/preshantation/page/dashboard.dart';
 import 'package:customer_connect/features/forgetPassword/helper/forget_password_helper.dart';
 import 'package:customer_connect/features/forgetPassword/presentation/page/forget_password_page.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_bloc.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/login/helper/login_helper.dart';
+import 'package:customer_connect/features/profile/helper/profile_helper.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
+import 'package:customer_connect/utills/res/enums.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +39,8 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
   bool _isConfirmPasswordVisibility = true;
   bool get isConfirmPasswordVisibility => _isConfirmPasswordVisibility;
 
+  OtpPageConfig otpPageConfig =  OtpPageConfig.login;
+
   OtpBloc() : super(OtpInitial()) {
     on<OtpPageLoadEvent>(_pageLoad);
     on<OtpUpdateTimeEvent>(_updateTime);
@@ -57,10 +63,10 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
     _isNewPasswordVisibility = true;
     newPasswordController.text = "";
     confirmPasswordController.text = "";
+    otpPageConfig =  event.otpPageConfig;
+    schema = event.schema;
+    mobileNumber =  event.mobileNumber;
 
-    schema =  BlocProvider.of<LoginBloc>(event.context).schema;
-    mobileNumber =  BlocProvider.of<LoginBloc>(event.context).bpNumber;
-    isForgetPasswordPage =  BlocProvider.of<LoginBloc>(event.context).isForgetPasswordPage;
     _eventComplete(emit);
   }
 
@@ -85,11 +91,21 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
     isLoader =  false;
     clearText =   true;
     _eventComplete(emit);
-    if(isForgetPasswordPage == false) {
+    if(otpPageConfig == OtpPageConfig.login) {
       await LoginHelper.sendOtp(mobileNumber: mobileNumber, schema: schema, context: event.context);
-    } else if (isForgetPasswordPage == true){
+    }
+    else if (otpPageConfig == OtpPageConfig.forgetPassword){
       await LoginHelper.forgetPassword(bpNumber: mobileNumber, context: event.context);
     }
+    else if(otpPageConfig == OtpPageConfig.profile) {
+      CustomerModel customerData =  BlocProvider.of<DashboardBloc>(event.context).bpNumberData.customerData!;
+       await ProfileHelper.otpSendUpdateMobile(
+          otp: "",
+          customerData: customerData,
+          updateMobileNumber: mobileNumber,
+          context: event.context);
+    }
+
 
     isResendOtp =  false;
     isLoader =  false;
@@ -123,7 +139,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
     isLoader =  true;
     _eventComplete(emit);
 
-    if(isForgetPasswordPage == false) {
+    if(otpPageConfig == OtpPageConfig.login) {
       var res = await LoginHelper.loginApiData(
           loginRequestModel: LoginRequestModel(
               bpNumber: mobileNumber,
@@ -139,7 +155,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
         Navigator.pushReplacement(event.context,
             MaterialPageRoute(builder: (context) => DashboardPage()));
       }
-    } else if (isForgetPasswordPage == true) {
+    } else if (otpPageConfig == OtpPageConfig.forgetPassword) {
       var textFiledValidationCheck =
       await ForgetPasswordHelper.textFieldValidation(
           newPassword: newPasswordController.text.toString(),
@@ -158,6 +174,19 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
           confirmPasswordController.text = "";
           Navigator.of(event.context).pop();
         }
+      }
+    } else if(otpPageConfig == OtpPageConfig.profile) {
+      CustomerModel customerData =  BlocProvider.of<DashboardBloc>(event.context).bpNumberData.customerData!;
+      var res = await ProfileHelper.otpSendUpdateMobile(
+          otp: otp,
+          customerData: customerData,
+          updateMobileNumber: mobileNumber,
+          context: event.context);
+      if(res != null) {
+        BlocProvider.of<DashboardBloc>(event.context)
+            .add(DashboardPageLoadEvent(context: event.context));
+        Navigator.pushReplacement(event.context,
+            MaterialPageRoute(builder: (context) => DashboardPage()));
       }
     }
     isResendOtp =  false;

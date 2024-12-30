@@ -6,9 +6,17 @@ sealed class OtpEvent extends Equatable {
 
 class OtpPageLoadEvent extends OtpEvent {
   final BuildContext context;
-  OtpPageLoadEvent({required this.context});
+  final OtpPageConfig otpPageConfig;
+  final String mobileNumber;
+  final String schema;
+
+  OtpPageLoadEvent({required this.context,
+  required this.otpPageConfig,
+  required this.mobileNumber,
+  required this.schema,
+  });
   @override
-  List<Object?> get props => [context];
+  List<Object?> get props => [context, otpPageConfig, mobileNumber, schema];
 }
 
 class OtpResendEvent extends OtpEvent {

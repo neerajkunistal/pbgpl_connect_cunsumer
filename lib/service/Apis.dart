@@ -41,4 +41,6 @@ class Apis {
   static String forgotPassword = "api/customer/forgotPassword";
 
   static String resetPassword = "api/customer/resetPassword";
+
+  static String updateMobileNumber = "api/customer/updateMobileNumber";
 }

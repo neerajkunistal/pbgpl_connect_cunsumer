@@ -7,10 +7,12 @@ import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/login/helper/login_helper.dart';
 import 'package:customer_connect/features/login/presentation/pages/login_page.dart';
 import 'package:customer_connect/features/login/presentation/widget/city_widget.dart';
+import 'package:customer_connect/features/otp/domain/domain/bloc/otp_bloc.dart';
 import 'package:customer_connect/features/otp/presentation/page/otp_page.dart';
 import 'package:customer_connect/utills/commonClass/fade_route.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
+import 'package:customer_connect/utills/res/enums.dart';
 import 'package:flutter/material.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
@@ -63,6 +65,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _schema =  res.toString();
         _isLoader = false;
         _eventCompleted(emit);
+        BlocProvider.of<OtpBloc>(event.context).add(
+            OtpPageLoadEvent(context: event.context,
+                otpPageConfig: OtpPageConfig.login, schema: schema, mobileNumber: bpNumber));
         Navigator.push(
           !event.context.mounted ? event.context : event.context,
           FadeRoute(
@@ -90,6 +95,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
      var res =  await LoginHelper.forgetPassword(bpNumber: bpNumber, context: event.context);
      if(res != null){
        _schema =  res.toString();
+       BlocProvider.of<OtpBloc>(event.context).add(
+           OtpPageLoadEvent(context: event.context,
+               otpPageConfig: OtpPageConfig.forgetPassword, schema: schema, mobileNumber: bpNumber));
        Navigator.push(
            !event.context.mounted ? event.context : event.context,
            FadeRoute(
@@ -135,6 +143,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _schema =  res.toString();
         _isLoader = false;
         _eventCompleted(emit);
+        BlocProvider.of<OtpBloc>(event.context).add(
+            OtpPageLoadEvent(context: event.context,
+                otpPageConfig: OtpPageConfig.login, schema: schema, mobileNumber: bpNumber));
         Navigator.push(
           !event.context.mounted ? event.context : event.context,
           FadeRoute(

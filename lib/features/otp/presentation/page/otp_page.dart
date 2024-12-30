@@ -23,8 +23,6 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   void initState() {
-    BlocProvider.of<OtpBloc>(context).add(
-        OtpPageLoadEvent(context: context));
     startTimer();
     super.initState();
   }
