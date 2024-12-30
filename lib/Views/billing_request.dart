@@ -112,8 +112,6 @@ class MeterReadingNumberState extends State<MeterRequestScreen> {
     loadData();
     locationConnect();
     initConnectivity();
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
   loadData() async {
@@ -944,7 +942,6 @@ class MeterReadingNumberState extends State<MeterRequestScreen> {
   Future<void> initConnectivity() async {
     ConnectivityResult? result;
     try {
-      result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
       print(e.toString());
     }

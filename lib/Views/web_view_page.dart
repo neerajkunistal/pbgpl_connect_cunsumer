@@ -82,7 +82,7 @@ class _WebViewPageState extends State<WebViewPage> {
                     backgroundColor: Colors.green,
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.purple))
                 : Container(),
-            Expanded(
+/*            Expanded(
               child: payNow == null
                   ? Center(child: Text("Loading..."))
                   : InAppWebView(
@@ -97,7 +97,7 @@ class _WebViewPageState extends State<WebViewPage> {
                         //  print(consoleMessage);
                       },
                     ),
-            ),
+            ),*/
           ],
         )));
   }
