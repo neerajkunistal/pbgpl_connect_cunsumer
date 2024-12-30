@@ -14,8 +14,8 @@ class DashboardHelper {
     required BuildContext context,
 }) async {
     try {
-        String url = "http://142.79.231.30:9097/api/getCustomer360Details?schema=$schema&bp_number=${2107000632}";
-        var res =  await ServerRequest.getGoogleData(url: Uri.parse(url));
+        String url = Apis.getCustomer360Details+"?schema=$schema&bp_number=${bpNumber}";
+        var res =  await ServerRequest.getData(urlEndPoint: url);
         if(res != null && res['success'] == 200 && res['data'] != null){
           return BPNumberModel.fromJson(res['data']);
         }
@@ -100,8 +100,8 @@ class DashboardHelper {
   static Future<dynamic> filePiker({required BuildContext context}) async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['jpg', 'pdf', 'doc', "png"],
+        type: FileType.image,
+        //allowedExtensions: ['jpg', 'pdf', 'doc', "png"],
       );
       if (result != null) {
         List<File> files = result.paths.map((path) => File(path!)).toList();

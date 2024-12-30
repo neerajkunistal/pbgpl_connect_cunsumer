@@ -43,4 +43,10 @@ class Apis {
   static String resetPassword = "api/customer/resetPassword";
 
   static String updateMobileNumber = "api/customer/updateMobileNumber";
+
+  static String getCustomer360Details = "api/getCustomer360Details";
+
+  static String getBillStatus = "customer/getBillStatus";
+
+  static String billFullGeneration = "api/customer-qr-FullGeneration";
 }

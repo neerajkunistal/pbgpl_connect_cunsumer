@@ -43,7 +43,9 @@ class _ViewComplaintPageState extends State<ViewComplaintPage> {
       body: BlocBuilder<ViewComplaintBloc, ViewComplaintState>(
         builder: (context, state) {
           if(state is FetchViewComplaintDataState) {
-            return _listBuilder(dataState: state);
+            return Container(
+                margin: EdgeInsets.all(10.0),
+                child: _listBuilder(dataState: state));
           } else {
             return const Center(child: CenterLoaderWidget());
           }

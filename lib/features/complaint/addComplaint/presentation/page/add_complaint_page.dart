@@ -160,7 +160,8 @@ class _AddComplaintPageState extends State<AddComplaintPage> {
   }
 
   Widget _selectFile({required FetchAddComplaintDataState dataState}) {
-    return Align(
+    return dataState.fileList.isEmpty ?
+    Align(
       alignment: Alignment.centerLeft,
       child: SizedBox(
         child: DottedBorder(
@@ -200,7 +201,7 @@ class _AddComplaintPageState extends State<AddComplaintPage> {
           ),
         ),
       ),
-    );
+    ) : const SizedBox.shrink();
   }
 
   Widget _submitButton({required FetchAddComplaintDataState dataState}) {
