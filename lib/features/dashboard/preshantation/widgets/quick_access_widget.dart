@@ -6,7 +6,7 @@ import 'package:customer_connect/features/payment/paymentHistory/presenation/pag
 import 'package:customer_connect/features/selfBillHistory/presentation/page/bill_request_page.dart';
 import 'package:customer_connect/features/selfBilling/presentation/page/self_billing_page.dart';
 import 'package:customer_connect/utills/commonClass/fade_route.dart';
-import 'package:customer_connect/utills/commonWidgets/text_widget.dart';
+import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
 import 'package:customer_connect/utills/menuData.dart';
 import 'package:flutter/material.dart';
 
@@ -81,6 +81,8 @@ class QuickAccessWidget extends StatelessWidget {
   void pageNavigation(int index, BuildContext context) {
     if(index == 0)
     {
+      SnackBarErrorWidget(context).show(message: "Development mode coming soon");
+      return;
       Navigator.push(
         !context.mounted ? context : context,
         FadeRoute(
@@ -89,6 +91,8 @@ class QuickAccessWidget extends StatelessWidget {
     }
     else if(index == 1)
     {
+      SnackBarErrorWidget(context).show(message: "Development mode coming soon");
+      return;
       Navigator.push(
         !context.mounted ? context : context,
         FadeRoute(
