@@ -153,8 +153,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         );
         return;
       } else if(event.isLoginPage == false) {
-        Navigator.pushReplacement(event.context,
-            MaterialPageRoute(builder: (context) => LoginView()));
+        Navigator.pushAndRemoveUntil(
+            !event.context.mounted ? event.context : event.context,
+            MaterialPageRoute(builder: (_) => LoginView()),
+                (route) => false);
         return;
       }
     }
@@ -181,12 +183,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         UserInfo.instanceInit()!.setUserList(res);
         await SharedPreferencesUtils.setString(key: PreferencesName.userName, value: bpNumber);
         await SharedPreferencesUtils.setString(key: PreferencesName.password, value: password);
-        Navigator.pushReplacement(event.context,
-            MaterialPageRoute(builder: (context) => DashboardPage()));
+        Navigator.pushAndRemoveUntil(
+            !event.context.mounted ? event.context : event.context,
+            MaterialPageRoute(builder: (_) => const DashboardPage()),
+                (route) => false);
       } else {
         if(event.isLoginPage == false){
-          Navigator.pushReplacement(event.context,
-              MaterialPageRoute(builder: (context) => LoginView()));
+          Navigator.pushAndRemoveUntil(
+              !event.context.mounted ? event.context : event.context,
+              MaterialPageRoute(builder: (_) => LoginView()),
+                  (route) => false);
         }
         print("Not Data Here");
         return null;

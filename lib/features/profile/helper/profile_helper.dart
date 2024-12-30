@@ -5,6 +5,7 @@ import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/service/Apis.dart';
 import 'package:customer_connect/service/server_request.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
+import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/snack_bar_success_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -27,8 +28,11 @@ class ProfileHelper{
       if(res !=  null && res['status'] == "success" && res['message'] != null) {
          SnackBarSuccessWidget(context).show(message: res['message'].toString());
          return res;
+      } else if(res !=  null && res['success'] == false && res['message'] != null) {
+        SnackBarErrorWidget(context).show(message: res['message'].toString());
+        return null;
       } else {
-        SnackBarSuccessWidget(context).show(message: res['message'].toString());
+        SnackBarErrorWidget(context).show(message: res['message'].toString());
       }
       return null;
     }catch(_){}

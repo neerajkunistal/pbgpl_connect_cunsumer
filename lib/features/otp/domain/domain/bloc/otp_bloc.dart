@@ -152,8 +152,10 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
         UserInfo.instanceInit()!.setUserList(res);
         await SharedPreferencesUtils.setString(key: PreferencesName.userName, value: mobileNumber);
         await SharedPreferencesUtils.setString(key: PreferencesName.password, value: "");
-        Navigator.pushReplacement(event.context,
-            MaterialPageRoute(builder: (context) => DashboardPage()));
+        Navigator.pushAndRemoveUntil(
+            !event.context.mounted ? event.context : event.context,
+            MaterialPageRoute(builder: (_) => const DashboardPage()),
+                (route) => false);
       }
     } else if (otpPageConfig == OtpPageConfig.forgetPassword) {
       var textFiledValidationCheck =
@@ -185,8 +187,10 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
       if(res != null) {
         BlocProvider.of<DashboardBloc>(event.context)
             .add(DashboardPageLoadEvent(context: event.context));
-        Navigator.pushReplacement(event.context,
-            MaterialPageRoute(builder: (context) => DashboardPage()));
+        Navigator.pushAndRemoveUntil(
+            !event.context.mounted ? event.context : event.context,
+            MaterialPageRoute(builder: (_) => const DashboardPage()),
+                (route) => false);
       }
     }
     isResendOtp =  false;

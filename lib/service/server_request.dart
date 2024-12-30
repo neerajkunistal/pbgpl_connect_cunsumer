@@ -93,10 +93,17 @@ class ServerRequest {
         updateCookie(response);
         return jsonDecode(response.body);
       }
-      else {
+      else if (response.statusCode == 404) {
         var json = jsonDecode(response.body);
         if(json.toString().contains("message")){
           SnackBarErrorWidget(!context.mounted ? context : context).show(message: json['message'].toString());
+        }
+        return null;
+      }
+      else {
+        var json = jsonDecode(response.body);
+        if(json.toString().contains("messages")){
+          SnackBarErrorWidget(!context.mounted ? context : context).show(message: json['messages'].toString());
         }
         return null;
       }

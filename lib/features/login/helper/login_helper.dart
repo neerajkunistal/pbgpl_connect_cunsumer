@@ -92,6 +92,8 @@ class LoginHelper {
           && res['status'] == "success" && res['schema'] != null){
         SnackBarSuccessWidget(context).show(message: res['message']);
         return res['schema'];
+      } else {
+        SnackBarSuccessWidget(context).show(message: res['message']);
       }
       return null;
     }catch(_){}
