@@ -61,7 +61,7 @@ class ConnectionInfoWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextWidget("Address : ", fontWeight: FontWeight.w700, fontSize: AppFont.font_13,),
-                            Expanded(child: TextWidget("${state.bpNumberData.customerData!.address1.toString()} ${state.bpNumberData.customerData!.address2.toString()}",
+                            Expanded(child: TextWidget("${state.bpNumberData.customerData!.address1.toString()} ${state.bpNumberData.customerData!.address2.toString()} ${state.bpNumberData.customerData!.locality.toString()}",
                              textAlign: TextAlign.start,
                              fontSize: AppFont.font_13,
                             )),

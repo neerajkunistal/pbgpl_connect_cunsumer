@@ -16,12 +16,15 @@ final class BillRequestPageLoadState extends BillRequestInitial {
 
 final class FetchBillRequestDataState extends BillRequestInitial {
   final bool isLoader;
+  final List<SelfBillModel> selfBillList;
 
   FetchBillRequestDataState({
     required this.isLoader,
+    required this.selfBillList,
   });
   @override
   List<Object> get props => [
-    isLoader
+    isLoader,
+    selfBillList,
   ];
 }

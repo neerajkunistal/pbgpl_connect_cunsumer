@@ -21,12 +21,12 @@ class EnvironmentConfig extends InheritedWidget {
 
   String get generalUrlBaseOnFlavour {
     switch (flavours) {
-      case EnvironmentFlavours.productionIglCng:
-        return "http://192.168.10.200:8000/";
-      case EnvironmentFlavours.developmentIglCng:
-        return "http://192.168.10.200:8000/";
+      case EnvironmentFlavours.productionPBGPL:
+        return "http://142.79.231.30:9097/";
+      case EnvironmentFlavours.developmentPBGPL:
+        return "http://142.79.231.30:9097/";
     }
   }
 }
 
-enum EnvironmentFlavours { productionIglCng, developmentIglCng }
+enum EnvironmentFlavours { productionPBGPL, developmentPBGPL }

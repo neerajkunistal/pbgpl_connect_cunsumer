@@ -14,7 +14,7 @@ class DashboardHelper {
     required BuildContext context,
 }) async {
     try {
-        String url = "http://142.79.231.30:9097/api/getCustomer360Details?schema=$schema&bp_number=$bpNumber";
+        String url = "http://142.79.231.30:9097/api/getCustomer360Details?schema=$schema&bp_number=${2107000632}";
         var res =  await ServerRequest.getGoogleData(url: Uri.parse(url));
         if(res != null && res['success'] == 200 && res['data'] != null){
           return BPNumberModel.fromJson(res['data']);

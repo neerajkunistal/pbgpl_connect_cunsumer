@@ -2,16 +2,22 @@ import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/dashboard/preshantation/page/dashboard.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_event.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_state.dart';
+import 'package:customer_connect/features/login/domain/model/ga_model.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/login/helper/login_helper.dart';
 import 'package:customer_connect/features/login/presentation/pages/login_page.dart';
+import 'package:customer_connect/features/login/presentation/widget/city_widget.dart';
+import 'package:customer_connect/features/otp/presentation/page/otp_page.dart';
+import 'package:customer_connect/utills/commonClass/fade_route.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
+import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitState()) {
     on<LoginPageLoadingEvent>(_pageLoader);
     on<LoginSetBpNumberEvent>(_setBpNumber);
+    on<LoginForgetPasswordEvent>(_forgetPassword);
     on<LoginSetPasswordEvent>(_setPassword);
     on<LoginPasswordHideShowEvent>(_setHideShowPassword);
     on<LoginSubmitDataEvent>(_submitLoginData);
@@ -21,20 +27,77 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   String password = "";
 
   bool _isPassword = true;
-
   bool get isPassword => _isPassword;
-  bool _isLoader = false;
 
+  bool _isPasswordField = true;
+  bool get isPasswordField => _isPasswordField;
+
+  bool _isLoader = false;
   bool get isLoader => _isLoader;
 
   TextEditingController bpNumberTextFiledController = TextEditingController();
   TextEditingController passwordTextFieldController = TextEditingController();
 
-  LoginModel _userData =  LoginModel();
-  LoginModel get userData => _userData;
+  List<LoginModel> _userDataList =  [];
+  List<LoginModel> get userDataList => _userDataList;
 
-  _setBpNumber(LoginSetBpNumberEvent event, emit) {
+  String _schema = "";
+  String get schema => _schema;
+
+  bool _isForgetPasswordLoader =  false;
+  bool get isForgetPasswordLoader => _isForgetPasswordLoader;
+
+  bool isForgetPasswordPage =  false;
+
+  _setBpNumber(LoginSetBpNumberEvent event, emit) async {
     bpNumber = event.bpNumber;
+    isForgetPasswordPage =  false;
+    var mobileValidation =  await LoginHelper.validateMobile(bpNumber);
+    if(mobileValidation.isEmpty && event.isLoginPage == true){
+      _isPasswordField =  true;
+      _isLoader = true;
+      _eventCompleted(emit);
+      var res =  await LoginHelper.checkMobileNumber(mobileNumber: bpNumber,
+          context: !event.context.mounted ? event.context :event.context);
+      if(res != null){
+        _schema =  res.toString();
+        _isLoader = false;
+        _eventCompleted(emit);
+        Navigator.push(
+          !event.context.mounted ? event.context : event.context,
+          FadeRoute(
+              page: const OtpPage()),
+        );
+      } else {
+        _isPasswordField =  false;
+      }
+    } else {
+      _isPasswordField =  false;
+    }
+    _isLoader = false;
+    _eventCompleted(emit);
+  }
+
+  _forgetPassword(LoginForgetPasswordEvent event, emit) async {
+     if(bpNumber.isEmpty){
+       SnackBarErrorWidget(event.context).show(message: "Please enter bp number");
+       return;
+     }
+
+     _isForgetPasswordLoader =  true;
+     isForgetPasswordPage =  true;
+     _eventCompleted(emit);
+     var res =  await LoginHelper.forgetPassword(bpNumber: bpNumber, context: event.context);
+     if(res != null){
+       _schema =  res.toString();
+       Navigator.push(
+           !event.context.mounted ? event.context : event.context,
+           FadeRoute(
+               page: const OtpPage()));
+     }
+     _isForgetPasswordLoader =  false;
+     _eventCompleted(emit);
+
   }
 
   _setPassword(LoginSetPasswordEvent event, emit) {
@@ -48,16 +111,46 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   _pageLoader(LoginPageLoadingEvent event, emit) {
     bpNumber = "";
     password = "";
+    _schema = "";
     _isPassword = true;
     _isLoader = false;
-    _userData =  LoginModel();
+    _isPasswordField = true;
+    _isForgetPasswordLoader =  false;
+    isForgetPasswordPage =  false;
+    _userDataList =  [];
     bpNumberTextFiledController.text = "";
     passwordTextFieldController.text = "";
     _eventCompleted(emit);
   }
 
   _submitLoginData(LoginSubmitDataEvent event, emit) async {
-    var textValidationCheck = await LoginHelper.textFieldValidation(
+    _isLoader = true;
+    isForgetPasswordPage =  false;
+    _eventCompleted(emit);
+    var mobileValidation =  await LoginHelper.validateMobile(bpNumber);
+    if(mobileValidation.isEmpty){
+      var res =  await LoginHelper.checkMobileNumber(mobileNumber: bpNumber,
+          context: !event.context.mounted ? event.context :event.context);
+      if(res != null){
+        _schema =  res.toString();
+        _isLoader = false;
+        _eventCompleted(emit);
+        Navigator.push(
+          !event.context.mounted ? event.context : event.context,
+          FadeRoute(
+              page: const OtpPage()),
+        );
+        return;
+      } else if(event.isLoginPage == false) {
+        Navigator.pushReplacement(event.context,
+            MaterialPageRoute(builder: (context) => LoginView()));
+        return;
+      }
+    }
+
+    _isLoader = false;
+    _eventCompleted(emit);
+     var textValidationCheck = await LoginHelper.textFieldValidation(
         bpNumber: bpNumber, password: password, context: event.context);
     if (textValidationCheck == true) {
       _isLoader = true;
@@ -66,19 +159,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           loginRequestModel: LoginRequestModel(
             bpNumber: bpNumber,
             password: password,
+            schema: "",
+            otp: ""
           ),
           context: event.context);
       _isLoader = false;
       _eventCompleted(emit);
       if (res != null) {
-        _userData =  res;
-        UserInfo.instance!.setUserInfo(userData);
         _eventCompleted(emit);
+        UserInfo.instanceInit()!.setUserList(res);
         await SharedPreferencesUtils.setString(key: PreferencesName.userName, value: bpNumber);
         await SharedPreferencesUtils.setString(key: PreferencesName.password, value: password);
         Navigator.pushReplacement(event.context,
             MaterialPageRoute(builder: (context) => DashboardPage()));
-            // MaterialPageRoute(builder: (context) => BillAmountDashboard()));
       } else {
         if(event.isLoginPage == false){
           Navigator.pushReplacement(event.context,
@@ -88,12 +181,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         return null;
       }
     }
+
   }
 
   _eventCompleted(Emitter<LoginState> emit) {
     emit(LoginSubmitState(
       isLoader: isLoader,
       isPassword: isPassword,
+      isPasswordField: isPasswordField,
+      isForgetPasswordLoader: isForgetPasswordLoader,
       bpNumberTextFiledController: bpNumberTextFiledController,
       passwordTextFieldController: passwordTextFieldController,
     ));

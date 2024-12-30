@@ -1,13 +1,12 @@
-import 'package:bloc/bloc.dart';
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
+import 'package:customer_connect/features/dashboard/domain/model/bill_amount_model.dart';
 import 'package:customer_connect/features/dashboard/domain/model/bp_number_model.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/payment/addPayment/domain/model/payment_model.dart';
 import 'package:customer_connect/features/payment/addPayment/domain/model/payment_status_model.dart';
 import 'package:customer_connect/features/payment/addPayment/helper/add_payment_helper.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -29,15 +28,18 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
 
   PaymentStatusModel _paymentStatusData =  PaymentStatusModel();
   PaymentStatusModel get paymentStatusData => _paymentStatusData;
+  bool isPayment =  false;
 
   AddPaymentBloc() : super(AddPaymentInitial()) {
     on<AddPaymentPageLoadEvent>(_pageLoad);
+    on<AddPaymentDetailEvent>(_paymentDetail);
     on<AddPaymentPageCheckPaymentEvent>(_checkPayment);
   }
 
   _pageLoad(AddPaymentPageLoadEvent event, emit) async {
      emit(AddPaymentPageLoadState());
      _paymentStatusData =  PaymentStatusModel();
+     isPayment =  true;
      _userData =  UserInfo.instance!.userData!;
      _bpNumberData = BlocProvider.of<DashboardBloc>(event.context).bpNumberData;
 
@@ -54,14 +56,26 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
      _eventComplete(emit);
   }
 
+  _paymentDetail(AddPaymentDetailEvent event, emit) {
+    _bpNumberData = BlocProvider.of<DashboardBloc>(event.context).bpNumberData;
+    isPayment =  false;
+    emit(AddPaymentDetailState(
+        billAmountData: bpNumberData.billAmountData!,
+        context: event.context)
+    );
+  }
+
   _checkPayment(AddPaymentPageCheckPaymentEvent event, emit) async {
-    var res =  await AddPaymentHelper.checkOrderConfirm(context: event.context,
+    if(isPayment == true){
+      var res =  await AddPaymentHelper.checkOrderConfirm(context: event.context,
           orderId: paymentData.orderId.toString(),
-        schema:  userData.schema.toString());
-    if(res !=  null) {
-      _paymentStatusData =  res;
+          schema:  userData.schema.toString());
+      if(res !=  null) {
+        _paymentStatusData =  res;
+      }
+      isPayment =  false;
+      emit(AddPaymentStatusState(paymentStatusData: paymentStatusData));
     }
-    emit(AddPaymentStatusState(paymentStatusData: paymentStatusData));
   }
 
   _eventComplete(Emitter<AddPaymentState> emit) {

@@ -3,10 +3,12 @@ import 'package:customer_connect/features/dashboard/domain/model/transaction_mod
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class PaymentHistoryItemBoxWidget extends StatelessWidget {
+import 'package:url_launcher/url_launcher.dart';
+
+class BillHistoryItemBoxWidget extends StatelessWidget {
   final TransactionModel transactionData;
 
-  const PaymentHistoryItemBoxWidget({super.key,
+  const BillHistoryItemBoxWidget({super.key,
   required this.transactionData,
   });
 
@@ -47,9 +49,20 @@ class PaymentHistoryItemBoxWidget extends StatelessWidget {
                   TextWidget("Consumption -  ${transactionData.consumption.toString()}",
                       color: AppColor.themeSecondary,
                       fontSize: AppFont.font_12),
+                  GestureDetector(
+                    onTap: () async {
+                      if (!await launchUrl(Uri.parse(transactionData.invoiceLink.toString()))) {
+                      throw Exception('Could not launch ${transactionData.invoiceLink.toString()}');
+                      }
+                    },
+                    child: TextWidget("Download Invoice",
+                        textDecoration: TextDecoration.underline,
+                        color: AppColor.cardBlue,
+                        fontSize: AppFont.font_14),
+                  ),
           ],)),
 
-          TextWidget("${transactionData.billAmt}", fontSize: AppFont.font_15,
+          TextWidget("₹${transactionData.billAmt}", fontSize: AppFont.font_15,
             color: Colors.green[400],
             fontWeight: FontWeight.w700,
           ),

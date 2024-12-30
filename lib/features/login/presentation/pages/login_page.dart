@@ -2,11 +2,14 @@ import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_bloc.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_event.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_state.dart';
+import 'package:customer_connect/features/otp/presentation/page/otp_page.dart';
+import 'package:customer_connect/utills/commonClass/fade_route.dart';
 import 'package:customer_connect/utills/commonWidgets/button_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_loader_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/text_field_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/text_widget.dart';
 import 'package:customer_connect/utills/login_customt_text_field.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kenburns_nullsafety/kenburns_nullsafety.dart';
@@ -85,6 +88,10 @@ class _LoginViewState extends State<LoginView> {
                                   TextWidget("Purba Bharati Gas Pvt. Ltd",
                                     fontWeight: FontWeight.w700,
                                     fontSize: AppFont.font_10,),
+                                  _horizontalSpace(),
+                                  TextWidget("Consumer",
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: AppFont.font_13,),
                                 ],
                               ),
                             ),
@@ -93,6 +100,8 @@ class _LoginViewState extends State<LoginView> {
                           _bpNumberTextField(data: data),
                           _horizontalSpace(),
                           _passwordTextField(data: data),
+                          _horizontalSpace(),
+                          _forgetPassword(data: data),
                           _horizontalSpace(),
                           _loginButton(data: data),
                           _companyLogoWidget(),
@@ -128,14 +137,15 @@ class _LoginViewState extends State<LoginView> {
         color: AppColor.themeSecondary,),
       textInputType: TextInputType.text,
       controller: data.bpNumberTextFiledController,
-      labelText: "BP Number",
+      labelText: "Mobile No / CR No / TR No",
       onChanged: (value) => BlocProvider.of<LoginBloc>(context)
-          .add(LoginSetBpNumberEvent(bpNumber: value)),
+          .add(LoginSetBpNumberEvent(bpNumber: value, context: context, isLoginPage: true)),
     );
   }
 
   Widget _passwordTextField({required LoginSubmitState data}) {
-    return TextFieldWidget(
+    return data.isPasswordField == false ?
+    TextFieldWidget(
       isRequired: true,
       textInputType: TextInputType.text,
       prefixIcon: Icon(Icons.password,
@@ -144,7 +154,24 @@ class _LoginViewState extends State<LoginView> {
       labelText: "Password",
       onChanged: (value) => BlocProvider.of<LoginBloc>(context)
           .add(LoginSetPasswordEvent(password: value)),
-    );
+    ) : const SizedBox.shrink();
+  }
+
+  Widget _forgetPassword({required LoginSubmitState data}) {
+    return data.isPasswordField == false ?
+    data.isForgetPasswordLoader == false ?
+    Align(
+      alignment: Alignment.centerRight,
+      child: TextButton(
+          onPressed: () {
+            BlocProvider.of<LoginBloc>(context).add(LoginForgetPasswordEvent(context: context));
+          }, child: TextWidget(
+           "Forget Password",
+          color: AppColor.themeColor,
+         textDecoration: TextDecoration.underline,
+         fontWeight: FontWeight.w700,
+      )),
+    ) : const DottedLoaderWidget() : const SizedBox.shrink();
   }
 
   Widget _loginButton({required LoginSubmitState data}) {

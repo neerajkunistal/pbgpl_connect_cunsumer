@@ -8,10 +8,10 @@ class MenuData {
 }
 
 final List<MenuData> menu = [
-  MenuData(Icons.pending, 'Bill Request'),
   MenuData(Icons.bookmark, 'Self Billing'),
-  MenuData(Icons.payment, 'My Payments'),
-  MenuData(Icons.approval, 'Bill Approved Request'),
+  MenuData(Icons.pending, 'Self Bill History'),
+  MenuData(Icons.payment, 'Payments History'),
+  MenuData(Icons.approval, 'Know Your Bill'),
   MenuData(Icons.comment_rounded, 'Complaints'),
   MenuData(Icons.history, 'Complaint History'),
 ];

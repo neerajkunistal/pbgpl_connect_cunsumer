@@ -14,6 +14,14 @@ final class DashboardPageLoadState extends DashboardInitial {
   List<Object> get props => [];
 }
 
+final class DashboardUsersPageState extends DashboardInitial {
+  final List<LoginModel> userList;
+  DashboardUsersPageState({required this.userList});
+  @override
+  List<Object> get props => [userList];
+}
+
+
 final class FetchDashboardDataState extends DashboardInitial {
   final List<Widget> widgetList;
   final String userName;
@@ -23,6 +31,8 @@ final class FetchDashboardDataState extends DashboardInitial {
   final String address;
   final bool isAmountLoader;
   final BPNumberModel bpNumberData;
+  final List<LoginModel> userList;
+  final LoginModel userData;
 
   FetchDashboardDataState({
     required this.widgetList,
@@ -33,6 +43,8 @@ final class FetchDashboardDataState extends DashboardInitial {
     required this.mobileNumber,
     required this.isAmountLoader,
     required this.bpNumberData,
+    required this.userList,
+    required this.userData,
   });
 
   @override
@@ -45,5 +57,7 @@ final class FetchDashboardDataState extends DashboardInitial {
     mobileNumber,
     isAmountLoader,
     bpNumberData,
+    userList,
+    userData,
   ];
 }

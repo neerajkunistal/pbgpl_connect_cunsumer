@@ -33,7 +33,7 @@ class _AddComplaintPageState extends State<AddComplaintPage> {
             color: AppColor.themeSecondary
         ),
         title: TextWidget(
-          AppString.complaint,
+          AppString.addComplaint,
           color: AppColor.themeSecondary,
           fontWeight: FontWeight.w600,
           fontSize: AppFont.font_16,

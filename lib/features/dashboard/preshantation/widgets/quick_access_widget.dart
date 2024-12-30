@@ -1,5 +1,9 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/complaint/addComplaint/presentation/page/add_complaint_page.dart';
+import 'package:customer_connect/features/complaint/viewComplaint/presentation/page/view_complaint_page.dart';
+import 'package:customer_connect/features/knowYourBill/know_your_bill_page.dart';
+import 'package:customer_connect/features/payment/paymentHistory/presenation/page/payment_history_page.dart';
+import 'package:customer_connect/features/selfBillHistory/presentation/page/bill_request_page.dart';
 import 'package:customer_connect/features/selfBilling/presentation/page/self_billing_page.dart';
 import 'package:customer_connect/utills/commonClass/fade_route.dart';
 import 'package:customer_connect/utills/commonWidgets/text_widget.dart';
@@ -77,23 +81,35 @@ class QuickAccessWidget extends StatelessWidget {
   void pageNavigation(int index, BuildContext context) {
     if(index == 0)
     {
-
-    }
-    else if(index == 1)
-    {
       Navigator.push(
         !context.mounted ? context : context,
         FadeRoute(
             page: const SelfBillingPage()),
       );
     }
+    else if(index == 1)
+    {
+      Navigator.push(
+        !context.mounted ? context : context,
+        FadeRoute(
+            page: const BillRequestPage()),
+      );
+    }
     else if(index == 2)
     {
-
+      Navigator.push(
+        !context.mounted ? context : context,
+        FadeRoute(
+            page: const PaymentHistoryPage()),
+      );
     }
     else if(index == 3)
     {
-
+      Navigator.push(
+        !context.mounted ? context : context,
+        FadeRoute(
+            page: const KnowYourBillPage()),
+      );
     }
     else if(index == 4)
     {
@@ -105,7 +121,11 @@ class QuickAccessWidget extends StatelessWidget {
     }
     else if(index == 5)
     {
-
+      Navigator.push(
+        !context.mounted ? context : context,
+        FadeRoute(
+            page: const ViewComplaintPage()),
+      );
     }
   }
 }

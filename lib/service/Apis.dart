@@ -1,24 +1,32 @@
 // Class for api tags
+import 'package:customer_connect/utills/commonClass/singleton.dart';
+import 'package:customer_connect/utills/res/environment_config.dart';
+import 'package:flutter/material.dart';
+
 class Apis {
-//  static String baseUrl = 'http://142.79.231.30:8084/api/customer';
-  static String baseUrl = 'http://142.79.231.30:9097/api/customer';
+
+
+  static BuildContext? context = Singleton.instance.context;
+
+  static final String baseUrl =
+      EnvironmentConfig.of(context!)!.generalUrlBaseOnFlavour;
 
    // static String baseUrl = 'https://pbgpl.smartgasnet.com/api/customer';
-  static String users = '/getindustry';
-  static String register = '/register';
-  static String loginOtp = '/login-otp';
-  static String login =  '/login';
-  static String tablelist = baseUrl + 'getlmcInstallationbyNgc';
-  static String generate = baseUrl + '/meter-reading/generate';
+  static String users = 'api/customer/getindustry';
+  static String register = 'api/customer/register';
+  static String loginOtp = 'api/customer/login-otp';
+  static String login =  'api/customer/login';
+  static String tablelist =  'api/customer/getlmcInstallationbyNgc';
+  static String generate =  'api/customer/meter-reading/generate';
   static String list = 'getlmcInstallationbyNgc';
   static String arealist = baseUrl + "/getAllArea?schema=";
 
-  static String getCategory =  "/get-category";
-  static String getSubCategory =  "/get-sub-category";
-  static String complaintSave =   "/complaint-save";
+  static String getCategory =  "api/customer/get-category";
+  static String getSubCategory =  "api/customer/get-sub-category";
+  static String complaintSave =   "api/customer/complaint-save";
 
   static String getPendingBills = "/getPendingBills";
-  static String complaints = baseUrl + "/complaints";
+  static String complaints = "api/customer/complaints";
   static String getAllBills = baseUrl + "/getAllBills?";
   static String pay_bill = baseUrl + "/pay-bill";
   static String generateallbills = baseUrl + "/getRequestedBills?";
@@ -27,4 +35,10 @@ class Apis {
   static String getcategory = '/get-category?schema=mvv';
   static String getPendingBillsMeterReader =
       baseUrl + '/getPendingBillsMeterReader';
+
+  static String changePassword = "api/customer/changePassword";
+
+  static String forgotPassword = "api/customer/forgotPassword";
+
+  static String resetPassword = "api/customer/resetPassword";
 }

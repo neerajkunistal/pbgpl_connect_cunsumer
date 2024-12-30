@@ -113,6 +113,7 @@ class AddComplaintBloc extends Bloc<AddComplaintEvent, AddComplaintState> {
       categoryData =  CategoryModel();
       remarkController.text = "";
       fileList = [];
+      Navigator.of(event.context).pop("Complete");
     }
     isLoader =  false;
     _eventComplete(emit);

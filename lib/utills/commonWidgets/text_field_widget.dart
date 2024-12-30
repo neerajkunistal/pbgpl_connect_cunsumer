@@ -16,6 +16,7 @@ class TextFieldWidget extends StatelessWidget {
   final Widget? prefixIcon;
   final bool? isRequired;
   final bool? isBoardRemove;
+  final bool? isFilledColor;
 
   const TextFieldWidget({
     super.key,
@@ -31,6 +32,7 @@ class TextFieldWidget extends StatelessWidget {
     this.maxLine,
     this.isRequired,
     this.isBoardRemove,
+    this.isFilledColor,
   });
 
   @override
@@ -65,6 +67,7 @@ class TextFieldWidget extends StatelessWidget {
           maxLength: maxLength,
           maxLines: maxLine ?? 1,
           decoration: InputDecoration(
+            filled: isFilledColor,
             contentPadding: EdgeInsets.symmetric(
                 horizontal: isBoardRemove == true ? 0 : 8,
                 vertical: maxLine != null && isBoardRemove != true ? 8 : 0),
@@ -88,7 +91,7 @@ class TextFieldWidget extends StatelessWidget {
                       ? AppColor.themeColor
                       : AppColor.themeColor,
             ),
-            fillColor: AppColor.themeColor,
+            fillColor: AppColor.lightGrey,
             // filled: true,
             enabledBorder:OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
@@ -101,7 +104,7 @@ class TextFieldWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               borderSide: BorderSide(
                 width: 1.0,
-                color: AppColor.black,
+                color: isFilledColor == true ? AppColor.lightGrey : AppColor.black,
               ),
             ),
             border: isBoardRemove == true

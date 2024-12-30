@@ -11,6 +11,13 @@ class AddPaymentPageLoadEvent extends AddPaymentEvent {
   List<Object?> get props => [context];
 }
 
+class AddPaymentDetailEvent extends AddPaymentEvent {
+  final BuildContext context;
+  AddPaymentDetailEvent({required this.context});
+  @override
+  List<Object?> get props => [context];
+}
+
 class AddPaymentPageCheckPaymentEvent extends AddPaymentEvent {
   final BuildContext context;
   AddPaymentPageCheckPaymentEvent({required this.context});

@@ -396,6 +396,7 @@ class TransactionModel {
   String? depositTaxPer;
   String? taxPerWith;
   dynamic billRemarks;
+  dynamic invoiceLink;
 
   TransactionModel(
       {this.id,
@@ -790,7 +791,9 @@ class TransactionModel {
         this.billTypeData,
         this.depositTaxPer,
         this.taxPerWith,
-        this.billRemarks});
+        this.billRemarks,
+        this.invoiceLink,
+      });
 
   TransactionModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] ??  "" ;
@@ -1188,6 +1191,7 @@ class TransactionModel {
     depositTaxPer = json['deposit_tax_per'] ??  "" ;
     taxPerWith = json['tax_per_with'] ??  "" ;
     billRemarks = json['bill_remarks'] ??  "" ;
+    invoiceLink = json['invoice_link'] ??  "" ;
   }
 
   Map<String, dynamic> toJson() {

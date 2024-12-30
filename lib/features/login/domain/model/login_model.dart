@@ -5,6 +5,7 @@ List<LoginModel> loginResponse(var json) {
 class LoginModel {
   String? id;
   String? bpNumber;
+  String? trNumber;
   dynamic serialNumber;
   String? dmaId;
   String? name;
@@ -24,6 +25,7 @@ class LoginModel {
   LoginModel(
       {this.id,
         this.bpNumber,
+        this.trNumber,
         this.serialNumber,
         this.dmaId,
         this.name,
@@ -43,6 +45,7 @@ class LoginModel {
   LoginModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? "";
     bpNumber = json['bp_number'] ?? "";
+    trNumber = json['tr_number'] ?? "";
     serialNumber = json['serial_number'] ?? "";
     dmaId = json['dma_id'] ?? "";
     name = json['name'] ?? "";
@@ -86,13 +89,21 @@ class LoginModel {
 class LoginRequestModel{
   dynamic bpNumber;
   dynamic password;
+  dynamic schema;
+  dynamic otp;
 
-  LoginRequestModel({this.bpNumber, this.password});
+  LoginRequestModel(
+      {this.bpNumber,
+        this.password,
+        this.schema,
+        this.otp});
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> map = {
       "bp_number": bpNumber.trim().toString(),
       "password": password.trim().toString(),
+      "schema": schema.trim().toString(),
+      "otp": otp.trim().toString(),
     };
     return map;
   }

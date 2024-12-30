@@ -7,4 +7,6 @@ class AppIcon {
 
   static get paymentFailIcon => "assets/icons/ic_payment_fail.png";
 
+  static get callIcon => "assets/icons/ic_call.png";
+
 }

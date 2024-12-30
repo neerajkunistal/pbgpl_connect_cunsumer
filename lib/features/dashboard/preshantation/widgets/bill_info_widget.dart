@@ -1,9 +1,8 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
+import 'package:customer_connect/features/payment/addPayment/domain/bloc/add_payment_bloc.dart';
 import 'package:customer_connect/features/payment/addPayment/presentation/page/add_payemnt_page.dart';
 import 'package:customer_connect/utills/commonClass/fade_route.dart';
-import 'package:customer_connect/utills/commonWidgets/dotted_loader_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -21,7 +20,7 @@ class BillInfoWidget extends StatelessWidget {
                     8.0,
                   ),
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.width / 2.3,
+                    height: MediaQuery.of(context).size.width / 2.2,
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -53,16 +52,44 @@ class BillInfoWidget extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextWidget(
-                                  state.bpNumberData.billAmountData != null
-                                      && state.bpNumberData.billAmountData!.billStatus  != null
-                                      && state.bpNumberData.billAmountData!.billStatus.toString() != "1"
-                                      ? "₹ ${state.bpNumberData.totalAmount.toString()}"
-                                       : "₹ 0",
-                                        color: AppColor.white,
-                                        fontSize: AppFont.font_18,
-                                        fontWeight: FontWeight.w700,
-                                      ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    TextWidget(
+                                      state.bpNumberData.billAmountData != null
+                                          && state.bpNumberData.billAmountData!.billStatus  != null
+                                          && state.bpNumberData.billAmountData!.billStatus.toString() != "1"
+                                          ? "₹ ${state.bpNumberData.totalAmount.toString()}"
+                                           : "₹ 0",
+                                            color: AppColor.white,
+                                            fontSize: AppFont.font_18,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                    state.bpNumberData.billAmountData != null
+                                        && state.bpNumberData.billAmountData!.billStatus  != null
+                                        && state.bpNumberData.billAmountData!.billStatus.toString() != "1" ?
+                                    InkWell(
+                                      onTap: () async {
+                                        BlocProvider.of<AddPaymentBloc>(context).add(
+                                            AddPaymentDetailEvent(context: context));
+                                        var res =   await Navigator.push(
+                                          !context.mounted ? context : context,
+                                          FadeRoute(
+                                              page: const AddPaymentPage()),
+                                        );
+                                        if(res.toString() == "Complete"){
+                                          BlocProvider.of<DashboardBloc>(context)
+                                              .add(DashboardPageLoadEvent(context: context));
+                                        }
+                                      },
+                                      child: TextWidget("View Bill",
+                                        fontSize: AppFont.font_12,
+                                        textDecoration: TextDecoration.underline,
+                                        color: AppColor.black, fontWeight: FontWeight.w700,),
+                                    ) : const SizedBox.shrink()
+                                  ],
+                                ),
 
                                 state.bpNumberData.billAmountData != null
                                     && state.bpNumberData.billAmountData!.billStatus  != null
@@ -128,6 +155,8 @@ class BillInfoWidget extends StatelessWidget {
     return ButtonWidget(
         text: AppString.payNow,
         onPressed: () async {
+       BlocProvider.of<AddPaymentBloc>(context).add(
+           AddPaymentPageLoadEvent(context: context));
         var res =   await Navigator.push(
             !context.mounted ? context : context,
             FadeRoute(
@@ -139,4 +168,5 @@ class BillInfoWidget extends StatelessWidget {
         }
     });
   }
+
 }

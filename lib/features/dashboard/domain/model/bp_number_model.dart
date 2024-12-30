@@ -3,6 +3,7 @@ import 'package:customer_connect/features/dashboard/domain/model/customer_model.
 import 'package:customer_connect/features/dashboard/domain/model/instal_lmc_model.dart';
 import 'package:customer_connect/features/dashboard/domain/model/ngc_model.dart';
 import 'package:customer_connect/features/dashboard/domain/model/transaction_model.dart';
+import 'package:customer_connect/features/payment/paymentHistory/domain/model/payment_history_model.dart';
 
 class BPNumberModel {
   CustomerModel? customerData;
@@ -17,6 +18,7 @@ class BPNumberModel {
   dynamic amountString;
   InstallLmcModel? installLmcData;
   NgcModel? ngcData;
+  List<PaymentHistoryModel>? paymentHistoryList;
 
   BPNumberModel(
       {this.totalAmount,
@@ -30,7 +32,9 @@ class BPNumberModel {
       this.customerData,
       this.installLmcData,
       this.ngcData,
-      this.transactionList});
+      this.transactionList,
+      this.paymentHistoryList,
+      });
 
 
   factory BPNumberModel.fromJson(Map<String, dynamic> json) {
@@ -47,6 +51,7 @@ class BPNumberModel {
       installLmcData: json['instal_lmcdata'] != null ? InstallLmcModel.fromJson(json['instal_lmcdata']) : InstallLmcModel(),
       ngcData: json['ngc_data'] != null ? NgcModel.fromJson(json['ngc_data']) : NgcModel(),
       transactionList: json['bill_data'] != null ? transactionListResponse(json['bill_data']) :[],
+      paymentHistoryList: json['payment_history'] != null ? paymentHistoryListResponse(json['payment_history']) : [],
     );
   }
 

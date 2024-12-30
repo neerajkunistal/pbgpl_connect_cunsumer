@@ -5,6 +5,8 @@ class AppString {
 
   static get bpNumber => "Bp Number";
 
+  static get trNumber => "Tr Number";
+
   static get customerName => "Customer Name";
 
   static get customerAddress => "Customer Address";
@@ -29,9 +31,21 @@ class AppString {
 
   static get selfBilling => "Self Billing";
 
+  static get selfBillHistory => "Self Bill History";
+
+  static get paymentHistory => "Payment History";
+
+  static get profile => "Profile";
+
+  static get billHistory => "Bill History";
+
+  static get knowYourBill => "Know Your Bill";
+
   static get complaintCategory => "Complaint Category";
 
   static get customerSubCategory => "Customer SubCategory";
+
+  static get newConnection => "New Connection";
 
   static get description => "Description";
 
@@ -39,7 +53,15 @@ class AppString {
 
   static get complaint => "Complaint";
 
+  static get addComplaint => "Add Complaint";
+
   static get payNow => "Pay Now";
+
+  static get oldPassword => "Old Password";
+
+  static get newPassword => "New Password";
+
+  static get confirmPassword => "Confirm Password";
 
   static get logoutMessage =>
       "Are you sure you want to logout? Once you logout, you will be return to login screen";

@@ -52,13 +52,17 @@ class _SplashPageState extends State<SplashPage> {
   onDoneLoading() async {
     String userName =  await SharedPreferencesUtils.getString(key: PreferencesName.userName);
     String password =  await SharedPreferencesUtils.getString(key: PreferencesName.password);
-    if (userName.isNotEmpty && password.isNotEmpty) {
-      BlocProvider.of<LoginBloc>(context).add(LoginSetBpNumberEvent(bpNumber: userName));
+
+    if (userName.isNotEmpty && password.isEmpty) {
+/*      BlocProvider.of<LoginBloc>(context).add(LoginSetBpNumberEvent(bpNumber: userName, context: context, isLoginPage: false));
+      BlocProvider.of<LoginBloc>(context).add(LoginSubmitDataEvent(isLoginPage: false, context: context));*/
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LoginView()));
+    }
+     else if (userName.isNotEmpty && password.isNotEmpty) {
+      BlocProvider.of<LoginBloc>(context).add(LoginSetBpNumberEvent(bpNumber: userName, context: context, isLoginPage: false));
       BlocProvider.of<LoginBloc>(context).add(LoginSetPasswordEvent(password: password));
       BlocProvider.of<LoginBloc>(context).add(LoginSubmitDataEvent(isLoginPage: false, context: context));
-/*      Navigator.pushReplacement(context,
-            // MaterialPageRoute(builder: (context) => BillAmountDashboard()));
-             MaterialPageRoute(builder: (context) => DashboardPage()));*/
     } else {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => LoginView()));

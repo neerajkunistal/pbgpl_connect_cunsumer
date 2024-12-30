@@ -17,6 +17,11 @@ final class PaymentHistoryPageLoadState extends PaymentHistoryInitial {
 
 
 final class FetchPaymentHistoryDataState extends PaymentHistoryInitial {
+  final List<PaymentHistoryModel> paymentHistoryList;
+
+  FetchPaymentHistoryDataState({required this.paymentHistoryList});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [
+    paymentHistoryList,
+  ];
 }

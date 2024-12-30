@@ -12,12 +12,16 @@ class LoginInitState extends LoginState {
 class LoginSubmitState extends LoginState {
   final bool isLoader;
   final bool isPassword;
+  final bool isPasswordField;
+  final bool isForgetPasswordLoader;
   final TextEditingController bpNumberTextFiledController;
   final TextEditingController passwordTextFieldController;
 
   LoginSubmitState(
       {required this.isLoader,
       required this.isPassword,
+      required this.isPasswordField,
+      required this.isForgetPasswordLoader,
       required this.bpNumberTextFiledController,
       required this.passwordTextFieldController});
 
@@ -26,6 +30,8 @@ class LoginSubmitState extends LoginState {
   List<Object?> get props => [
         isLoader,
         isPassword,
+        isPasswordField,
+        isForgetPasswordLoader,
         bpNumberTextFiledController,
         passwordTextFieldController
       ];

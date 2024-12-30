@@ -27,6 +27,18 @@ final class FetchAddPaymentDataState extends AddPaymentInitial {
   ];
 }
 
+final class AddPaymentDetailState extends AddPaymentInitial {
+  final BuildContext context;
+  final BillAmountModel billAmountData;
+
+  AddPaymentDetailState({required this.billAmountData, required this.context});
+  @override
+  List<Object> get props => [
+    billAmountData,
+    context
+  ];
+}
+
 final class AddPaymentStatusState extends AddPaymentInitial {
   final PaymentStatusModel paymentStatusData;
 
