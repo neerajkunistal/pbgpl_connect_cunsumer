@@ -1,6 +1,5 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
-import 'package:customer_connect/utills/commonWidgets/text_widget.dart';
 import 'package:flutter/material.dart';
 
 class ConnectionInfoWidget extends StatelessWidget {
@@ -41,7 +40,7 @@ class ConnectionInfoWidget extends StatelessWidget {
                         ),
                         Row(
                           children: [
-                            TextWidget("CNR Number: ", fontWeight: FontWeight.w700, fontSize: AppFont.font_13),
+                            TextWidget("CRN Number: ", fontWeight: FontWeight.w700, fontSize: AppFont.font_13),
                             Expanded(child: TextWidget(state.bpNumberData.customerData!.crn.toString(), fontSize: AppFont.font_13)),
                           ],
                         ),

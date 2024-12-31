@@ -13,7 +13,7 @@ class AddPaymentHelper {
     
     try {
        String url = Apis.billFullGeneration+"?ref_id=${refId}&schema=${schema}";
-       var res = await ServerRequest.getGoogleData(url: Uri.parse(url));
+       var res = await ServerRequest.getData(urlEndPoint: url);
        if(res != null && res['success'] == 200 && res['data'] != null){
          return PaymentModel.fromJson(res['data']);
        }
@@ -28,7 +28,7 @@ class AddPaymentHelper {
     }) async {
     try {
       String url = Apis.getBillStatus+"?order_id=${orderId}&schema=${schema}";
-      var res = await ServerRequest.getGoogleData(url: Uri.parse(url));
+      var res = await ServerRequest.getData(urlEndPoint: url);
       if(res != null && res['success'] == 200 && res['data'] != null){
         return PaymentStatusModel.fromJson(res['data']);
       }

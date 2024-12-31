@@ -36,8 +36,8 @@ class _DashboardPageState extends State<DashboardPage> {
       appBar: AppBar(
         iconTheme: IconThemeData(color: AppColor.themeSecondary),
         elevation: 0,
-        title:TextWidget("PBGPL Consumer",
-          fontSize: AppFont.font_18,
+        title:TextWidget("Consumer Connect",
+          fontSize: AppFont.font_16,
           fontWeight: FontWeight.w700,
           color: AppColor.themeSecondary,
         ),

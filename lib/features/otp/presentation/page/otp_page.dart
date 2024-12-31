@@ -87,12 +87,11 @@ class _OtpPageState extends State<OtpPage> {
               height: MediaQuery.of(context).size.width * 0.02,
             ),
             TextWidget(
-              "We texted you a code resistor number",
+              "Enter the OTP received on your registered mobile number +91 ******${dataState.mobileNumber.substring(6)}",
               textAlign: TextAlign.center,
               fontSize: AppFont.font_16,
               fontWeight: FontWeight.w700,
             ),
-            TextWidget("Please enter it below",),
             SizedBox(
               height: MediaQuery.of(context).size.width * 0.08,
             ),

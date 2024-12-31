@@ -46,7 +46,7 @@ class BillHistoryItemBoxWidget extends StatelessWidget {
                   TextWidget("${transactionData.billGeneratedDate.toString().replaceAll(" 00:00:00", "")}",
                       color: AppColor.grey,
                       fontSize: AppFont.font_12),
-                  TextWidget("Consumption -  ${transactionData.consumption.toString()}",
+                  TextWidget("SCM Consumption : ${transactionData.consumption.toString()}",
                       color: AppColor.themeSecondary,
                       fontSize: AppFont.font_12),
                   GestureDetector(
@@ -55,14 +55,14 @@ class BillHistoryItemBoxWidget extends StatelessWidget {
                       throw Exception('Could not launch ${transactionData.invoiceLink.toString()}');
                       }
                     },
-                    child: TextWidget("Download Invoice",
+                    child: TextWidget("Bill Download",
                         textDecoration: TextDecoration.underline,
                         color: AppColor.cardBlue,
                         fontSize: AppFont.font_14),
                   ),
           ],)),
 
-          TextWidget("₹${transactionData.billAmt}", fontSize: AppFont.font_15,
+          TextWidget("₹${transactionData.totalInvoiceAmount}", fontSize: AppFont.font_15,
             color: Colors.green[400],
             fontWeight: FontWeight.w700,
           ),

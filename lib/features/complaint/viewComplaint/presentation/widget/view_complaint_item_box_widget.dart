@@ -1,5 +1,6 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/complaint/viewComplaint/domain/model/complaint_model.dart';
+import 'package:customer_connect/utills/commonWidgets/center_loader_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_line_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -32,12 +33,12 @@ class ViewComplaintItemBoxWidget extends StatelessWidget {
             _rowWidget(label: "Complaint Date", value: complaintData.dateOfComplaint.toString()),
             _verticalSpace(context: context),
             _statusWidget(label: "Status",
-                value: "${complaintData.actionStatus.toString() == "0" ? "Pending"
-                    : complaintData.actionStatus.toString() == "1" ? "Resolved"
-                    : complaintData.actionStatus.toString() == "2" ? "Interim" : "" }",
-              color: complaintData.actionStatus.toString() == "0" ? Colors.orange
-                  : complaintData.actionStatus.toString() == "1" ? Colors.green
-                  : complaintData.actionStatus.toString() == "2" ? Colors.red : Colors.grey
+                value: "${complaintData.currentStatus.toString() == "0" ? "In Progress"
+                    : complaintData.currentStatus.toString() == "1" ? "Resolved"
+                    : complaintData.currentStatus.toString() == "2" ? "Interim" : "" }",
+              color: complaintData.currentStatus.toString() == "0" ? Colors.orange
+                  : complaintData.currentStatus.toString() == "1" ? Colors.green
+                  : complaintData.currentStatus.toString() == "2" ? Colors.red : Colors.grey
             ),
             _verticalSpace(context: context),
             _imageWidget(context: context, url: complaintData.attachedDoc.toString()),
@@ -45,6 +46,21 @@ class ViewComplaintItemBoxWidget extends StatelessWidget {
             Divider(color: AppColor.grey,),
             _rowWidget(label: "Description", value: complaintData.remarks.toString()),
             _verticalSpace(context: context),
+
+            complaintData.additionalComments.toString().isNotEmpty ?
+            _verticalSpace(context: context) : const SizedBox.shrink(),
+            complaintData.additionalComments.toString().isNotEmpty ?
+            _rowWidget(label: "Resolution Comment", value: complaintData.additionalComments.toString()) : const SizedBox.shrink(),
+            complaintData.additionalComments.toString().isNotEmpty ?
+            _verticalSpace(context: context) : const SizedBox.shrink(),
+
+            complaintData.attendedDate.toString().isNotEmpty ?
+            _verticalSpace(context: context) : const SizedBox.shrink(),
+            complaintData.attendedDate.toString().isNotEmpty ?
+            _rowWidget(label: "Resolved On", value: complaintData.attendedDate.toString()) : const SizedBox.shrink(),
+            complaintData.attendedDate.toString().isNotEmpty ?
+            _verticalSpace(context: context) : const SizedBox.shrink(),
+
           ],
         ),
       ),
@@ -103,6 +119,16 @@ class ViewComplaintItemBoxWidget extends StatelessWidget {
           height: MediaQuery.of(context).size.width * 0.15,
           width: MediaQuery.of(context).size.width * 0.15,
           fit: BoxFit.fill,
+          loadingBuilder: (BuildContext context, Widget child,
+              ImageChunkEvent? loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(child: CircularProgressIndicator(
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                        loadingProgress.expectedTotalBytes!
+                        : null,
+                  ),);
+             }
           ),
         ),
       ),

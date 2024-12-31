@@ -10,6 +10,12 @@ class PaymentDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    double totalAmount =  double.parse(dataState.billAmountData.totalAmount.toString().isNotEmpty ? dataState.billAmountData.totalAmount.toString() : "0");
+    double lateFee =  double.parse(dataState.billAmountData.lateFee.toString().isNotEmpty ? dataState.billAmountData.lateFee.toString() : "0");
+
+    double amount = totalAmount-lateFee;
+
     return Container(
       margin: EdgeInsets.all(10.0),
       child: Column(
@@ -31,14 +37,14 @@ class PaymentDetailWidget extends StatelessWidget {
           DottedDividerLine(),
           _rowWidget(
               label: "Bill Amount",
-              value: dataState.billAmountData.totalAmount.toString()),
+              value: "${amount}"),
           _rowWidget(
               label: "Late Fee",
               value: dataState.billAmountData.lateFee.toString()),
           DottedDividerLine(),
           _rowWidget(
               label: "Total Amount",
-              value: dataState.billAmountData.totalAmount.toString()),
+              value: "${totalAmount}"),
           DottedDividerLine(),
           SizedBox(
             height: MediaQuery.of(context).size.width * 0.08,

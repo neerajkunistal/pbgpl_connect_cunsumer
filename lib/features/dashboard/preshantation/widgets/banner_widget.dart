@@ -8,19 +8,16 @@ class BannerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.width/2.5,
+      height: MediaQuery.of(context).size.width/3.2,
       decoration: new BoxDecoration(
-        color: const Color(0xFF66BB6A),
+        //color: const Color(0xFF66BB6A),
         boxShadow: [new BoxShadow(
           color: Colors.black,
-          blurRadius: 10.0,
+          blurRadius: 5.0,
         ),]),
-      child: KenBurns(
-        maxScale: 5,
-        child: Image.asset(
-          "assets/images/banner.jpg",
-          fit: BoxFit.cover,
-        ),
+      child: Image.asset(
+        "assets/images/banner.png",
+        fit: BoxFit.fitWidth,
       ),
     );
   }

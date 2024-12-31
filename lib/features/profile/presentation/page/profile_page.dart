@@ -74,6 +74,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 value: "${dataState.customerData.crn.toString()}"),
 
             _verticalSpace(),
+            _rowWidget(label: "Scheme Name",
+                value: "${dataState.customerData.schemeName.toString()}"),
+
+            _verticalSpace(),
+            _rowWidget(label: "Scheme Amount",
+                value: "${dataState.customerData.initialAmount.toString()}"),
+
+            _verticalSpace(),
+            _rowWidget(label: "Registration Date",
+                value: "${dataState.customerData.dateOfRegistration.toString()}"),
+
+            _verticalSpace(),
             _addressRowWidget(label: "Address 1",
                 value: "${dataState.customerData.address1.toString()} ${dataState.customerData.locality.toString()}"),
 

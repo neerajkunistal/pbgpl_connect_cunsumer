@@ -29,7 +29,7 @@ class UserWidget extends StatelessWidget {
                     8.0,
                   ),
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.width / 2.3,
+                    // height: MediaQuery.of(context).size.width / 2.3,
                     child: InkWell(
                       onTap: () {
                         BlocProvider.of<DashboardBloc>(context)

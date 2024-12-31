@@ -89,9 +89,9 @@ class _LoginViewState extends State<LoginView> {
                                     fontWeight: FontWeight.w700,
                                     fontSize: AppFont.font_10,),
                                   _horizontalSpace(),
-                                  TextWidget("Consumer",
+                                  TextWidget("Consumer Connect",
                                     fontWeight: FontWeight.w700,
-                                    fontSize: AppFont.font_13,),
+                                    fontSize: AppFont.font_16,),
                                 ],
                               ),
                             ),
@@ -166,7 +166,7 @@ class _LoginViewState extends State<LoginView> {
           onPressed: () {
             BlocProvider.of<LoginBloc>(context).add(LoginForgetPasswordEvent(context: context));
           }, child: TextWidget(
-           "Forget Password",
+           "Forgot Password",
           color: AppColor.themeColor,
          textDecoration: TextDecoration.underline,
          fontWeight: FontWeight.w700,
