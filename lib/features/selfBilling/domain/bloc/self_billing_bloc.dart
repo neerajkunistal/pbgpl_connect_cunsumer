@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:customer_connect/features/dashboard/helper/dashboard_helper.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
+import 'package:customer_connect/features/selfBilling/helper/self_billing_helper.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -60,8 +61,10 @@ class SelfBillingBloc extends Bloc<SelfBillingEvent, SelfBillingState> {
   }
 
   _submit(SelfBillingSubmitEvent event, emit) async {
-
-
+   await SelfBillingHelper.submitData(context: event.context,
+        bpNumber: bpNumberController.text.toString(), customerName: customerNameController.text.toString(),
+        customerAddress: customerAddressController.text.toString(), meterNumber: meterNumberController.text.toString(),
+        previousReading: previousReadingController.toString(), file: file);
   }
 
   _eventComplete(Emitter<SelfBillingState> emit) {

@@ -1,7 +1,8 @@
 name: customer_connect
 description: A new Flutter application.
 publish_to: 'none'
-version: 1.0.0+1
+
+version: 1.0.4+5
 
 environment:
   sdk: ^3.5.3
@@ -35,6 +36,8 @@ dependencies:
   dropdown_search: ^6.0.1
   flutter_image_compress: ^2.3.0
   flutter_otp_text_field: ^1.4.0+2
+  package_info_plus: ^8.1.2
+  html: ^0.15.4
 
 
 dev_dependencies:
@@ -62,10 +65,10 @@ flutter:
           weight: 800
 
 
-flutter_icons:
+flutter_launcher_icons:
   android: "ic_launcher"
   ios: true
   remove_alpha_ios: true
-  image_path: "assets/images/logo.png"
+  image_path: "assets/images/pbgpl_logo.png"
   min_sdk_android: 21
 

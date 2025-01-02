@@ -189,7 +189,7 @@ class _BillAmountDashboardPageState extends State<BillAmountDashboard> {
                     padding: const EdgeInsets.all(18.0),
                     child: Image(
                         image: AssetImage(
-                      'assets/images/logo.png',
+                      'assets/images/pbgpl_logo.png',
                     )),
                   ),
                 ),

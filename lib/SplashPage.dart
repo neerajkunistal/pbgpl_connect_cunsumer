@@ -32,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
               padding: const EdgeInsets.all(100.0),
               child: Image(
                   image: AssetImage(
-                'assets/images/logo.png',
+                'assets/images/pbgpl_logo.png',
               )),
             ),
           ),

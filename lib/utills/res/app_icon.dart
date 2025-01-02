@@ -1,5 +1,5 @@
 class AppIcon {
-  static get appLogo => "assets/images/logo.png";
+  static get appLogo => "assets/images/pbgpl_logo.png";
 
   static get meterIcon => "assets/images/meter.png";
 

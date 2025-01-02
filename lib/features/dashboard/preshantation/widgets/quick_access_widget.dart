@@ -81,8 +81,6 @@ class QuickAccessWidget extends StatelessWidget {
   void pageNavigation(int index, BuildContext context) {
     if(index == 0)
     {
-      SnackBarErrorWidget(context).show(message: "Development mode coming soon");
-      return;
       Navigator.push(
         !context.mounted ? context : context,
         FadeRoute(
@@ -91,8 +89,6 @@ class QuickAccessWidget extends StatelessWidget {
     }
     else if(index == 1)
     {
-      SnackBarErrorWidget(context).show(message: "Development mode coming soon");
-      return;
       Navigator.push(
         !context.mounted ? context : context,
         FadeRoute(

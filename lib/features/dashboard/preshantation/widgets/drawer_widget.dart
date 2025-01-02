@@ -103,7 +103,7 @@ class DrawerWidget extends StatelessWidget {
   }
 
   Widget logoWidget({required BuildContext context}) {
-    return Image.asset('assets/images/logo.png',
+    return Image.asset('assets/images/pbgpl_logo.png',
       height: MediaQuery.of(context).size.width * 0.20,);
   }
 
