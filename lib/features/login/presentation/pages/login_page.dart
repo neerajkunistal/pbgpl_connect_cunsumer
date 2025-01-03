@@ -2,16 +2,8 @@ import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_bloc.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_event.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_state.dart';
-import 'package:customer_connect/features/otp/presentation/page/otp_page.dart';
-import 'package:customer_connect/utills/commonClass/fade_route.dart';
-import 'package:customer_connect/utills/commonWidgets/button_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_loader_widget.dart';
-import 'package:customer_connect/utills/commonWidgets/text_field_widget.dart';
-import 'package:customer_connect/utills/commonWidgets/text_widget.dart';
-import 'package:customer_connect/utills/login_customt_text_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kenburns_nullsafety/kenburns_nullsafety.dart';
 
 class LoginView extends StatefulWidget {
