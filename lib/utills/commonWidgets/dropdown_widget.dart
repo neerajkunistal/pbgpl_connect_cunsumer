@@ -7,6 +7,7 @@ class DropdownWidget extends StatelessWidget {
   final ValueChanged<dynamic>? onChanged;
   final List<DropdownMenuItem<dynamic>>? items;
   final bool? isRequired;
+  final bool? isBoardRemove;
 
   const DropdownWidget({
     super.key,
@@ -15,13 +16,14 @@ class DropdownWidget extends StatelessWidget {
     required this.items,
     required this.hint,
     this.isRequired,
+    this.isBoardRemove,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
-      decoration: BoxDecoration(
+      decoration: isBoardRemove == true ? null : BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         border: Border.all(
             color: AppColor.grey, style: BorderStyle.solid, width: 0.80),

@@ -29,7 +29,19 @@ class DrawerWidget extends StatelessWidget {
           logoWidget(context: context),
 
 
-
+          BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, state) {
+              if(state is FetchDashboardDataState){
+                return Column(
+                  children: [
+                    _bpNumberDropDown(dataState: state, context: context),
+                  ],
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          ),
 
           BlocBuilder<DashboardBloc, DashboardState>(
             builder: (context, state) {
@@ -99,15 +111,7 @@ class DrawerWidget extends StatelessWidget {
                     context: context, builder: (context) => const LogoutWidget());
               }, label: "Logout"),
 
-          BlocBuilder<DashboardBloc, DashboardState>(
-            builder: (context, state) {
-              if(state is FetchDashboardDataState){
-                return _bpNumberDropDown(dataState: state, context: context);
-              } else {
-                return const SizedBox.shrink();
-              }
-            },
-          ),
+
         ],
       ),
     );
@@ -121,21 +125,33 @@ class DrawerWidget extends StatelessWidget {
   Widget _bpNumberDropDown(
       {required FetchDashboardDataState dataState, required BuildContext context}) {
     return dataState.userList.isNotEmpty && dataState.userList.length != 1 ?
-    DropdownWidget(
-      dropdownValue: dataState.userData.id == null ? null : dataState.userData,
-      isRequired: true,
-      hint: AppString.trNumber,
-      items: dataState.userList
-          .map<DropdownMenuItem<LoginModel>>((LoginModel userData)  {
-        return DropdownMenuItem<LoginModel>(
-          value: userData,
-          child: TextWidget(userData.trNumber.toString()),
-        );
-      }).toList(),
-      onChanged: (value) {
-        BlocProvider.of<DashboardBloc>(context).add(DashboardSelectUserEvent(context: context,
-            userData: value));
-      },
+    Column(
+      children: [
+        Divider(color: AppColor.grey,),
+        SizedBox(
+          height: MediaQuery.of(context).size.width * 0.02,
+        ),
+        DropdownWidget(
+          isBoardRemove: true,
+          dropdownValue: dataState.userData.id == null ? null : dataState.userData,
+          isRequired: true,
+          hint: "Switch Connection",
+          items: dataState.userList
+              .map<DropdownMenuItem<LoginModel>>((LoginModel userData)  {
+            return DropdownMenuItem<LoginModel>(
+              value: userData,
+              child: TextWidget(userData.trNumber.toString()),
+            );
+          }).toList(),
+          onChanged: (value) {
+            Navigator.of(context).pop();
+            BlocProvider.of<DashboardBloc>(context).add(DashboardSelectUserEvent(context: context,
+                userData: value));
+            BlocProvider.of<DashboardBloc>(context)
+                .add(DashboardPageLoadEvent(context: context));
+          },
+        ),
+      ],
     ) : const SizedBox.shrink();
   }
 
