@@ -57,7 +57,6 @@ class BillHistoryItemBoxWidget extends StatelessWidget {
                   TextWidget("Bill Type : ${transactionData.billTypeNameStatus.toString()}",
                       color: AppColor.black,
                       fontSize: AppFont.font_12),
-
                   GestureDetector(
                     onTap: () async {
                       if(transactionData.invoiceLink.toString().isNotEmpty){
