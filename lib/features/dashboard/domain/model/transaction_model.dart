@@ -398,6 +398,7 @@ class TransactionModel {
   dynamic billRemarks;
   dynamic invoiceLink;
   dynamic totalInvoiceAmount;
+  dynamic billTypeNameStatus;
 
   TransactionModel(
       {this.id,
@@ -795,6 +796,7 @@ class TransactionModel {
         this.billRemarks,
         this.invoiceLink,
         this.totalInvoiceAmount,
+        this.billTypeNameStatus,
       });
 
   TransactionModel.fromJson(Map<String, dynamic> json) {
@@ -1195,6 +1197,7 @@ class TransactionModel {
     billRemarks = json['bill_remarks'] ??  "" ;
     invoiceLink = json['invoice_link'] ??  "" ;
     totalInvoiceAmount = json['total_invoice_amt'] ??  "" ;
+    billTypeNameStatus = json['bill_type_status_name'] ??  "" ;
   }
 
   Map<String, dynamic> toJson() {

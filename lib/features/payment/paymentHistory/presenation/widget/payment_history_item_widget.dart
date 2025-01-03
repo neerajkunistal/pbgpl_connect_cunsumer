@@ -14,6 +14,8 @@ class PaymentHistoryItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    DateTime dateTime = formatter.parse(paymentHistoryData.createdAt.toString());
     return Container(
       margin: EdgeInsets.all(0.0),
       child: Card(
@@ -70,7 +72,7 @@ class PaymentHistoryItemWidget extends StatelessWidget {
               Row(
                 children: [
                   TextWidget("Date : ", fontWeight: FontWeight.w400, fontSize: AppFont.font_14,),
-                  Expanded(child: TextWidget("${paymentHistoryData.createdAt}",
+                  Expanded(child: TextWidget("${DateFormat('dd-MM-yyyy').format(dateTime)}",
                     textAlign: TextAlign.end,
                     fontWeight: FontWeight.w400, fontSize: AppFont.font_14,)),
                 ],

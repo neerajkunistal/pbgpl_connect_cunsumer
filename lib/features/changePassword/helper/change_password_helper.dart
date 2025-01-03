@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/service/Apis.dart';
@@ -55,7 +57,7 @@ class ChangePasswordHelper {
       required BuildContext context}) async {
 
     try{
-      LoginModel userData =  UserInfo.instanceInit()!.userData!;
+      LoginModel userData =  UserInfo.instance!.userData!;
        String url = Apis.changePassword;
        var json = {
          "bp_number" : userData.bpNumber.toString(),
@@ -64,15 +66,15 @@ class ChangePasswordHelper {
          "old_password" : oldPassword,
          "confirm_password" : confirmPassword,
       };
-      var res =  await ServerRequest.postData(urlEndPoint: url, body: json, context: context);
+      var res =  await ServerRequest.postData(urlEndPoint: url, body: jsonEncode(json), context: context);
       if(res != null && res['status'] != null
-          && res['status'] == true && res['message'] != null){
-        SnackBarSuccessWidget(!context.mounted ? context : context).show(message: res['message']);
+          && res['status'] == 200 && res['messages'] != null && res['error'] == false){
+        SnackBarSuccessWidget(!context.mounted ? context : context).show(message: res['messages']);
         return res;
       } if(res != null && res['status'] != null
-          && res['status'] == false && res['message'] != null) {
+          && res['status'] == 200 && res['messages'] != null && res['error'] == true) {
         SnackBarErrorWidget(!context.mounted ? context : context).show(
-            message: res['message']);
+            message: res['messages']);
       }
        return null;
     }catch(_){

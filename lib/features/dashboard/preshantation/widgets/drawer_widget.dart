@@ -55,7 +55,6 @@ class DrawerWidget extends StatelessWidget {
             },
           ),
 
-
           Divider(color: AppColor.grey,),
           _rowWidget(
               context: context,
@@ -65,18 +64,30 @@ class DrawerWidget extends StatelessWidget {
                 Navigator.of(context).pop();
               }, label: "Add new connection"),
 
-          Divider(color: AppColor.grey,),
-          _rowWidget(
-              context: context,
-              icon: Icons.password,
-              onTap: () {
-                Navigator.of(context).pop();
-                Navigator.push(
-                  context,
-                  FadeRoute(
-                      page: const ChangePasswordPage()),
+          BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, state) {
+              if(state is FetchDashboardDataState){
+                return Column(
+                  children: [
+                    Divider(color: AppColor.grey,),
+                    _rowWidget(
+                        context: context,
+                        icon: Icons.person_pin,
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                            context,
+                            FadeRoute(
+                                page: const ChangePasswordPage()),
+                          );
+                        }, label: "Change password"),
+                  ],
                 );
-          }, label: "Change password"),
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          ),
 
           Divider(color: AppColor.grey,),
           _rowWidget(

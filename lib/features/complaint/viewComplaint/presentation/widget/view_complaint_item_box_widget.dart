@@ -17,6 +17,11 @@ class ViewComplaintItemBoxWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final DateFormat formatter = DateFormat('yyyy-MM-dd');
     DateTime dateTime = formatter.parse(complaintData.dateOfComplaint.toString());
+
+    DateTime attendanceDate = formatter.parse(complaintData.attendedDate.toString().isNotEmpty
+        ? complaintData.attendedDate.toString()
+        : DateTime.now().toString() );
+
     return Card(
       shadowColor: AppColor.themeColor,
       elevation: 2,
@@ -52,14 +57,14 @@ class ViewComplaintItemBoxWidget extends StatelessWidget {
             complaintData.additionalComments.toString().isNotEmpty ?
             _verticalSpace(context: context) : const SizedBox.shrink(),
             complaintData.additionalComments.toString().isNotEmpty ?
-            _rowWidget(label: "Resolution Comment", value: complaintData.additionalComments.toString()) : const SizedBox.shrink(),
+            _rowWidget(label: "${complaintData.currentStatus.toString() == "1" ? "Resolution" : complaintData.currentStatus.toString() == "2" ? "Interim" : ""} Comment", value: complaintData.additionalComments.toString()) : const SizedBox.shrink(),
             complaintData.additionalComments.toString().isNotEmpty ?
             _verticalSpace(context: context) : const SizedBox.shrink(),
 
             complaintData.attendedDate.toString().isNotEmpty ?
             _verticalSpace(context: context) : const SizedBox.shrink(),
             complaintData.attendedDate.toString().isNotEmpty ?
-            _rowWidget(label: "Resolved On", value: complaintData.attendedDate.toString()) : const SizedBox.shrink(),
+            _rowWidget(label: "${complaintData.currentStatus.toString() == "1" ? "Resolved" : complaintData.currentStatus.toString() == "2" ? "Interim" : ""} On", value: "${DateFormat('dd-MM-yyyy').format(attendanceDate)}") : const SizedBox.shrink(),
             complaintData.attendedDate.toString().isNotEmpty ?
             _verticalSpace(context: context) : const SizedBox.shrink(),
 

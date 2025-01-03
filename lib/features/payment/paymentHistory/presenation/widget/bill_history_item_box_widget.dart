@@ -54,7 +54,7 @@ class BillHistoryItemBoxWidget extends StatelessWidget {
                   TextWidget("SCM Consumption : ${transactionData.consumption.toString()}",
                       color: AppColor.themeSecondary,
                       fontSize: AppFont.font_12),
-                  TextWidget("Bill Type : ${transactionData.billTypeStatus.toString() == "0" ? "Metered" : "Average"}",
+                  TextWidget("Bill Type : ${transactionData.billTypeNameStatus.toString()}",
                       color: AppColor.black,
                       fontSize: AppFont.font_12),
 
