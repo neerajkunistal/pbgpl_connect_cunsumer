@@ -25,7 +25,7 @@ class PaymentHistoryItemWidget extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  TextWidget("Order No : ", fontWeight: FontWeight.w700, fontSize: AppFont.font_14,),
+                  TextWidget("Order Id : ", fontWeight: FontWeight.w700, fontSize: AppFont.font_14,),
                   Expanded(child: TextWidget("${paymentHistoryData.orderId}",
                     textAlign: TextAlign.end,
                     fontWeight: FontWeight.w700, fontSize: AppFont.font_14,)),

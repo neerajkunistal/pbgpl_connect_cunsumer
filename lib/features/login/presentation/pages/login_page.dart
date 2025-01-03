@@ -68,7 +68,7 @@ class _LoginViewState extends State<LoginView> {
                   padding: const EdgeInsets.all(8.0),
                   child: Card(
                     elevation: 7.0,
-                    shadowColor: Colors.teal,
+                    shadowColor: AppColor.themeColor,
                     color: Colors.white.withOpacity(0.8),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20.0)),
@@ -137,7 +137,7 @@ class _LoginViewState extends State<LoginView> {
         color: AppColor.themeSecondary,),
       textInputType: TextInputType.text,
       controller: data.bpNumberTextFiledController,
-      labelText: "Mobile No / CR No / TR No",
+      labelText: "Mobile No / BP No / TR No",
       onChanged: (value) => BlocProvider.of<LoginBloc>(context)
           .add(LoginSetBpNumberEvent(bpNumber: value, context: context, isLoginPage: true)),
     );
