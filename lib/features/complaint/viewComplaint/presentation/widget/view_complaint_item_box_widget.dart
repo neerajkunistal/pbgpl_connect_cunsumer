@@ -15,6 +15,8 @@ class ViewComplaintItemBoxWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    DateTime dateTime = formatter.parse(complaintData.dateOfComplaint.toString());
     return Card(
       shadowColor: AppColor.themeColor,
       elevation: 2,
@@ -30,7 +32,7 @@ class ViewComplaintItemBoxWidget extends StatelessWidget {
             _verticalSpace(context: context),
             _rowWidget(label: "Subcategory", value: complaintData.subcategory.toString()),
             _verticalSpace(context: context),
-            _rowWidget(label: "Complaint Date", value: complaintData.dateOfComplaint.toString()),
+            _rowWidget(label: "Complaint Date", value: "${DateFormat('dd-MM-yyyy').format(dateTime)}"),
             _verticalSpace(context: context),
             _statusWidget(label: "Status",
                 value: "${complaintData.currentStatus.toString() == "0" ? "In Progress"

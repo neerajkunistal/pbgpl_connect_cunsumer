@@ -136,7 +136,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     isForgetPasswordPage =  false;
     _eventCompleted(emit);
     var mobileValidation =  await LoginHelper.validateMobile(bpNumber);
-    if(mobileValidation.isEmpty){
+    if(mobileValidation.isEmpty && password.isEmpty){
       var res =  await LoginHelper.checkMobileNumber(mobileNumber: bpNumber,
           context: !event.context.mounted ? event.context :event.context);
       if(res != null){

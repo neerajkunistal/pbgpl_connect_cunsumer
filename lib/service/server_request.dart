@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ServerRequest {
 
@@ -312,4 +313,34 @@ class ServerRequest {
     }
     return null;
   }
+
+  static Future<dynamic> downloadFile(String url, String filename) async {
+    try {
+      var httpClient = new HttpClient();
+      var request = await httpClient.getUrl(Uri.parse(url));
+      var response = await request.close();
+      var bytes = await consolidateHttpClientResponseBytes(response);
+     /* String dir = (await getApplicationDocumentsDirectory()).path;*/
+      bool dirDownloadExists = true;
+      var directory;
+      if (Platform.isIOS) {
+        directory = await getDownloadsDirectory();
+      } else {
+        directory = "/storage/emulated/0/Download/";
+        dirDownloadExists = await Directory(directory).exists();
+        if(dirDownloadExists){
+          directory = "/storage/emulated/0/Download/";
+        }else{
+          directory = "/storage/emulated/0/Downloads/";
+        }
+      }
+      File file = new File('$directory/$filename');
+      await file.writeAsBytes(bytes);
+      return file;
+    } catch(e){
+      print("Download ------------------- ${e.toString()}");
+    }
+    return null;
+  }
+
 }

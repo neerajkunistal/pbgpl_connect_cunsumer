@@ -1,6 +1,9 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/dashboard/domain/model/transaction_model.dart';
+import 'package:customer_connect/features/dashboard/helper/dashboard_helper.dart';
+import 'package:customer_connect/service/server_request.dart';
 import 'package:flutter/material.dart';
+import 'package:open_file/open_file.dart';
 import 'dart:math' as math;
 
 import 'package:url_launcher/url_launcher.dart';
@@ -14,6 +17,8 @@ class BillHistoryItemBoxWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    DateTime dateTime = formatter.parse(transactionData.billGeneratedDate.toString());
     return Container(
       padding: EdgeInsets.all(10.0),
       child: Row(
@@ -43,16 +48,23 @@ class BillHistoryItemBoxWidget extends StatelessWidget {
                   TextWidget("Bill Generated", fontSize: AppFont.font_15,
                   fontWeight: FontWeight.w500,
                   ),
-                  TextWidget("${transactionData.billGeneratedDate.toString().replaceAll(" 00:00:00", "")}",
+                  TextWidget("${DateFormat('dd-MM-yyyy').format(dateTime)}",
                       color: AppColor.grey,
                       fontSize: AppFont.font_12),
                   TextWidget("SCM Consumption : ${transactionData.consumption.toString()}",
                       color: AppColor.themeSecondary,
                       fontSize: AppFont.font_12),
+                  TextWidget("Bill Type : ${transactionData.billTypeStatus.toString() == "0" ? "Metered" : "Average"}",
+                      color: AppColor.black,
+                      fontSize: AppFont.font_12),
+
                   GestureDetector(
                     onTap: () async {
-                      if (!await launchUrl(Uri.parse(transactionData.invoiceLink.toString()))) {
-                      throw Exception('Could not launch ${transactionData.invoiceLink.toString()}');
+                      if(transactionData.invoiceLink.toString().isNotEmpty){
+                        await DashboardHelper.fileDownLoad(context: context,
+                          url: transactionData.invoiceLink.toString(),
+                          fileName: "${transactionData.id.toString()}.pdf",
+                        );
                       }
                     },
                     child: TextWidget("Bill Download",

@@ -3,8 +3,10 @@ import 'package:customer_connect/features/dashboard/domain/model/bp_number_model
 import 'package:customer_connect/models/pending_bill_model.dart';
 import 'package:customer_connect/service/Apis.dart';
 import 'package:customer_connect/service/server_request.dart';
+import 'package:customer_connect/utills/LoaderDialog.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:open_file/open_file.dart';
 
 class DashboardHelper {
 
@@ -119,6 +121,25 @@ class DashboardHelper {
     double sizeInMb = sizeInBytes / (1024 * 1024);
     return sizeInMb;
   }
+
+  static fileDownLoad({required BuildContext context,
+    required String url,
+    required String fileName
+  }) async {
+    try{
+      final key = GlobalKey();
+      LoaderDialog.showLoadingDialog(context, key);
+      var res =  await ServerRequest.downloadFile(url, fileName);
+      if(res != null){
+        File file =  res;
+        await OpenFile.open(file.path.toString());
+      }
+      Navigator.of(context).pop();
+    }catch(_){
+      Navigator.of(context).pop();
+    }
+  }
+
 }
 
 mediaType({required BuildContext context,
@@ -128,7 +149,10 @@ mediaType({required BuildContext context,
     context: context, // Also default
     builder: (context) {
       return Container(
-        height: MediaQuery.of(context).size.height * 0.18,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height * 0.18,
         margin: const EdgeInsets.all(10),
         child: Column(
           children: [
@@ -151,3 +175,5 @@ mediaType({required BuildContext context,
     },
   );
 }
+
+
