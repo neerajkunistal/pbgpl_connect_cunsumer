@@ -84,7 +84,7 @@ class UserWidget extends StatelessWidget {
                   ),
                 );
              }),
-           _addNewConnection(context: context),
+          // _addNewConnection(context: context),
           ],
         ),
       ),

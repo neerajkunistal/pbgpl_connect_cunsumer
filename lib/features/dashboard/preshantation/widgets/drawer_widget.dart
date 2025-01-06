@@ -67,14 +67,14 @@ class DrawerWidget extends StatelessWidget {
             },
           ),
 
-          Divider(color: AppColor.grey,),
+/*          Divider(color: AppColor.grey,),
           _rowWidget(
               context: context,
               icon: Icons.account_tree_outlined,
               onTap: () {
 
                 Navigator.of(context).pop();
-              }, label: "Add new connection"),
+              }, label: "Add new connection"),*/
 
           BlocBuilder<DashboardBloc, DashboardState>(
             builder: (context, state) {

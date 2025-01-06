@@ -22,6 +22,7 @@ part 'otp_state.dart';
 class OtpBloc extends Bloc<OtpEvent, OtpState> {
   bool isLoader =  false;
   String mobileNumber = "";
+  String bpNumber = "";
   String schema = "";
   bool isResendOtp =  false;
   String timer = "";
@@ -66,6 +67,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
     otpPageConfig =  event.otpPageConfig;
     schema = event.schema;
     mobileNumber =  event.mobileNumber;
+    bpNumber =  event.bpNumber;
 
     _eventComplete(emit);
   }
@@ -166,7 +168,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
       if (textFiledValidationCheck == true) {
         var res = await ForgetPasswordHelper.submit(
             schema: schema,
-            bpNumber: mobileNumber,
+            bpNumber: bpNumber,
             otp: otp,
             newPassword: newPasswordController.text.toString(),
             confirmPassword: confirmPasswordController.text.toString(),
@@ -210,6 +212,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
         isConfirmPasswordVisibility: isConfirmPasswordVisibility,
         isNewPasswordVisibility: isNewPasswordVisibility,
         isForgetPasswordPage: isForgetPasswordPage,
+        otpPageConfig: otpPageConfig,
     ));
   }
 }

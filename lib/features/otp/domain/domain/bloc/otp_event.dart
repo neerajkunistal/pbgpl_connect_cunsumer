@@ -9,14 +9,16 @@ class OtpPageLoadEvent extends OtpEvent {
   final OtpPageConfig otpPageConfig;
   final String mobileNumber;
   final String schema;
+  final String bpNumber;
 
   OtpPageLoadEvent({required this.context,
   required this.otpPageConfig,
   required this.mobileNumber,
   required this.schema,
+  required this.bpNumber,
   });
   @override
-  List<Object?> get props => [context, otpPageConfig, mobileNumber, schema];
+  List<Object?> get props => [context, otpPageConfig, mobileNumber, schema, bpNumber];
 }
 
 class OtpResendEvent extends OtpEvent {

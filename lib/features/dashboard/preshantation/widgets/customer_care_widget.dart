@@ -1,9 +1,12 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
+import 'package:customer_connect/features/login/domain/model/login_model.dart';
+import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void customerCareWidget({required BuildContext context}) {
+  LoginModel userData =  UserInfo.instanceInit()!.userData!;
   showModalBottomSheet(
     context: context,
     useRootNavigator: true,
@@ -33,8 +36,8 @@ void customerCareWidget({required BuildContext context}) {
                   child: InkWell(
                     onTap: () async {
                       Navigator.of(context).pop();
-                      if (!await launchUrl(Uri.parse("tel://+91-00000000000"))) {
-                        throw Exception('Could not launch ${"tel://+91-00000000000"}');
+                      if (!await launchUrl(Uri.parse("tel://${userData.sosNumber.toString()}"))) {
+                        throw Exception('Could not launch ${"tel://${userData.sosNumber.toString()}"}');
                       }
                     },
                     child: Padding(
@@ -47,7 +50,7 @@ void customerCareWidget({required BuildContext context}) {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 TextWidget("SOS", color: AppColor.black, fontSize: AppFont.font_14, fontWeight: FontWeight.w700,),
-                                TextWidget("+91-00000000000", color: AppColor.black, fontSize: AppFont.font_14,),
+                                TextWidget("${userData.sosNumber.toString()}", color: AppColor.black, fontSize: AppFont.font_14,),
                               ],
                             ),
                           ),
@@ -64,8 +67,8 @@ void customerCareWidget({required BuildContext context}) {
                   child: InkWell(
                     onTap: () async {
                       Navigator.of(context).pop();
-                      if (!await launchUrl(Uri.parse("tel://+91-00000000000"))) {
-                        throw Exception('Could not launch ${"tel://+91-00000000000"}');
+                      if (!await launchUrl(Uri.parse("tel://${userData.customerCareNumber.toString()}"))) {
+                        throw Exception('Could not launch ${"tel://${userData.customerCareNumber.toString()}"}');
                       }
                     },
                     child: Padding(
@@ -78,7 +81,7 @@ void customerCareWidget({required BuildContext context}) {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 TextWidget("Customer care number", color: AppColor.black, fontSize: AppFont.font_14, fontWeight: FontWeight.w700,),
-                                TextWidget("+91-00000000000", color: AppColor.black, fontSize: AppFont.font_14,),
+                                TextWidget("${userData.customerCareNumber.toString()}", color: AppColor.black, fontSize: AppFont.font_14,),
                               ],
                             ),
                           ),

@@ -4,6 +4,7 @@ import 'package:customer_connect/utills/Constants.dart';
 import 'package:customer_connect/utills/commonWidgets/center_loader_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_loader_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/text_widget.dart';
+import 'package:customer_connect/utills/res/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
@@ -182,7 +183,7 @@ class _OtpPageState extends State<OtpPage> {
   }
 
   Widget _newPasswordTextField({required FetchOtpDataState dataState}) {
-    return dataState.isForgetPasswordPage == true ?
+    return dataState.otpPageConfig == OtpPageConfig.forgetPassword ?
     TextFieldPasswordWidget(
       isRequired: true,
       labelText: AppString.newPassword,
@@ -199,7 +200,7 @@ class _OtpPageState extends State<OtpPage> {
 
   Widget _confirmPasswordTextField(
       {required FetchOtpDataState dataState}) {
-    return dataState.isForgetPasswordPage == true ?
+    return dataState.otpPageConfig == OtpPageConfig.forgetPassword ?
     TextFieldPasswordWidget(
       isRequired: true,
       labelText: AppString.confirmPassword,

@@ -21,6 +21,8 @@ class LoginModel {
   String? pincode;
   dynamic district;
   dynamic states;
+  dynamic sosNumber;
+  dynamic customerCareNumber;
 
   LoginModel(
       {this.id,
@@ -40,7 +42,10 @@ class LoginModel {
         this.town,
         this.pincode,
         this.district,
-        this.states});
+        this.states,
+        this.sosNumber,
+        this.customerCareNumber,
+      });
 
   LoginModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? "";
@@ -61,6 +66,8 @@ class LoginModel {
     pincode = json['pincode'] ?? "";
     district = json['district'] ?? "";
     states = json['states'] ?? "";
+    sosNumber = json['sos'] ?? "";
+    customerCareNumber = json['customer_care'] ?? "";
   }
 
   Map<String, dynamic> toJson() {

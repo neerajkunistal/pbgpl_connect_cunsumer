@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:customer_connect/service/Apis.dart';
 import 'package:customer_connect/service/server_request.dart';
+import 'package:customer_connect/utills/commonWidgets/password_validation.dart';
 import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/snack_bar_success_widget.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +23,11 @@ class ForgetPasswordHelper {
              return false;
            } else if(confirmPassword != newPassword){
              SnackBarErrorWidget(context).show(message: "Please new password and confirm password not matched");
+             return false;
+           } else if (await PasswordValidation.checkStrongPassword(
+               password: confirmPassword) ==
+               false) {
+             SnackBarErrorWidget(!context.mounted ? context: context).show(message:"Please enter strong password (Test12@ At least 8 characters") ;
              return false;
            }
            return true;
@@ -55,7 +61,6 @@ class ForgetPasswordHelper {
         SnackBarErrorWidget(context).show(message: res['messages'].toString());
         return res;
       }
-      return null;
     }catch(_){}
     return null;
   }

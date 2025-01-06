@@ -89,11 +89,14 @@ class LoginHelper {
       var res =  await ServerRequest.postData(urlEndPoint: url,
           body: jsonEncode(json), context: context);
       if(res != null && res['status'] != null
-          && res['status'] == "success" && res['schema'] != null){
+          && res['status'] == "success" && res['schema'] != null && res['mobile'] != null){
         SnackBarSuccessWidget(context).show(message: res['message']);
-        return res['schema'];
-      } else {
-        SnackBarSuccessWidget(context).show(message: res['message']);
+        return {
+          "schema" : res['schema'].toString(),
+          "mobile" : res['mobile'].toString(),
+        };
+      }  else {
+        SnackBarSuccessWidget(context).show(message: res['message']); // mobile
       }
       return null;
     }catch(_){}

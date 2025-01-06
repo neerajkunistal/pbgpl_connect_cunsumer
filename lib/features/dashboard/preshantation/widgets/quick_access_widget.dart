@@ -81,27 +81,42 @@ class QuickAccessWidget extends StatelessWidget {
   void pageNavigation(int index, BuildContext context) {
     if(index == 0)
     {
-      Navigator.push(
+    Navigator.push(
+        !context.mounted ? context : context,
+        FadeRoute(
+            page: const PaymentHistoryPage()),
+      );
+/*      Navigator.push(
         !context.mounted ? context : context,
         FadeRoute(
             page: const SelfBillingPage()),
-      );
+      );*/
     }
     else if(index == 1)
     {
       Navigator.push(
         !context.mounted ? context : context,
         FadeRoute(
-            page: const BillRequestPage()),
+            page: const AddComplaintPage()),
       );
+/*      Navigator.push(
+        !context.mounted ? context : context,
+        FadeRoute(
+            page: const BillRequestPage()),
+      );*/
     }
     else if(index == 2)
     {
       Navigator.push(
         !context.mounted ? context : context,
         FadeRoute(
-            page: const PaymentHistoryPage()),
+            page: const ViewComplaintPage()),
       );
+/*      Navigator.push(
+        !context.mounted ? context : context,
+        FadeRoute(
+            page: const PaymentHistoryPage()),
+      );*/
     }
     else if(index == 3)
     {

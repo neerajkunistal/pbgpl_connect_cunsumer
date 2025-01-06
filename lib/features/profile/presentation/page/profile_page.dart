@@ -46,6 +46,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _itemBuilder({required FetchProfileDataState dataState}) {
+    final DateFormat formatter = DateFormat('yyyy-MM-dd');
+    DateTime dateTime = formatter.parse(dataState.customerData.dateOfRegistration.toString());
     return Container(
       margin: EdgeInsets.all(10.0),
       child: SingleChildScrollView(
@@ -83,7 +85,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
             _verticalSpace(),
             _rowWidget(label: "Registration Date",
-                value: "${dataState.customerData.dateOfRegistration.toString()}"),
+                value: "${DateFormat('dd-MM-yyyy').format(dateTime)}"),
 
             _verticalSpace(),
             _addressRowWidget(label: "Address 1",

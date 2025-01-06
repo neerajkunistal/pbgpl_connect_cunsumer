@@ -69,7 +69,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       BlocProvider.of<OtpBloc>(event.context).add(
           OtpPageLoadEvent(context: event.context,
               otpPageConfig: OtpPageConfig.profile, schema: customerData.schemeName.toString(),
-              mobileNumber: mobileNumberController.text.toString()));
+              mobileNumber: mobileNumberController.text.toString(), bpNumber: mobileNumberController.text.toString()));
       Navigator.push(
           !event.context.mounted ? event.context : event.context,
           FadeRoute(

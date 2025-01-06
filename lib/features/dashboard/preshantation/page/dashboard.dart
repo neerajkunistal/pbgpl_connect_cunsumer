@@ -6,6 +6,7 @@ import 'package:customer_connect/features/dashboard/preshantation/widgets/custom
 import 'package:customer_connect/features/dashboard/preshantation/widgets/users_widget.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/login/presentation/widget/logout_widget.dart';
+import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:customer_connect/utills/commonWidgets/app_update_message_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/center_loader_widget.dart';
 import 'package:customer_connect/features/dashboard/preshantation/widgets/drawer_widget.dart';
@@ -108,19 +109,28 @@ class _DashboardPageState extends State<DashboardPage> {
           color: AppColor.themeSecondary,
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                customerCareWidget(context: context);
-              },
-              child: Image.asset(
-                AppIcon.callIcon,
-                height: MediaQuery.of(context).size.width * 0.08,
-              //  color: AppColor.themeSecondary,
-              ),
-            ),
+          BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, state) {
+              if(state is FetchDashboardDataState){
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InkWell(
+                    onTap: () {
+                      customerCareWidget(context: context);
+                    },
+                    child: Image.asset(
+                      AppIcon.callIcon,
+                      height: MediaQuery.of(context).size.width * 0.08,
+                      //  color: AppColor.themeSecondary,
+                    ),
+                  ),
+                );
+              }  else {
+                return const SizedBox.shrink();
+              }
+            },
           ),
+
         ],
       ),
       body: BlocBuilder<DashboardBloc, DashboardState>(

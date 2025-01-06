@@ -26,6 +26,7 @@ final class FetchOtpDataState extends OtpInitial {
   final bool isNewPasswordVisibility;
   final bool isConfirmPasswordVisibility;
   final bool isForgetPasswordPage;
+  final OtpPageConfig otpPageConfig;
 
   FetchOtpDataState({
     required this.isLoader,
@@ -39,6 +40,7 @@ final class FetchOtpDataState extends OtpInitial {
     required this.isConfirmPasswordVisibility,
     required this.isNewPasswordVisibility,
     required this.isForgetPasswordPage,
+    required this.otpPageConfig,
   });
 
 
@@ -55,5 +57,6 @@ final class FetchOtpDataState extends OtpInitial {
     isNewPasswordVisibility,
     isConfirmPasswordVisibility,
     isForgetPasswordPage,
+    otpPageConfig,
   ];
 }

@@ -67,7 +67,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _eventCompleted(emit);
         BlocProvider.of<OtpBloc>(event.context).add(
             OtpPageLoadEvent(context: event.context,
-                otpPageConfig: OtpPageConfig.login, schema: schema, mobileNumber: bpNumber));
+                otpPageConfig: OtpPageConfig.login, schema: schema, mobileNumber: bpNumber, bpNumber: bpNumber));
         Navigator.push(
           !event.context.mounted ? event.context : event.context,
           FadeRoute(
@@ -94,10 +94,11 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
      _eventCompleted(emit);
      var res =  await LoginHelper.forgetPassword(bpNumber: bpNumber, context: event.context);
      if(res != null){
-       _schema =  res.toString();
+       _schema =  res["schema"];
+       String mobileNumber =  res["mobile"];
        BlocProvider.of<OtpBloc>(event.context).add(
            OtpPageLoadEvent(context: event.context,
-               otpPageConfig: OtpPageConfig.forgetPassword, schema: schema, mobileNumber: bpNumber));
+               otpPageConfig: OtpPageConfig.forgetPassword, schema: schema, mobileNumber: mobileNumber, bpNumber : bpNumber));
        Navigator.push(
            !event.context.mounted ? event.context : event.context,
            FadeRoute(
@@ -145,7 +146,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         _eventCompleted(emit);
         BlocProvider.of<OtpBloc>(event.context).add(
             OtpPageLoadEvent(context: event.context,
-                otpPageConfig: OtpPageConfig.login, schema: schema, mobileNumber: bpNumber));
+                otpPageConfig: OtpPageConfig.login, schema: schema, mobileNumber: bpNumber, bpNumber: bpNumber));
         Navigator.push(
           !event.context.mounted ? event.context : event.context,
           FadeRoute(
