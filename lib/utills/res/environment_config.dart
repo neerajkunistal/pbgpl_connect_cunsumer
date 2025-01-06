@@ -22,7 +22,7 @@ class EnvironmentConfig extends InheritedWidget {
   String get generalUrlBaseOnFlavour {
     switch (flavours) {
       case EnvironmentFlavours.productionPBGPL:
-        return "http://142.79.231.30:9097/";
+        return "https://pbgpl.smartgasnet.com/";
       case EnvironmentFlavours.developmentPBGPL:
         return "http://142.79.231.30:9097/";
     }
