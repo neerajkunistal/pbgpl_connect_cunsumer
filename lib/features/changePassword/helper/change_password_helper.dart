@@ -17,12 +17,8 @@ class ChangePasswordHelper {
       required String confirmPassword,
       required BuildContext context}) async {
     try {
-      String password = await SharedPreferencesUtils.getString(key: PreferencesName.password);
       if (oldPassword.isEmpty) {
         SnackBarErrorWidget(!context.mounted ? context: context).show(message: "Please enter old password");
-        return false;
-      } else if (oldPassword.toString() != password.toString()) {
-        SnackBarErrorWidget(!context.mounted ? context: context).show(message:"Old password not match");
         return false;
       } else if (newPassword.isEmpty) {
         SnackBarErrorWidget(!context.mounted ? context: context).show(message:"Please enter new password");

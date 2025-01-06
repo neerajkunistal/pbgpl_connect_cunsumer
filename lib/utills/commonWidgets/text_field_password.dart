@@ -1,5 +1,6 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TextFieldPasswordWidget extends StatelessWidget {
   final String labelText;
@@ -47,7 +48,11 @@ class TextFieldPasswordWidget extends StatelessWidget {
         fontSize: AppFont.font_14,
         color: AppColor.black,
       ),
+      inputFormatters: [
+        FilteringTextInputFormatter.deny(RegExp(r'\s')),
+      ],
       decoration: InputDecoration(
+          isDense: true,
           contentPadding: EdgeInsets.symmetric(
               horizontal: isBoardRemove == true ? 0 : 8,
               vertical: isBoardRemove != true ? 8 : 0),

@@ -62,7 +62,7 @@ class BillHistoryItemBoxWidget extends StatelessWidget {
                       if(transactionData.invoiceLink.toString().isNotEmpty){
                         await DashboardHelper.fileDownLoad(context: context,
                           url: transactionData.invoiceLink.toString(),
-                          fileName: "${transactionData.id.toString()}.pdf",
+                          fileName: "${transactionData.id.toString()+DateTime.now().millisecondsSinceEpoch.toString()}.pdf",
                         );
                       }
                     },

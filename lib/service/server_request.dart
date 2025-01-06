@@ -324,7 +324,7 @@ class ServerRequest {
       bool dirDownloadExists = true;
       var directory;
       if (Platform.isIOS) {
-        directory = await getDownloadsDirectory();
+        directory = await getDownloadsDirectory().toString()+"/";
       } else {
         directory = "/storage/emulated/0/Download/";
         dirDownloadExists = await Directory(directory).exists();
@@ -334,7 +334,7 @@ class ServerRequest {
           directory = "/storage/emulated/0/Downloads/";
         }
       }
-      File file = new File('$directory/$filename');
+      File file = new File('$directory$filename');
       await file.writeAsBytes(bytes);
       return file;
     } catch(e){
