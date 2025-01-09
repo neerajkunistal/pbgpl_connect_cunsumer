@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:customer_connect/features/dashboard/helper/dashboard_helper.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
+import 'package:customer_connect/features/selfBilling/domain/model/meter_model.dart';
 import 'package:customer_connect/features/selfBilling/helper/self_billing_helper.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:equatable/equatable.dart';
@@ -23,6 +24,11 @@ class SelfBillingBloc extends Bloc<SelfBillingEvent, SelfBillingState> {
   LoginModel _userData = LoginModel();
   LoginModel get userData => _userData;
 
+  MeterModel _meterData =  MeterModel();
+  MeterModel get meterData => _meterData;
+  List<TextEditingController> currentReadingController = [];
+  List<TextEditingController> lastReadingController = [];
+
   SelfBillingBloc() : super(SelfBillingInitial()) {
     on<SelfBillingPageLoadEvent>(_pageLoad);
     on<SelfBillingSelectFileEvent>(_selectFile);
@@ -38,8 +44,57 @@ class SelfBillingBloc extends Bloc<SelfBillingEvent, SelfBillingState> {
     meterNumberController.text = "";
     previousReadingController.text = "";
     file = File("");
+    _meterData =  MeterModel();
+    currentReadingController = [];
+    lastReadingController = [];
+    for(int i = 0; i < 10; i++){
+      currentReadingController.add(
+        TextEditingController()
+      );
+      lastReadingController.add(
+          TextEditingController()
+      );
+    }
+
     _userData = UserInfo.instance!.userData!;
     bpNumberController.text =  userData.bpNumber.toString();
+
+    var meterRes =  await SelfBillingHelper.fetchMeterNumber(
+         schema: userData.schema.toString(), dmaId: userData.dmaId.toString());
+    if(meterRes != null){
+      MeterModel data =  meterRes;
+      if(data.status.toString() == "success"){
+        _meterData.serialNumber = data.serialNumber;
+        _meterData.meterNumber = data.meterNumber;
+      } else {
+        emit(SelfBillingPageErrorState(error: data.message.toString()));
+        return;
+      }
+
+    }
+
+    var meterReadingRes =  await SelfBillingHelper.fetchPrevReading(
+        schema: userData.schema.toString(), dmaId: userData.dmaId.toString());
+    if(meterReadingRes != null){
+      MeterModel data =  meterReadingRes;
+      if(data.status.toString() == "success"){
+        _meterData.lastReading = data.lastReading;
+        _meterData.billingCycle = data.billingCycle;
+        _meterData.billingCyclePeriods = data.billingCyclePeriods;
+      } else {
+        emit(SelfBillingPageErrorState(error: data.message.toString()));
+        return;
+      }
+    }
+
+    if(meterData.lastReading.toString().isNotEmpty){
+      int position = 0;
+      for(int i = lastReadingController.length - meterData.lastReading.toString().length;
+      i < lastReadingController.length; i++){
+        lastReadingController[i].text =  meterData.lastReading[position].toString();
+        position++;
+      }
+    }
     _eventComplete(emit);
   }
 
@@ -61,10 +116,50 @@ class SelfBillingBloc extends Bloc<SelfBillingEvent, SelfBillingState> {
   }
 
   _submit(SelfBillingSubmitEvent event, emit) async {
-   await SelfBillingHelper.submitData(context: event.context,
+    String previousReading = "0";
+    String currentReading = "0";
+    List<String> value2 = [];
+    for(var dataReading in currentReadingController){
+      if(dataReading.text.toString().isNotEmpty){
+        value2.add(dataReading.text.toString());
+      }
+    }
+
+    if(meterData.lastReading.toString().isNotEmpty){
+      previousReading =  meterData.lastReading.toString();
+    }
+    currentReading = "${value2.toString().replaceAll("[", "").toString().replaceAll("]", "").replaceAll(",", "").replaceAll(" ", "")}";
+
+    currentReadingController = [];
+    for(int i = 0; i < 10; i++){
+      currentReadingController.add(
+          TextEditingController()
+      );
+    }
+    if(currentReading.toString().isNotEmpty){
+      int position = 0;
+      for(int i = currentReadingController.length - currentReading.toString().length;
+      i < currentReadingController.length; i++){
+        currentReadingController[i].text =  currentReading[position].toString();
+        position++;
+      }
+    }
+    _eventComplete(emit);
+
+    await SelfBillingHelper.textFiledValidationCheck(context: event.context,
+        previousReading: previousReading, currentReading: currentReading, file: file);
+
+    _meterData.currentMeterReading =  currentReading.toString();
+    _eventComplete(emit);
+
+    if(event.isPreview == true){
+      SelfBillingHelper.selfBillingPreview(context: event.context);
+    }
+
+/*   await SelfBillingHelper.submitData(context: event.context,
         bpNumber: bpNumberController.text.toString(), customerName: customerNameController.text.toString(),
         customerAddress: customerAddressController.text.toString(), meterNumber: meterNumberController.text.toString(),
-        previousReading: previousReadingController.toString(), file: file);
+        previousReading: previousReadingController.toString(), file: file);*/
   }
 
   _eventComplete(Emitter<SelfBillingState> emit) {
@@ -76,6 +171,9 @@ class SelfBillingBloc extends Bloc<SelfBillingEvent, SelfBillingState> {
         file: file,
         meterNumberController: meterNumberController,
         previousReadingController: previousReadingController,
+        meterData: meterData,
+        currentReadingController: currentReadingController,
+         lastReadingController: lastReadingController,
     ));
   }
 }

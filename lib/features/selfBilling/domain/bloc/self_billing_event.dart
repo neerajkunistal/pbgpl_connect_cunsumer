@@ -28,7 +28,8 @@ class SelfBillingSelectFileEvent extends SelfBillingEvent {
 
 class SelfBillingSubmitEvent extends SelfBillingEvent {
   final BuildContext context;
-  const SelfBillingSubmitEvent({required this.context});
+  final bool isPreview;
+  const SelfBillingSubmitEvent({required this.context, required this.isPreview});
   @override
-  List<Object?> get props => [context];
+  List<Object?> get props => [context, isPreview];
 }

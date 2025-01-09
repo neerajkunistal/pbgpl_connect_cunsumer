@@ -14,6 +14,17 @@ final class SelfBillingPageLoadState extends SelfBillingInitial {
   List<Object> get props => [];
 }
 
+final class SelfBillingPageErrorState extends SelfBillingInitial {
+  final String error;
+
+  SelfBillingPageErrorState({required this.error});
+
+  @override
+  List<Object> get props => [
+    error,
+  ];
+}
+
 final class FetchSelfBillingDataState extends SelfBillingInitial {
   final bool isLoader;
   final TextEditingController bpNumberController;
@@ -22,6 +33,9 @@ final class FetchSelfBillingDataState extends SelfBillingInitial {
   final TextEditingController meterNumberController;
   final TextEditingController previousReadingController;
   final File file;
+  final MeterModel meterData;
+  final List<TextEditingController> currentReadingController;
+  final List<TextEditingController> lastReadingController;
 
   FetchSelfBillingDataState({
    required this.isLoader,
@@ -31,6 +45,9 @@ final class FetchSelfBillingDataState extends SelfBillingInitial {
    required this.customerAddressController,
    required this.customerNameController,
    required this.bpNumberController,
+   required this.meterData,
+   required this.currentReadingController,
+   required this.lastReadingController,
  });
 
   @override
@@ -42,5 +59,8 @@ final class FetchSelfBillingDataState extends SelfBillingInitial {
     customerAddressController,
     customerNameController,
     bpNumberController,
+    meterData,
+    currentReadingController,
+    lastReadingController,
   ];
 }

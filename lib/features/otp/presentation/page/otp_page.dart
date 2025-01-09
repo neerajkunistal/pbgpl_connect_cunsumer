@@ -111,6 +111,7 @@ class _OtpPageState extends State<OtpPage> {
                   }
                 }
                 String otp = "${value.toString().replaceAll("[", "").toString().replaceAll("]", "").replaceAll(",", "").replaceAll(" ", "")}";
+
                 BlocProvider.of<OtpBloc>(context).add(
                     OtpValueEvent(otpValue: otp.toString()));
               },

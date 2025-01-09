@@ -49,4 +49,8 @@ class Apis {
   static String getBillStatus = "customer/getBillStatus";
 
   static String billFullGeneration = "api/customer-qr-FullGeneration";
+
+  static String getMeterNumber = "api/customer/getMeterNumber";
+
+  static String getMeterReading = "api/customer/getCustomerPrevSelfBillingData";
 }

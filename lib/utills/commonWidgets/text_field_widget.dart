@@ -67,6 +67,7 @@ class TextFieldWidget extends StatelessWidget {
           maxLength: maxLength,
           maxLines: maxLine ?? 1,
           decoration: InputDecoration(
+            counterText: "",
             filled: isFilledColor,
             contentPadding: EdgeInsets.symmetric(
                 horizontal: isBoardRemove == true ? 0 : 8,

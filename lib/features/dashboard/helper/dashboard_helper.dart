@@ -111,6 +111,8 @@ class DashboardHelper {
       } else {
         return null;
       }
+
+
     } catch (e) {
       return null;
     }
