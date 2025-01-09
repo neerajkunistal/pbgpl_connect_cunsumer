@@ -64,6 +64,9 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
      _userData =  LoginModel();
 
      _userData =  UserInfo.instanceInit()!.userData!;
+     if(userData.bpNumber.toString().isEmpty){
+       _userData.bpNumber =  userData.trNumber.toString();
+     }
 
      userName = userData.name.toString();
      bpNumber = userData.bpNumber.toString();
