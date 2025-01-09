@@ -324,7 +324,8 @@ class ServerRequest {
       bool dirDownloadExists = true;
       var directory;
       if (Platform.isIOS) {
-        directory = await getDownloadsDirectory().toString()+"/";
+        Directory _directory = await getApplicationDocumentsDirectory();
+        directory = _directory.path.toString()+"/";
       } else {
         directory = "/storage/emulated/0/Download/";
         dirDownloadExists = await Directory(directory).exists();
