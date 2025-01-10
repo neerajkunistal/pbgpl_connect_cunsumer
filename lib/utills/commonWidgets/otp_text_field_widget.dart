@@ -42,7 +42,10 @@ class OtpTextFieldWidget extends StatelessWidget {
         showCursor: isEnable,
         textAlign: TextAlign.center,
         style: TextStyle(),
-        keyboardType: TextInputType.number,
+        textInputAction:TextInputAction.done,
+        keyboardType:Platform.isIOS ?
+        TextInputType.numberWithOptions(signed: true, decimal: true)
+            : TextInputType.number,
         maxLength: 1,
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.deny(',', replacementString: '.'),
