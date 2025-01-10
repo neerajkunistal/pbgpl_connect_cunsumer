@@ -55,6 +55,12 @@
 	<string>This app requires to access your camera for complaints.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>This app using to access the photo from library.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+    <string>Your location is required for address benefits for you</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Your location is required for address benefits for you</string>
+    <key>NSLocationAlwaysAndWhenInUsageDescription</key>
+    <string>Your location is required for address benefits for you</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>LSSupportsOpeningDocumentsInPlace</key>

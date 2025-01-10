@@ -23,6 +23,7 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         iconTheme: IconThemeData(
             color: AppColor.themeSecondary

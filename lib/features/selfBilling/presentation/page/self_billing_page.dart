@@ -69,6 +69,7 @@ class _SelfBillingPageState extends State<SelfBillingPage> {
         ),
         TextWidget(dataState.error,
           color: AppColor.themeSecondary,
+          textAlign: TextAlign.center,
           fontSize: AppFont.font_16, fontWeight: FontWeight.w600,)
       ],
     ));
@@ -238,7 +239,9 @@ class _SelfBillingPageState extends State<SelfBillingPage> {
           color: AppColor.themeColor,
           child: InkWell(
             onTap: () {
-              mediaType(context: context,
+              BlocProvider.of<SelfBillingBloc>(context)
+                  .add(SelfBillingSelectFileEvent(context: context, mediaType: 1));
+/*              mediaType(context: context,
                   onPressedCamera: () {
                     BlocProvider.of<SelfBillingBloc>(context)
                         .add(SelfBillingSelectFileEvent(context: context, mediaType: 1));
@@ -249,7 +252,7 @@ class _SelfBillingPageState extends State<SelfBillingPage> {
                         .add(SelfBillingSelectFileEvent(context: context, mediaType: 2));
                     Navigator.pop(context);
                   }
-              );
+              );*/
             },
             child: dataState.file.path.isEmpty ?
             Padding(

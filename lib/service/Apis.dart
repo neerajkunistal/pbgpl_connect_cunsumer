@@ -53,4 +53,8 @@ class Apis {
   static String getMeterNumber = "api/customer/getMeterNumber";
 
   static String getMeterReading = "api/customer/getCustomerPrevSelfBillingData";
+
+  static String saveSelfBillingApi = "api/customer/saveCustomerSelfBillingData";
+
+  static String getSelfBillingApi = "api/customer/getSelfBillingRequestHistory";
 }

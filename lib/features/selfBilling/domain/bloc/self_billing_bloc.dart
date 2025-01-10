@@ -1,5 +1,8 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
+import 'package:customer_connect/ExportFile/app_export_file.dart';
+import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
+import 'package:customer_connect/features/dashboard/domain/model/customer_model.dart';
 import 'package:customer_connect/features/dashboard/helper/dashboard_helper.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/selfBilling/domain/model/meter_model.dart';
@@ -70,7 +73,9 @@ class SelfBillingBloc extends Bloc<SelfBillingEvent, SelfBillingState> {
         emit(SelfBillingPageErrorState(error: data.message.toString()));
         return;
       }
-
+    }else {
+      emit(SelfBillingPageErrorState(error: "Internal Server Error"));
+      return;
     }
 
     var meterReadingRes =  await SelfBillingHelper.fetchPrevReading(
@@ -85,6 +90,9 @@ class SelfBillingBloc extends Bloc<SelfBillingEvent, SelfBillingState> {
         emit(SelfBillingPageErrorState(error: data.message.toString()));
         return;
       }
+    } else {
+      emit(SelfBillingPageErrorState(error: "Internal Server Error"));
+      return;
     }
 
     if(meterData.lastReading.toString().isNotEmpty){
@@ -146,20 +154,31 @@ class SelfBillingBloc extends Bloc<SelfBillingEvent, SelfBillingState> {
     }
     _eventComplete(emit);
 
-    await SelfBillingHelper.textFiledValidationCheck(context: event.context,
+    var textFieldValidation = await SelfBillingHelper.textFiledValidationCheck(context: event.context,
         previousReading: previousReading, currentReading: currentReading, file: file);
+    if(textFieldValidation == false){
+      return;
+    }
 
     _meterData.currentMeterReading =  currentReading.toString();
     _eventComplete(emit);
 
     if(event.isPreview == true){
       SelfBillingHelper.selfBillingPreview(context: event.context);
+      return;
     }
 
-/*   await SelfBillingHelper.submitData(context: event.context,
-        bpNumber: bpNumberController.text.toString(), customerName: customerNameController.text.toString(),
-        customerAddress: customerAddressController.text.toString(), meterNumber: meterNumberController.text.toString(),
-        previousReading: previousReadingController.toString(), file: file);*/
+    isLoader =  true;
+    _eventComplete(emit);
+    CustomerModel customerData =  BlocProvider.of<DashboardBloc>(event.context).bpNumberData.customerData!;
+    var res =  await SelfBillingHelper.submitData(context: event.context,
+        meterData: meterData, customerData: customerData,
+        currentReading: currentReading, previousReading: previousReading, file: file);
+    isLoader =  false;
+    _eventComplete(emit);
+    if(res != null){
+      Navigator.of(event.context).pop();
+    }
   }
 
   _eventComplete(Emitter<SelfBillingState> emit) {

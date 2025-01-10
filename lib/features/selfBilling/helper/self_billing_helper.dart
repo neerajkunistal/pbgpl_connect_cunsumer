@@ -1,12 +1,16 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:customer_connect/features/dashboard/domain/model/customer_model.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/selfBilling/domain/model/meter_model.dart';
 import 'package:customer_connect/features/selfBilling/presentation/widget/self_billing_preview_widget.dart';
 import 'package:customer_connect/service/Apis.dart';
+import 'package:customer_connect/service/location/location_helper.dart';
+import 'package:customer_connect/service/location/location_model.dart';
 import 'package:customer_connect/service/server_request.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
+import 'package:customer_connect/utills/commonWidgets/snack_bar_success_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -76,25 +80,46 @@ class SelfBillingHelper {
 
   static Future<dynamic> submitData({
     required BuildContext context,
-    required String bpNumber,
-    required String customerName,
-    required String customerAddress,
-    required String meterNumber,
-    required String previousReading,
+    required MeterModel meterData,
+    required CustomerModel customerData,
+    required  String currentReading,
+    required  String previousReading,
     required File file,
   }) async {
-
     try {
-      LoginModel userData =  UserInfo.instance!.userData!;
+      var location = await LocationHelper.getLocation(context: context);
+      LocationModel locationData = LocationModel();
+      if (location != null) {
+        locationData = location;
+      } else {
+        SnackBarErrorWidget(context).show(message: "Invalid location");
+        return null;
+      }
+      LoginModel userData = UserInfo.instanceInit()!.userData!;
       var json = {
-        "bpNumber" : bpNumber,
-        "meter_reading" : "",
-        "generate_by_customer" : "1",
-        "meter_serial" : meterNumber,
-        "schema" : userData.schema.toString(),
+        "meter_serial" : meterData.serialNumber.toString(),
+        "meter_reading" : meterData.currentMeterReading.toString(),
+        "meter_number" : meterData.meterNumber.toString(),
+        "billing_cycle_period" : meterData.billingCyclePeriods.toString(),
+        "schema" :  userData.schema.toString(),
+        "dma_id" : customerData.id.toString(),
+        "bill_lat" : locationData.lat.toString(),
+        "bill_long" : locationData.long.toString(),
       };
-
+      String url = Apis.saveSelfBillingApi;
+      var res =  await ServerRequest.postDataWithFile(urlEndPoint: url, body: json,
+        context: context, keyWord: "meter_image_file", filePath: file.path.toString(),);
+      if(res != null && res['status'] != null && res['status'] == "success" && res['message'] != null){
+        SnackBarSuccessWidget(context).show(message: res['message'].toString());
+        return res;
+      } else  if(res != null && res['status'] != null && res['status'] == "error" && res['message'] != null){
+        SnackBarErrorWidget(context).show(message: res['message'].toString().replaceAll("{", "").toString().replaceAll("}", ""));
+      } else {
+        SnackBarErrorWidget(context).show(message:"Internal server error");
+      }
+      return null;
     }catch(_){}
+    return null;
   }
 
 }

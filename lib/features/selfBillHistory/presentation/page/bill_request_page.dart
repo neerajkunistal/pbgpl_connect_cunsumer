@@ -1,5 +1,6 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/selfBillHistory/domain/bloc/bill_request_bloc.dart';
+import 'package:customer_connect/features/selfBillHistory/presentation/widget/self_billing_item_box_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/center_loader_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +23,7 @@ class _BillRequestPageState extends State<BillRequestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[200],
       appBar: AppBar(
         iconTheme: IconThemeData(
             color: AppColor.themeSecondary
@@ -53,9 +55,7 @@ class _BillRequestPageState extends State<BillRequestPage> {
           shrinkWrap: true,
           itemCount: dataState.selfBillList.length,
           itemBuilder: (context, index) {
-          return Container(
-
-          );
+          return SelfBillingItemBoxWidget(selfBillData: dataState.selfBillList[index]);
       }) : const Center(child: TextWidget("No Self Bill History"),),
     );
   }

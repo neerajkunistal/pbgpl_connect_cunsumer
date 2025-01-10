@@ -27,6 +27,8 @@ class SelfBillingPreviewWidget extends StatelessWidget {
 
   Widget _builder({required FetchSelfBillingDataState dataState, required BuildContext context}) {
     CustomerModel customerData =  BlocProvider.of<DashboardBloc>(context).bpNumberData.customerData!;
+    double differenceReading = double.parse(dataState.meterData.currentMeterReading.toString()) - double.parse(dataState.meterData.lastReading.toString());
+
     return Container(
       height: MediaQuery.of(context).size.height/1.7,
       width: MediaQuery.of(context).size.width,
@@ -59,7 +61,7 @@ class SelfBillingPreviewWidget extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.02,
                 ),
-                _rowWidget(label: "Bp Number", value: customerData.bpNumber.toString()),
+                _rowWidget(label: "BP Number", value: customerData.bpNumber.toString()),
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.01,
                 ),
@@ -99,7 +101,7 @@ class SelfBillingPreviewWidget extends StatelessWidget {
                   height: MediaQuery.of(context).size.width * 0.02,
                 ),
                 _rowWidget(label: "Reading Difference ",
-                    value: "${double.parse(dataState.meterData.currentMeterReading.toString()) - double.parse(dataState.meterData.lastReading.toString())}"),
+                    value: "${differenceReading.toStringAsFixed(3)}"),
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.02,
                 ),
