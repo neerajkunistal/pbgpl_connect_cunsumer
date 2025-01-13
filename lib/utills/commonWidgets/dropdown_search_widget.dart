@@ -32,13 +32,13 @@ class DropDownSearchWidget extends StatelessWidget {
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(
                   width: 1.10,
                   color: AppColor.black),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(20.0),
+              borderRadius: BorderRadius.circular(8),
               borderSide: BorderSide(
                   width: 1.10,
                   color: AppColor.black),

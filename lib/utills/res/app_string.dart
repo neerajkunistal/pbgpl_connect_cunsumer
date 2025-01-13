@@ -63,6 +63,41 @@ class AppString {
 
   static get confirmPassword => "Confirm Password";
 
+  static get changeArea => "Change Area";
+
+  static get area => "Area";
+
+  static get mobileNumber => "Mobile Number";
+
+  static get alternateNumber => "Alternate Number";
+
+  static get firstName => "First Name";
+  static get middleName => "Middle Name";
+  static get surname => "Surname";
+  static get selectGuardian => "Select Guardian";
+  static get guardianName => "Guardian Name";
+  static get emailID => "Email Id";
+  static get propertyCategory => "Property Category";
+  static get propertyClass => "Property Class";
+  static get buildingNumber => "Building Number";
+  static get houseNumber => "House Number";
+  static get colonySocietyApartment => "Colony/Society/Apartment";
+  static get laneStreetName => "Lane/Street Name";
+  static get town => "Town";
+  static get district => "District";
+  static get pinCode => "Pincode";
+  static get noOfKitchen => "No Of Kitchen";
+  static get noOfBathroom => "No Of Bathroom";
+  static get noOfFamilyMember => "No. of Family Members";
+  static get existingCookingFuel => "Existing Cooking Fuel";
+  static get identificationProof => "Identification Proof";
+  static get frontSide => "Front Side";
+  static get backSide => "Back Side";
+  static get kycDoc1 => "Kyc Doc 1";
+  static get kycDoc2 => "Kyc Doc 2";
+  static get addressOwnerShipProof => "Address OwnerShip Proof";
+  static get ownerShipTypeProperty => "OwnerShip Type Property";
+
   static get logoutMessage =>
       "Are you sure you want to logout? Once you logout, you will be return to login screen";
 }

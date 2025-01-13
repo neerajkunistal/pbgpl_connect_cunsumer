@@ -1,5 +1,6 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/changePassword/presentation/pages/change_password_page.dart';
+import 'package:customer_connect/features/connection/addConnection/presentation/page/add_connection_page.dart';
 import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/login/presentation/widget/logout_widget.dart';
@@ -67,14 +68,18 @@ class DrawerWidget extends StatelessWidget {
             },
           ),
 
-/*          Divider(color: AppColor.grey,),
+          Divider(color: AppColor.grey,),
           _rowWidget(
               context: context,
               icon: Icons.account_tree_outlined,
               onTap: () {
-
                 Navigator.of(context).pop();
-              }, label: "Add new connection"),*/
+                Navigator.push(
+                  context,
+                  FadeRoute(
+                      page: const AddConnectionPage()),
+                );
+              }, label: "Add new connection"),
 
           BlocBuilder<DashboardBloc, DashboardState>(
             builder: (context, state) {

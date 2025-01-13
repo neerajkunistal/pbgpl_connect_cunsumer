@@ -2,6 +2,7 @@ import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/changePassword/domain/bloc/change_password_bloc.dart';
 import 'package:customer_connect/features/complaint/addComplaint/domain/bloc/add_complaint_bloc.dart';
 import 'package:customer_connect/features/complaint/viewComplaint/domain/bloc/view_complaint_bloc.dart';
+import 'package:customer_connect/features/connection/addConnection/domain/bloc/add_connection_bloc.dart';
 import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
 import 'package:customer_connect/features/forgetPassword/domain/bloc/forget_password_bloc.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_bloc.dart';
@@ -28,7 +29,8 @@ MultiProvider blocMultiProvider({required Widget child}) {
         BlocProvider(create: (BuildContext context) => OtpBloc()),
         BlocProvider(create: (BuildContext context) => ForgetPasswordBloc()),
         BlocProvider(create: (BuildContext context) => ProfileBloc()),
-        BlocProvider(create: (BuildContext context) => ChangePasswordBloc())
+        BlocProvider(create: (BuildContext context) => ChangePasswordBloc()),
+        BlocProvider(create: (BuildContext context) => AddConnectionBloc())
       ],
     child: child,
   );
