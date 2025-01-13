@@ -9,3 +9,7 @@ enum DeviceType { phone, tablet }
 enum Client { gail }
 
 enum OtpPageConfig { login, forgetPassword, profile}
+
+enum PaymentRequest { newConnection, bill }
+
+enum PaymentGateway { ccavenue, razorPay }

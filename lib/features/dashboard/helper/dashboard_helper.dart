@@ -10,6 +10,23 @@ import 'package:open_file/open_file.dart';
 
 class DashboardHelper {
 
+  static Future<dynamic> checkCustomerRegistrationData({
+    required String schema,
+    required String bpNumber,
+    required BuildContext context,
+  }) async {
+    try {
+      String url = Apis.getCustomerRegPayments+"?schema=$schema&bp_number=${bpNumber}";
+      var res =  await ServerRequest.getData(urlEndPoint: url);
+      if(res != null && res['success'] == 200 && res['data'] != null){
+        return BPNumberModel.fromJson(res['data']);
+      }
+    }catch(e){
+      print(e.toString() + "---------------------==================");
+    }
+    return null;
+  }
+
   static Future<dynamic> fetchBpNumberData({
     required String schema,
     required String bpNumber,

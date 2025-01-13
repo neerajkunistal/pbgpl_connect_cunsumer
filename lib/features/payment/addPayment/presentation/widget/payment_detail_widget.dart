@@ -1,6 +1,7 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/payment/addPayment/domain/bloc/add_payment_bloc.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_line_widget.dart';
+import 'package:customer_connect/utills/res/enums.dart';
 import 'package:flutter/material.dart';
 
 class PaymentDetailWidget extends StatelessWidget {
@@ -81,7 +82,8 @@ class PaymentDetailWidget extends StatelessWidget {
     return SizedBox(
       width: MediaQuery.of(context).size.width/2,
       child: ButtonWidget(text: AppString.payNow, onPressed: () {
-        BlocProvider.of<AddPaymentBloc>(context).add(AddPaymentPageLoadEvent(context: context));
+        BlocProvider.of<AddPaymentBloc>(context).add(AddPaymentPageLoadEvent(
+            context: context, paymentRequest: PaymentRequest.bill));
       }),
     );
   }

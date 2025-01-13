@@ -6,9 +6,10 @@ sealed class AddPaymentEvent extends Equatable {
 
 class AddPaymentPageLoadEvent extends AddPaymentEvent {
   final BuildContext context;
-  AddPaymentPageLoadEvent({required this.context});
+  final PaymentRequest paymentRequest;
+  AddPaymentPageLoadEvent({required this.context, required this.paymentRequest});
   @override
-  List<Object?> get props => [context];
+  List<Object?> get props => [context, paymentRequest];
 }
 
 class AddPaymentDetailEvent extends AddPaymentEvent {

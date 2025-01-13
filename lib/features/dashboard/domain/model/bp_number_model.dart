@@ -4,6 +4,7 @@ import 'package:customer_connect/features/dashboard/domain/model/instal_lmc_mode
 import 'package:customer_connect/features/dashboard/domain/model/ngc_model.dart';
 import 'package:customer_connect/features/dashboard/domain/model/transaction_model.dart';
 import 'package:customer_connect/features/payment/paymentHistory/domain/model/payment_history_model.dart';
+import 'package:customer_connect/utills/res/enums.dart';
 
 class BPNumberModel {
   CustomerModel? customerData;
@@ -20,6 +21,10 @@ class BPNumberModel {
   NgcModel? ngcData;
   List<PaymentHistoryModel>? paymentHistoryList;
   dynamic mobileChangeStatus;
+  dynamic paymentType;
+  dynamic consentUrl;
+  dynamic gateway;
+  PaymentGateway paymentGateway;
 
   BPNumberModel(
       {this.totalAmount,
@@ -36,6 +41,10 @@ class BPNumberModel {
       this.transactionList,
       this.paymentHistoryList,
       this.mobileChangeStatus,
+      this.paymentType,
+      this.consentUrl,
+      this.gateway,
+      this.paymentGateway =  PaymentGateway.ccavenue
       });
 
 
@@ -50,12 +59,27 @@ class BPNumberModel {
       billOnTime: json['bill_ontime'] ?? "",
       consumptionString: json['consumptionString'] ?? "",
       mobileChangeStatus: json['mobile_change_status'] ?? "",
+      paymentType: json['payment_type'] ?? "",
+      consentUrl: json['consentUrl'] ?? "",
+      gateway: json['gateway'] ?? "",
+      paymentGateway: getPaymentGateway(json['gateway'] ?? ""),
       customerData: json['dmaData'] != null ? CustomerModel.fromJson(json['dmaData']) : CustomerModel(),
       installLmcData: json['instal_lmcdata'] != null ? InstallLmcModel.fromJson(json['instal_lmcdata']) : InstallLmcModel(),
       ngcData: json['ngc_data'] != null ? NgcModel.fromJson(json['ngc_data']) : NgcModel(),
       transactionList: json['bill_data'] != null ? transactionListResponse(json['bill_data']) :[],
       paymentHistoryList: json['payment_history'] != null ? paymentHistoryListResponse(json['payment_history']) : [],
     );
+  }
+
+  static PaymentGateway getPaymentGateway(String gateway) {
+    switch(gateway){
+      case "ccavenue" :
+        return PaymentGateway.ccavenue;
+      case "razorPay" :
+        return PaymentGateway.razorPay;
+      default :
+        return PaymentGateway.ccavenue;
+    }
   }
 
 }

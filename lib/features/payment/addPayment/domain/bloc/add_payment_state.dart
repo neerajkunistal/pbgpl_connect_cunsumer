@@ -18,11 +18,15 @@ final class AddPaymentPageLoadState extends AddPaymentInitial {
 final class FetchAddPaymentDataState extends AddPaymentInitial {
   final bool isLoader;
   final String url;
+  final PaymentRequest paymentRequest;
 
-  FetchAddPaymentDataState({required this.url, required this.isLoader});
+  FetchAddPaymentDataState({required this.url,
+    required this.isLoader,
+    required this.paymentRequest});
   @override
   List<Object> get props => [
     isLoader,
+    paymentRequest,
     url
   ];
 }

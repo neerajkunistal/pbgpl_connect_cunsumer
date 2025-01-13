@@ -6,6 +6,7 @@ import 'package:customer_connect/features/dashboard/preshantation/widgets/banner
 import 'package:customer_connect/features/dashboard/preshantation/widgets/bill_info_widget.dart';
 import 'package:customer_connect/features/dashboard/preshantation/widgets/connection_info_widget.dart';
 import 'package:customer_connect/features/dashboard/preshantation/widgets/quick_access_widget.dart';
+import 'package:customer_connect/features/dashboard/preshantation/widgets/registration_info_widget.dart';
 import 'package:customer_connect/features/dashboard/preshantation/widgets/transactions_list_Widget.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_bloc.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
@@ -39,6 +40,7 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   BPNumberModel _bpNumberData =  BPNumberModel();
   BPNumberModel get bpNumberData =>  _bpNumberData;
 
+  bool isBpNumberEmpty =  false;
 
   DashboardBloc() : super(DashboardInitial()) {
     on<DashboardUserPageLoadEvent>(_userPageLoad);
@@ -61,11 +63,13 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
     emit(DashboardPageLoadState());
      widgetList = [];
      isAmountLoader =  false;
+     isBpNumberEmpty =  false;
      _userData =  LoginModel();
 
      _userData =  UserInfo.instanceInit()!.userData!;
      if(userData.bpNumber.toString().isEmpty){
        _userData.bpNumber =  userData.trNumber.toString();
+       isBpNumberEmpty =  true;
      }
 
      userName = userData.name.toString();
@@ -76,17 +80,35 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
      schema = userData.schema.toString();
      _bpNumberData =  BPNumberModel();
 
-     widgetList.add(BannerWidget());
-     widgetList.add(BillInfoWidget());
-     widgetList.add(ConnectionInfoWidget());
-     widgetList.add(QuickAccessWidget());
-     widgetList.add(TransactionsListWidget());
-     isAmountLoader =  true;
 
-    var bpNumberDataRes =  await DashboardHelper.fetchBpNumberData(schema: schema,
-        bpNumber: bpNumber, context: event.context);
-    if(bpNumberDataRes != null){
-      _bpNumberData =  bpNumberDataRes;
+     var customerRegistrationRes = await DashboardHelper.checkCustomerRegistrationData(schema: schema,
+         bpNumber: bpNumber, context: event.context);
+     if( customerRegistrationRes != null){
+       BPNumberModel date =  customerRegistrationRes;
+       _bpNumberData =  date;
+       if(date.customerData != null){
+         if(date.customerData!.bpNumber.toString().isNotEmpty){
+           isBpNumberEmpty = false;
+         }
+       }
+     }
+
+    widgetList.add(BannerWidget());
+    widgetList.add(isBpNumberEmpty == true
+        ? RegistrationWidget()
+        : BillInfoWidget());
+
+    widgetList.add(ConnectionInfoWidget());
+    widgetList.add(QuickAccessWidget());
+    widgetList.add(TransactionsListWidget());
+    isAmountLoader =  true;
+
+    if(isBpNumberEmpty  == false){
+      var bpNumberDataRes =  await DashboardHelper.fetchBpNumberData(schema: schema,
+          bpNumber: bpNumber, context: event.context);
+      if(bpNumberDataRes != null){
+        _bpNumberData =  bpNumberDataRes;
+      }
     }
 
      isAmountLoader =  false;

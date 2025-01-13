@@ -46,9 +46,13 @@ class Apis {
 
   static String getCustomer360Details = "api/getCustomer360Details";
 
+  static String getCustomerRegPayments = "api/getCustomerRegPayments";
+
   static String getBillStatus = "customer/getBillStatus";
 
   static String billFullGeneration = "api/customer-qr-FullGeneration";
+
+  static String payRegistrationIciciApi = "api/payRegistrationIciciApi";
 
   static String getMeterNumber = "api/customer/getMeterNumber";
 

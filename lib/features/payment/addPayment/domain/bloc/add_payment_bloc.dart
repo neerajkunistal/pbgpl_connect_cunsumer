@@ -7,6 +7,7 @@ import 'package:customer_connect/features/payment/addPayment/domain/model/paymen
 import 'package:customer_connect/features/payment/addPayment/domain/model/payment_status_model.dart';
 import 'package:customer_connect/features/payment/addPayment/helper/add_payment_helper.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
+import 'package:customer_connect/utills/res/enums.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -29,6 +30,7 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
   PaymentStatusModel _paymentStatusData =  PaymentStatusModel();
   PaymentStatusModel get paymentStatusData => _paymentStatusData;
   bool isPayment =  false;
+  PaymentRequest paymentRequest =  PaymentRequest.bill;
 
   AddPaymentBloc() : super(AddPaymentInitial()) {
     on<AddPaymentPageLoadEvent>(_pageLoad);
@@ -42,16 +44,24 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
      isPayment =  true;
      _userData =  UserInfo.instance!.userData!;
      _bpNumberData = BlocProvider.of<DashboardBloc>(event.context).bpNumberData;
+     paymentRequest =  event.paymentRequest;
 
-     var res =  await AddPaymentHelper.fetchPaymentData(context: event.context,
-         refId: bpNumberData.refId.toString(),
-         schema: userData.schema.toString());
-     if(res != null){
-       _paymentData =  res;
-       url = "${paymentData.url}transaction.do?command=initiateTransaction&encRequest=${paymentData.encValue}&access_code=${paymentData.accessCode}";
-       if(url.isNotEmpty){
-         _launchInAppWithBrowserOptions(Uri.parse(url));
+     if(bpNumberData.paymentGateway == PaymentGateway.ccavenue)
+     {
+       var res =  await AddPaymentHelper.fetchCcavenuePaymentData(context: event.context,
+           refId: bpNumberData.customerData!.id.toString(),
+           schema: userData.schema.toString(),
+          paymentRequest: paymentRequest,
+       );
+       if(res != null){
+         _paymentData =  res;
+         url = "${paymentData.url}transaction.do?command=initiateTransaction&encRequest=${paymentData.encValue}&access_code=${paymentData.accessCode}";
        }
+     }
+
+
+     if(url.isNotEmpty){
+       _launchInAppWithBrowserOptions(Uri.parse(url));
      }
      _eventComplete(emit);
   }
@@ -66,7 +76,8 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
   }
 
   _checkPayment(AddPaymentPageCheckPaymentEvent event, emit) async {
-    if(isPayment == true){
+
+    if(isPayment == true && paymentRequest == PaymentRequest.bill){
       var res =  await AddPaymentHelper.checkOrderConfirm(context: event.context,
           orderId: paymentData.orderId.toString(),
           schema:  userData.schema.toString());
@@ -76,10 +87,14 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
       isPayment =  false;
       emit(AddPaymentStatusState(paymentStatusData: paymentStatusData));
     }
+    else if(isPayment == true && paymentRequest == PaymentRequest.newConnection){
+
+    }
+
   }
 
   _eventComplete(Emitter<AddPaymentState> emit) {
-    emit(FetchAddPaymentDataState(url: url, isLoader: isLoader));
+    emit(FetchAddPaymentDataState(url: url, isLoader: isLoader, paymentRequest: paymentRequest));
   }
 
   _launchInAppWithBrowserOptions(Uri url) async {
