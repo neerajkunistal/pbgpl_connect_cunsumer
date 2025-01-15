@@ -46,7 +46,7 @@ class SelfBillingHelper {
     try{
       String url =  Apis.getMeterNumber+"?schema=${schema}&dma_id=${dmaId}";
       var meteRes =  await ServerRequest.getData(urlEndPoint: url);
-      if(meteRes != null && meteRes['success'] != null && meteRes['success']== "200" && meteRes['status'] == "success") {
+      if(meteRes != null && meteRes['success'] != null && meteRes['success']== "200") {
         return meterDataResponse(meteRes);
       }
       return null;
