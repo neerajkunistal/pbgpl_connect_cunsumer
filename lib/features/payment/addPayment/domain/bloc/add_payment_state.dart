@@ -14,7 +14,6 @@ final class AddPaymentPageLoadState extends AddPaymentInitial {
   List<Object> get props => [];
 }
 
-
 final class FetchAddPaymentDataState extends AddPaymentInitial {
   final bool isLoader;
   final String url;
