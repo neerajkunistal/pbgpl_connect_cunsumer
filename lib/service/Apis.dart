@@ -61,4 +61,7 @@ class Apis {
   static String saveSelfBillingApi = "api/customer/saveCustomerSelfBillingData";
 
   static String getSelfBillingApi = "api/customer/getSelfBillingRequestHistory";
+
+  static String getRegBillStatusApi = "customer/getRegBillStatus";
+
 }

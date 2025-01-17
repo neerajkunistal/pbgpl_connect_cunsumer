@@ -59,7 +59,7 @@ class PaymentStatusWidget extends StatelessWidget {
             height: MediaQuery.of(context).size.width * 0.01,
           ),
 
-          TextWidget("Amount : ${dataState.paymentStatusData.paidAmount}",
+          TextWidget("Amount : ${dataState.paymentStatusData.amount}",
             fontSize: AppFont.font_14,
             fontWeight: FontWeight.w700,
             color: AppColor.black,),

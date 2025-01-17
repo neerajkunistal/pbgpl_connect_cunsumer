@@ -46,7 +46,7 @@ class PaymentStatusModel {
     fetchReferenceNumber = json['fetch_reference_number'] ?? "";
     amount = json['amount'] ?? "";
     paidAmount = json['paid_amount'] ?? "";
-    transactionStatus = json['transaction_status'] ?? "";
+    transactionStatus = json['transaction_status'] != null ? json['transaction_status'] : json['tr_status'] ?? "";
     createdAt = json['created_at'] ?? "";
     updatedAt = json['updated_at'] ?? "";
     rrnNumber = json['rrn_number'] ?? "";

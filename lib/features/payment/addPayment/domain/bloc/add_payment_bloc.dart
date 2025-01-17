@@ -88,7 +88,14 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
       emit(AddPaymentStatusState(paymentStatusData: paymentStatusData));
     }
     else if(isPayment == true && paymentRequest == PaymentRequest.newConnection){
-
+      var res =  await AddPaymentHelper.checkResOrderConfirm(context: event.context,
+          orderId: paymentData.orderId.toString(),
+          schema:  userData.schema.toString());
+      if(res !=  null) {
+        _paymentStatusData =  res;
+      }
+      isPayment =  false;
+      emit(AddPaymentStatusState(paymentStatusData: paymentStatusData));
     }
 
   }

@@ -54,4 +54,19 @@ class AddPaymentHelper {
     return null;
   }
 
+  static Future<dynamic> checkResOrderConfirm({
+    required BuildContext context,
+    required String orderId,
+    required String schema
+  }) async {
+    try {
+      String url = Apis.getRegBillStatusApi+"?order_id=${orderId}&schema=${schema}";
+      var res = await ServerRequest.getData(urlEndPoint: url);
+      if(res != null && res['success'] == 200 && res['data'] != null){
+        return PaymentStatusModel.fromJson(res['data']);
+      }
+    }catch(_){}
+    return null;
+  }
+
 }
