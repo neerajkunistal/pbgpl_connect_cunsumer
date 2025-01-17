@@ -58,8 +58,7 @@ class BillInfoWidget extends StatelessWidget {
                                   children: [
                                     TextWidget(
                                       state.bpNumberData.billAmountData != null
-                                          && state.bpNumberData.billAmountData!.billStatus  != null
-                                          && state.bpNumberData.billAmountData!.billStatus.toString() != "1"
+                                          && state.bpNumberData.totalAmount.toString().isNotEmpty
                                           ? "₹ ${state.bpNumberData.totalAmount.toString()}"
                                            : "₹ 0",
                                             color: AppColor.white,
