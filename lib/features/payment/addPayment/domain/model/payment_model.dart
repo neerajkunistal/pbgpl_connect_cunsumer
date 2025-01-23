@@ -1,10 +1,20 @@
 class PaymentModel {
   String? url;
-  String? encValue;
+  dynamic encValue;
   String? accessCode;
   dynamic orderId;
+  dynamic paymentId;
+  dynamic signature;
+  dynamic paymentOrderId;
 
-  PaymentModel({this.url, this.accessCode, this.encValue, this.orderId});
+  PaymentModel({this.url,
+    this.accessCode,
+    this.encValue,
+    this.orderId,
+    this.signature,
+    this.paymentId,
+    this.paymentOrderId,
+  });
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) {
     return PaymentModel(

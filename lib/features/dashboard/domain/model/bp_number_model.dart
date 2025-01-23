@@ -75,7 +75,7 @@ class BPNumberModel {
     switch(gateway){
       case "ccavenue" :
         return PaymentGateway.ccavenue;
-      case "razorPay" :
+      case "razorpay" :
         return PaymentGateway.razorPay;
       default :
         return PaymentGateway.ccavenue;

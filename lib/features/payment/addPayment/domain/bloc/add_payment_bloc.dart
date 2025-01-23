@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
 import 'package:customer_connect/features/dashboard/domain/model/bill_amount_model.dart';
@@ -9,6 +11,7 @@ import 'package:customer_connect/features/payment/addPayment/helper/add_payment_
 import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:customer_connect/utills/res/enums.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 part 'add_payment_event.dart';
@@ -31,6 +34,8 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
   PaymentStatusModel get paymentStatusData => _paymentStatusData;
   bool isPayment =  false;
   PaymentRequest paymentRequest =  PaymentRequest.bill;
+
+  final Razorpay _razorpay = Razorpay();
 
   AddPaymentBloc() : super(AddPaymentInitial()) {
     on<AddPaymentPageLoadEvent>(_pageLoad);
@@ -55,14 +60,29 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
        );
        if(res != null){
          _paymentData =  res;
-         url = "${paymentData.url}transaction.do?command=initiateTransaction&encRequest=${paymentData.encValue}&access_code=${paymentData.accessCode}";
+         url = "${paymentData.url}transaction.do?command=initiateTransaction&encRequest=${paymentData.encValue.toString()}&access_code=${paymentData.accessCode}";
+       }
+
+       if(url.isNotEmpty){
+         _launchInAppWithBrowserOptions(Uri.parse(url));
+       }
+     }
+     else if(bpNumberData.paymentGateway == PaymentGateway.razorPay)
+     {
+       _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
+       _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
+       _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+       var res =  await AddPaymentHelper.fetchRazorPaymentData(context: event.context,
+         refId: bpNumberData.customerData!.id.toString(),
+         schema: userData.schema.toString(),
+         paymentRequest: paymentRequest,
+       );
+       if(res != null){
+         _paymentData =  res;
+         _razorpay.open(paymentData.encValue);
        }
      }
 
-
-     if(url.isNotEmpty){
-       _launchInAppWithBrowserOptions(Uri.parse(url));
-     }
      _eventComplete(emit);
   }
 
@@ -87,10 +107,20 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
       isPayment =  false;
       emit(AddPaymentStatusState(paymentStatusData: paymentStatusData));
     }
-    else if(isPayment == true && paymentRequest == PaymentRequest.newConnection){
+    else if(isPayment == true && paymentRequest == PaymentRequest.newConnection
+         && bpNumberData.paymentGateway == PaymentGateway.ccavenue){
       var res =  await AddPaymentHelper.checkResOrderConfirm(context: event.context,
           orderId: paymentData.orderId.toString(),
           schema:  userData.schema.toString());
+      if(res !=  null) {
+        _paymentStatusData =  res;
+      }
+      isPayment =  false;
+      emit(AddPaymentStatusState(paymentStatusData: paymentStatusData));
+    }
+    else if(isPayment == true && bpNumberData.paymentGateway == PaymentGateway.razorPay){
+      var res =  await AddPaymentHelper.checkResOrderConfirmRazorPay(context: event.context,
+                  paymentData: paymentData );
       if(res !=  null) {
         _paymentStatusData =  res;
       }
@@ -113,4 +143,21 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
       throw Exception('Could not launch $url');
     }
   }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    _paymentData.paymentId =  response.paymentId;
+    _paymentData.paymentOrderId =  response.orderId;
+    _paymentData.signature =  response.signature;
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    print(response.code);
+    print(response.message);
+    print(response.error);
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    print(response.walletName);
+  }
+
 }
