@@ -44,7 +44,8 @@ class RegistrationWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextWidget(
-                        state.bpNumberData.paymentType.toString(),
+                        state.bpNumberData.paymentType.toString().isEmpty ?
+                        "Registration Amount" : state.bpNumberData.paymentType.toString(),
                         color: AppColor.white,
                         fontSize: AppFont.font_16,
                         fontWeight: FontWeight.w700,

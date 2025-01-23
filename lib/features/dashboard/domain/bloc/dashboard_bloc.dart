@@ -93,14 +93,6 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
        }
      }
 
-    widgetList.add(BannerWidget());
-    widgetList.add(isBpNumberEmpty == true
-        ? RegistrationWidget()
-        : BillInfoWidget());
-
-    widgetList.add(ConnectionInfoWidget());
-    widgetList.add(QuickAccessWidget());
-    widgetList.add(TransactionsListWidget());
     isAmountLoader =  true;
 
     if(isBpNumberEmpty  == false){
@@ -110,6 +102,17 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
         _bpNumberData =  bpNumberDataRes;
       }
     }
+
+    widgetList.add(BannerWidget());
+    widgetList.add(isBpNumberEmpty == true
+         || bpNumberData.customerData!.paymentCreditStatus.toString() != 1
+        ? RegistrationWidget()
+        : BillInfoWidget());
+
+    widgetList.add(ConnectionInfoWidget());
+    widgetList.add(QuickAccessWidget());
+    widgetList.add(TransactionsListWidget());
+
 
      isAmountLoader =  false;
      _eventComplete(emit);
