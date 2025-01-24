@@ -6,7 +6,6 @@ import 'package:customer_connect/features/dashboard/preshantation/widgets/banner
 import 'package:customer_connect/features/dashboard/preshantation/widgets/bill_info_widget.dart';
 import 'package:customer_connect/features/dashboard/preshantation/widgets/connection_info_widget.dart';
 import 'package:customer_connect/features/dashboard/preshantation/widgets/quick_access_widget.dart';
-import 'package:customer_connect/features/dashboard/preshantation/widgets/registration_info_widget.dart';
 import 'package:customer_connect/features/dashboard/preshantation/widgets/transactions_list_Widget.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_bloc.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
