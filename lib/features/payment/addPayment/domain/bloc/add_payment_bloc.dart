@@ -91,6 +91,7 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
     isPayment =  false;
     emit(AddPaymentDetailState(
         billAmountData: bpNumberData.billAmountData!,
+        bpNumberData: bpNumberData,
         context: event.context)
     );
   }

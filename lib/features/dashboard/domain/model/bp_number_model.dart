@@ -22,9 +22,12 @@ class BPNumberModel {
   List<PaymentHistoryModel>? paymentHistoryList;
   dynamic mobileChangeStatus;
   dynamic paymentType;
+  dynamic paymentTypeHeading;
+  dynamic message;
   dynamic consentUrl;
   dynamic gateway;
   PaymentGateway paymentGateway;
+  PaymentRequest paymentRequest;
 
   BPNumberModel(
       {this.totalAmount,
@@ -42,9 +45,12 @@ class BPNumberModel {
       this.paymentHistoryList,
       this.mobileChangeStatus,
       this.paymentType,
+      this.paymentTypeHeading,
+      this.message,
       this.consentUrl,
       this.gateway,
-      this.paymentGateway =  PaymentGateway.ccavenue
+      this.paymentGateway =  PaymentGateway.ccavenue,
+      this.paymentRequest =  PaymentRequest.bill
       });
 
 
@@ -60,9 +66,12 @@ class BPNumberModel {
       consumptionString: json['consumptionString'] ?? "",
       mobileChangeStatus: json['mobile_change_status'] ?? "",
       paymentType: json['payment_type'] ?? "",
+      paymentTypeHeading: json['payment_type_heading'] ?? "",
+      message: json['message'] ?? "",
       consentUrl: json['consentUrl'] ?? "",
       gateway: json['gateway'] ?? "",
       paymentGateway: getPaymentGateway(json['gateway'] ?? ""),
+      paymentRequest: getPaymentRequest(json['payment_type'] ?? ""),
       customerData: json['dmaData'] != null ? CustomerModel.fromJson(json['dmaData']) : CustomerModel(),
       installLmcData: json['instal_lmcdata'] != null ? InstallLmcModel.fromJson(json['instal_lmcdata']) : InstallLmcModel(),
       ngcData: json['ngc_data'] != null ? NgcModel.fromJson(json['ngc_data']) : NgcModel(),
@@ -81,5 +90,17 @@ class BPNumberModel {
         return PaymentGateway.ccavenue;
     }
   }
+
+  static PaymentRequest getPaymentRequest(String gateway) {
+    switch(gateway){
+      case "registration" :
+        return PaymentRequest.newConnection;
+      case "billing" :
+        return PaymentRequest.bill;
+      default :
+        return PaymentRequest.bill;
+    }
+  }
+
 
 }

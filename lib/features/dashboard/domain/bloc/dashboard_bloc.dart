@@ -12,6 +12,7 @@ import 'package:customer_connect/features/login/domain/bloc/login_bloc.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:customer_connect/utills/global_constant.dart';
+import 'package:customer_connect/utills/res/enums.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -81,38 +82,17 @@ class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
      _bpNumberData =  BPNumberModel();
 
 
-     var customerRegistrationRes = await DashboardHelper.checkCustomerRegistrationData(schema: schema,
-         bpNumber: bpNumber, context: event.context);
-     if( customerRegistrationRes != null){
-       BPNumberModel date =  customerRegistrationRes;
-       _bpNumberData =  date;
-       if(date.customerData != null){
-         if(date.customerData!.bpNumber.toString().isNotEmpty){
-           isBpNumberEmpty = false;
-         }
-       }
-     }
-
-    isAmountLoader =  true;
-
-    if(isBpNumberEmpty  == false){
-      var bpNumberDataRes =  await DashboardHelper.fetchBpNumberData(schema: schema,
-          bpNumber: bpNumber, context: event.context);
-      if(bpNumberDataRes != null){
-        _bpNumberData =  bpNumberDataRes;
-      }
+    var bpNumberDataRes =  await DashboardHelper.fetchBpNumberData(schema: schema,
+        bpNumber: bpNumber, context: event.context);
+    if(bpNumberDataRes != null){
+      _bpNumberData =  bpNumberDataRes;
     }
 
     widgetList.add(BannerWidget());
-    widgetList.add(isBpNumberEmpty == true
-         || bpNumberData.customerData!.paymentCreditStatus.toString() != 1
-        ? RegistrationWidget()
-        : BillInfoWidget());
-
+    widgetList.add(BillInfoWidget());
     widgetList.add(ConnectionInfoWidget());
     widgetList.add(QuickAccessWidget());
     widgetList.add(TransactionsListWidget());
-
 
      isAmountLoader =  false;
      _eventComplete(emit);

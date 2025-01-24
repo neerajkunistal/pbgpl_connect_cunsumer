@@ -44,13 +44,23 @@ class RegistrationWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextWidget(
-                        state.bpNumberData.paymentType.toString().isEmpty ?
-                        "Registration Amount" : state.bpNumberData.paymentType.toString(),
+                        state.bpNumberData.paymentTypeHeading.toString().isEmpty ?
+                        "Registration Amount" : state.bpNumberData.paymentTypeHeading.toString(),
                         color: AppColor.white,
                         fontSize: AppFont.font_16,
                         fontWeight: FontWeight.w700,
                       ),
+
+                      state.bpNumberData.message.toString().isNotEmpty ?
+                      TextWidget(
+                        state.bpNumberData.message.toString(),
+                        color: AppColor.themeSecondary,
+                        fontSize: AppFont.font_11,
+                        fontWeight: FontWeight.w700,
+                      ) : const SizedBox.shrink(),
+
                       Spacer(),
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -59,8 +69,9 @@ class RegistrationWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               TextWidget(
-                                state.bpNumberData.customerData!.paymentCreditStatus.toString() != "1"
-                                    ? "₹ ${state.bpNumberData.customerData!.initialAmount.toString()}"
+                                state.bpNumberData.billAmountData != null
+                                    && state.bpNumberData.totalAmount.toString().isNotEmpty
+                                    ? "₹ ${state.bpNumberData.totalAmount.toString()}"
                                     : "₹ 0",
                                 color: AppColor.white,
                                 fontSize: AppFont.font_18,
@@ -68,7 +79,9 @@ class RegistrationWidget extends StatelessWidget {
                               ),
                             ],
                           ),
-                          state.bpNumberData.customerData!.paymentCreditStatus.toString() != "1"
+                          state.bpNumberData.billAmountData != null
+                              && state.bpNumberData.billAmountData!.billStatus  != null
+                              && state.bpNumberData.billAmountData!.billStatus.toString() != "1"
                               ? _payNowButton(context: context, state: state)
                               : const SizedBox.shrink(),
                         ],
@@ -132,7 +145,7 @@ class RegistrationWidget extends StatelessWidget {
         onPressed: () async {
           BlocProvider.of<AddPaymentBloc>(context).add(
               AddPaymentPageLoadEvent(context: context,
-                  paymentRequest: PaymentRequest.newConnection));
+                  paymentRequest: state.bpNumberData.paymentRequest));
           var res =   await Navigator.push(
             !context.mounted ? context : context,
             FadeRoute(

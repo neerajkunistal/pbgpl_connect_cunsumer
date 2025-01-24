@@ -12,8 +12,8 @@ class PaymentDetailWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    double totalAmount =  double.parse(dataState.billAmountData.totalAmount.toString().isNotEmpty ? dataState.billAmountData.totalAmount.toString() : "0");
-    double lateFee =  double.parse(dataState.billAmountData.lateFee.toString().isNotEmpty ? dataState.billAmountData.lateFee.toString() : "0");
+    double totalAmount =  double.parse(dataState.billAmountData.totalAmount.toString().isNotEmpty ? dataState.billAmountData.totalAmount.toString().replaceAll(",", "").toString() : "0");
+    double lateFee =  double.parse(dataState.billAmountData.lateFee.toString().isNotEmpty ? dataState.billAmountData.lateFee.toString().replaceAll(",", "").toString() : "0");
 
     double amount = totalAmount-lateFee;
 
@@ -50,7 +50,7 @@ class PaymentDetailWidget extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.width * 0.08,
           ),
-          _payNowButton(context: context),
+          _payNowButton(context: context, dataState: dataState),
         ],
       ),
     );
@@ -78,12 +78,12 @@ class PaymentDetailWidget extends StatelessWidget {
     );
   }
 
-  Widget _payNowButton({required BuildContext context}) {
+  Widget _payNowButton({required BuildContext context, required AddPaymentDetailState dataState}) {
     return SizedBox(
       width: MediaQuery.of(context).size.width/2,
       child: ButtonWidget(text: AppString.payNow, onPressed: () {
         BlocProvider.of<AddPaymentBloc>(context).add(AddPaymentPageLoadEvent(
-            context: context, paymentRequest: PaymentRequest.bill));
+            context: context, paymentRequest: dataState.bpNumberData.paymentRequest));
       }),
     );
   }
