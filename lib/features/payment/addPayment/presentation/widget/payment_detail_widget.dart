@@ -37,7 +37,7 @@ class PaymentDetailWidget extends StatelessWidget {
           ),
           DottedDividerLine(),
           _rowWidget(
-              label: "Bill Amount",
+              label: "Amount",
               value: "${amount}"),
           _rowWidget(
               label: "Late Fee",
