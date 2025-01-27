@@ -1,6 +1,5 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/dashboard/domain/model/bp_number_model.dart';
-import 'package:customer_connect/models/pending_bill_model.dart';
 import 'package:customer_connect/service/Apis.dart';
 import 'package:customer_connect/service/server_request.dart';
 import 'package:customer_connect/utills/LoaderDialog.dart';
@@ -44,22 +43,6 @@ class DashboardHelper {
     return null;
   }
 
-  static Future fetchPendingBill({required BuildContext context,
-  required String schema,
-  required String bpNumber,
-  }) async {
-    try {
-      var json = PendingBillRequestModel(
-        schema: schema,
-        bpNumber: bpNumber,
-        payNow: "",
-      ).toJson();
-      String queryString =
-          Uri(queryParameters: json).query;
-      var url = Apis.getPendingBills + '?' + queryString;
-      var res = await ServerRequest.getData(urlEndPoint: url);
-    }catch(_){}
-  }
 
   static Future<dynamic> imagePiker({required BuildContext context}) async {
     try {
