@@ -45,6 +45,10 @@ class AddPaymentHelper {
     required PaymentRequest paymentRequest,
   }) async {
 
+    try {
+
+    }catch(_){}
+    return null;
   }
 
   static Future<dynamic> fetchCcavenuePaymentData({
