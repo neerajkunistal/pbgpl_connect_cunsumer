@@ -11,22 +11,37 @@ class PaymentHistoryBloc extends Bloc<PaymentHistoryEvent, PaymentHistoryState> 
   List<PaymentHistoryModel> _paymentHistoryList = [];
   List<PaymentHistoryModel> get paymentHistoryList => _paymentHistoryList;
 
+  List<PaymentHistoryModel> _resRaymentHistoryList = [];
+  List<PaymentHistoryModel> get regPaymentHistoryList => _resRaymentHistoryList;
+
+  int tabIndex = 0;
+
   PaymentHistoryBloc() : super(PaymentHistoryInitial()) {
     on<PaymentHistoryPageLoadEvent>(_pageLoad);
+    on<PaymentHistorySelectTabIndexEvent>(_selectTabIndex);
   }
 
   _pageLoad(PaymentHistoryPageLoadEvent event, emit) async {
      emit(PaymentHistoryPageLoadState());
      _paymentHistoryList = [];
+     tabIndex = 0;
      try{
        _paymentHistoryList = BlocProvider.of<DashboardBloc>(event.context).bpNumberData.paymentHistoryList!;
+       _resRaymentHistoryList = BlocProvider.of<DashboardBloc>(event.context).bpNumberData.regPaymentHistoryList!;
      }catch(_){}
+    _eventComplete(emit);
+  }
+
+  _selectTabIndex(PaymentHistorySelectTabIndexEvent event, emit) {
+    tabIndex =  event.tabIndex;
     _eventComplete(emit);
   }
 
   _eventComplete(Emitter<PaymentHistoryState> emit) {
     emit(FetchPaymentHistoryDataState(
-      paymentHistoryList: paymentHistoryList
+      paymentHistoryList: paymentHistoryList,
+      regPaymentHistoryList: regPaymentHistoryList,
+      tabIndex: tabIndex,
     ));
   }
 

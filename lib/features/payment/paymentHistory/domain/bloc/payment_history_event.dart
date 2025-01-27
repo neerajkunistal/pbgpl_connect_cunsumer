@@ -9,5 +9,11 @@ class PaymentHistoryPageLoadEvent extends PaymentHistoryEvent {
   const PaymentHistoryPageLoadEvent({required this.context});
   @override
   List<Object?> get props => [context];
+}
 
+class PaymentHistorySelectTabIndexEvent extends PaymentHistoryEvent {
+  final int tabIndex;
+  const PaymentHistorySelectTabIndexEvent({required this.tabIndex});
+  @override
+  List<Object?> get props => [tabIndex];
 }
