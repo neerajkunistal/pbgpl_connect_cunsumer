@@ -1,8 +1,6 @@
-import 'package:bloc/bloc.dart';
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/forgetPassword/helper/forget_password_helper.dart';
 import 'package:customer_connect/features/otp/domain/domain/bloc/otp_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 part 'forget_password_event.dart';

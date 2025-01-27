@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:customer_connect/utills/res/app_color.dart';
+import 'package:flutter/material.dart';
 
 class CustomStyleText {
   static TextStyle appBarStyle = TextStyle(

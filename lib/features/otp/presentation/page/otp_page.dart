@@ -1,9 +1,7 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/otp/domain/domain/bloc/otp_bloc.dart';
-import 'package:customer_connect/utills/Constants.dart';
 import 'package:customer_connect/utills/commonWidgets/center_loader_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_loader_widget.dart';
-import 'package:customer_connect/utills/commonWidgets/text_widget.dart';
 import 'package:customer_connect/utills/res/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';

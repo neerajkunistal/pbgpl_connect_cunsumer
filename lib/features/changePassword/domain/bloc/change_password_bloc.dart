@@ -1,8 +1,6 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/changePassword/helper/change_password_helper.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'change_password_event.dart';
 part 'change_password_state.dart';

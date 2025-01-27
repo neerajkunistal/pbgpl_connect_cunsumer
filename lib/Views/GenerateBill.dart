@@ -7,8 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import './dashboard.dart';
 import '../utills/launch_mobile.dart';
+import './dashboard.dart';
 
 class GenerateBill extends StatefulWidget {
   static String tag = 'login-page';
