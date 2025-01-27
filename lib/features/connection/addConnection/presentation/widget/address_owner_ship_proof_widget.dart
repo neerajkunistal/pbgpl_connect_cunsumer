@@ -1,6 +1,5 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/connection/addConnection/domain/bloc/add_connection_bloc.dart';
-import 'package:customer_connect/features/connection/addConnection/domain/model/identification_proof_model.dart';
 import 'package:customer_connect/features/connection/addConnection/domain/model/ownership_proof_model.dart';
 import 'package:customer_connect/features/dashboard/helper/dashboard_helper.dart';
 import 'package:customer_connect/utills/commonWidgets/dropdown_widget.dart';

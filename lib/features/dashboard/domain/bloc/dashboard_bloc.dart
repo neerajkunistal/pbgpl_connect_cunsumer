@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/dashboard/domain/model/bp_number_model.dart';
 import 'package:customer_connect/features/dashboard/helper/dashboard_helper.dart';
@@ -7,14 +6,9 @@ import 'package:customer_connect/features/dashboard/preshantation/widgets/bill_i
 import 'package:customer_connect/features/dashboard/preshantation/widgets/connection_info_widget.dart';
 import 'package:customer_connect/features/dashboard/preshantation/widgets/quick_access_widget.dart';
 import 'package:customer_connect/features/dashboard/preshantation/widgets/transactions_list_Widget.dart';
-import 'package:customer_connect/features/login/domain/bloc/login_bloc.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
-import 'package:customer_connect/utills/global_constant.dart';
-import 'package:customer_connect/utills/res/enums.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 part 'dashboard_event.dart';
 part 'dashboard_state.dart';

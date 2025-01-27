@@ -1,5 +1,3 @@
-import 'dart:io';
-import 'package:bloc/bloc.dart';
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
 import 'package:customer_connect/features/dashboard/domain/model/customer_model.dart';
@@ -8,7 +6,6 @@ import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/selfBilling/domain/model/meter_model.dart';
 import 'package:customer_connect/features/selfBilling/helper/self_billing_helper.dart';
 import 'package:customer_connect/utills/commonClass/user_info.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 part 'self_billing_event.dart';

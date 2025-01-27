@@ -1,4 +1,3 @@
-import 'package:bloc/bloc.dart';
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
 import 'package:customer_connect/features/dashboard/domain/model/customer_model.dart';
@@ -9,7 +8,6 @@ import 'package:customer_connect/utills/commonClass/fade_route.dart';
 import 'package:customer_connect/utills/commonWidgets/phone_validation.dart';
 import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
 import 'package:customer_connect/utills/res/enums.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 
 part 'profile_event.dart';

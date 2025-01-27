@@ -3,24 +3,17 @@ import 'dart:convert';
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
 import 'package:customer_connect/features/dashboard/preshantation/widgets/customer_care_widget.dart';
+import 'package:customer_connect/features/dashboard/preshantation/widgets/drawer_widget.dart';
 import 'package:customer_connect/features/dashboard/preshantation/widgets/users_widget.dart';
-import 'package:customer_connect/features/login/domain/model/login_model.dart';
-import 'package:customer_connect/features/login/presentation/widget/logout_widget.dart';
-import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:customer_connect/utills/commonWidgets/app_update_message_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/center_loader_widget.dart';
-import 'package:customer_connect/features/dashboard/preshantation/widgets/drawer_widget.dart';
-import 'package:customer_connect/utills/commonWidgets/dropdown_widget.dart';
 import 'package:customer_connect/utills/res/app_icon.dart';
 import 'package:customer_connect/utills/res/version_status.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 import 'package:http/http.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});

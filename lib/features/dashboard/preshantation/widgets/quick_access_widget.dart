@@ -6,7 +6,6 @@ import 'package:customer_connect/features/payment/paymentHistory/presenation/pag
 import 'package:customer_connect/features/selfBillHistory/presentation/page/bill_request_page.dart';
 import 'package:customer_connect/features/selfBilling/presentation/page/self_billing_page.dart';
 import 'package:customer_connect/utills/commonClass/fade_route.dart';
-import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
 import 'package:customer_connect/utills/menuData.dart';
 import 'package:flutter/material.dart';
 

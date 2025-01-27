@@ -6,7 +6,6 @@ import 'package:customer_connect/features/dashboard/helper/dashboard_helper.dart
 import 'package:customer_connect/utills/commonWidgets/center_loader_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_loader_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dropdown_widget.dart';
-import 'package:customer_connect/utills/res/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class AddComplaintPage extends StatefulWidget {

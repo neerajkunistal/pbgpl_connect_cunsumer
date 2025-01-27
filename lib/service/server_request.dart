@@ -6,8 +6,8 @@ import 'package:customer_connect/service/Apis.dart';
 import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
+import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:path_provider/path_provider.dart';
 
