@@ -15,30 +15,23 @@ class AddMaintenancePageLoadEvent extends AddMaintenanceEvent {
 
 }
 
-class AddMaintenanceSelectDisconnectionTypeEvent extends AddMaintenanceEvent {
-  final DisconnectionTypeModel disconnectionTypeData;
+class AddMaintenanceSelectServiceTypeEvent extends AddMaintenanceEvent {
+  final MaintenanceServiceTypeModel serviceTypeData;
 
-  AddMaintenanceSelectDisconnectionTypeEvent({required this.disconnectionTypeData});
-
-  @override
-  List<Object?> get props => [disconnectionTypeData];
-}
-
-class AddMaintenanceSelectDisconnectionReasonTypeEvent extends AddMaintenanceEvent {
-  final DisconnectionReasonType disconnectionReasonTypeData;
-
-  AddMaintenanceSelectDisconnectionReasonTypeEvent({required this.disconnectionReasonTypeData});
+  AddMaintenanceSelectServiceTypeEvent({required this.serviceTypeData});
 
   @override
-  List<Object?> get props => [disconnectionReasonTypeData];
+  List<Object?> get props => [serviceTypeData];
 }
+
 
 class AddMaintenanceSelectFileEvent extends AddMaintenanceEvent {
   final BuildContext context;
+  final int mediaType;
 
-  AddMaintenanceSelectFileEvent({required this.context});
+  AddMaintenanceSelectFileEvent({required this.context, required this.mediaType});
   @override
-  List<Object?> get props => [context];
+  List<Object?> get props => [context, mediaType];
 }
 
 class AddMaintenanceSelectRequestDateEvent extends AddMaintenanceEvent {
@@ -49,13 +42,6 @@ class AddMaintenanceSelectRequestDateEvent extends AddMaintenanceEvent {
   List<Object?> get props => [context];
 }
 
-class AddMaintenanceSelectDisconnectionRequestDateEvent extends AddMaintenanceEvent {
-  final BuildContext context;
-
-  AddMaintenanceSelectDisconnectionRequestDateEvent({required this.context});
-  @override
-  List<Object?> get props => [context];
-}
 
 class AddMaintenanceSubmitEvent extends AddMaintenanceEvent {
   final BuildContext context;

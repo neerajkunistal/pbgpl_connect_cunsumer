@@ -16,27 +16,23 @@ final class AddMaintenancePageLoadState extends AddMaintenanceInitial {
 
 final class FetchAddMaintenanceDataState extends AddMaintenanceInitial {
   final bool isLoader;
-  final List<DisconnectionTypeModel> disconnectionTypeList;
-  final List<DisconnectionReasonType> disconnectionReasonTypeList;
-  final DisconnectionTypeModel disconnectionTypeData;
-  final DisconnectionReasonType disconnectionReasonTypeData;
+  final List<MaintenanceServiceTypeModel> serviceTypeList;
+  final MaintenanceServiceTypeModel serviceTypeData;
   final TextEditingController bpNumberController;
   final TextEditingController requestDateController;
-  final TextEditingController disconnectionRequestController;
-  final TextEditingController disconnectionReasonController;
+  final TextEditingController messageController;
   final File file;
+  final BPNumberModel bpNumberData;
 
   FetchAddMaintenanceDataState({
     required this.isLoader,
     required this.file,
     required this.bpNumberController,
-    required this.disconnectionReasonController,
-    required this.disconnectionReasonTypeData,
-    required this.disconnectionReasonTypeList,
-    required this.disconnectionRequestController,
-    required this.disconnectionTypeData,
-    required this.disconnectionTypeList,
+    required this.messageController,
+    required this.serviceTypeData,
+    required this.serviceTypeList,
     required this.requestDateController,
+    required this.bpNumberData,
 });
 
   @override
@@ -44,12 +40,10 @@ final class FetchAddMaintenanceDataState extends AddMaintenanceInitial {
     isLoader,
     file,
     bpNumberController,
-    disconnectionReasonController,
-    disconnectionReasonTypeData,
-    disconnectionReasonTypeList,
-    disconnectionRequestController,
-    disconnectionTypeData,
-    disconnectionTypeList,
+    messageController,
+    serviceTypeData,
+    serviceTypeList,
     requestDateController,
+    bpNumberData,
   ];
 }

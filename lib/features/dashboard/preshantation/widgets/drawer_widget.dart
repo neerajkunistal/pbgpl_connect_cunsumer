@@ -2,8 +2,12 @@ import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/changePassword/presentation/pages/change_password_page.dart';
 import 'package:customer_connect/features/connection/addConnection/presentation/page/add_connection_page.dart';
 import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
+import 'package:customer_connect/features/disconnection/addDisconnection/presentation/page/add_disconnection_page.dart';
 import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/login/presentation/widget/logout_widget.dart';
+import 'package:customer_connect/features/maintenance/addMaintenance/domain/bloc/add_maintenance_bloc.dart';
+import 'package:customer_connect/features/maintenance/addMaintenance/presentation/page/add_maintenance_page.dart';
+import 'package:customer_connect/features/maintenance/viewMaintenance/presentation/page/view_maintenance_page.dart';
 import 'package:customer_connect/features/profile/presentation/page/profile_page.dart';
 import 'package:customer_connect/utills/commonClass/fade_route.dart';
 import 'package:customer_connect/utills/commonWidgets/dropdown_widget.dart';
@@ -68,7 +72,7 @@ class DrawerWidget extends StatelessWidget {
             },
           ),
 
-  /*        Divider(color: AppColor.grey,),
+/*          Divider(color: AppColor.grey,),
           _rowWidget(
               context: context,
               icon: Icons.account_tree_outlined,
@@ -80,6 +84,57 @@ class DrawerWidget extends StatelessWidget {
                       page: const AddConnectionPage()),
                 );
               }, label: "Add new connection"),*/
+
+          BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, state) {
+              if(state is FetchDashboardDataState){
+                return Column(
+                  children: [
+                    Divider(color: AppColor.grey,),
+                    _rowWidget(
+                        context: context,
+                        icon: Icons.private_connectivity_outlined,
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                            context,
+                            FadeRoute(
+                                page: const AddDisconnectionPage()),
+                          );
+                        }, label: AppString.disconnection),
+                  ],
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          ),
+
+          BlocBuilder<DashboardBloc, DashboardState>(
+            builder: (context, state) {
+              if(state is FetchDashboardDataState){
+                return Column(
+                  children: [
+                    Divider(color: AppColor.grey,),
+                    _rowWidget(
+                        context: context,
+                        icon: Icons.miscellaneous_services,
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                            context,
+                            FadeRoute(
+                                page: const AddMaintenancePage()),
+                          );
+                        }, label: AppString.maintenance),
+                  ],
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            },
+          ),
+
 
           BlocBuilder<DashboardBloc, DashboardState>(
             builder: (context, state) {

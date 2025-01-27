@@ -64,6 +64,12 @@ class Apis {
 
   static String getSelfBillingApi = "api/customer/getSelfBillingRequestHistory";
 
+  static String saveDisReqFormApi = "api/customer/saveDisReqFormApi";
+
+  static String getServicesTypeApi = "api/customer/getServicesType";
+
+  static String saveModificationFormApi = "api/customer/saveModificationFormApi";
+
   static String getRegBillStatusApi = "customer/getRegBillStatus";
 
   static String getResponseRazorpayApi = "api/getResponseRazorpayApi";

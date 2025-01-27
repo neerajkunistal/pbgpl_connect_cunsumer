@@ -115,7 +115,7 @@ class SelfBillingBloc extends Bloc<SelfBillingEvent, SelfBillingState> {
         _eventComplete(emit);
       }
     } else if(mediaType == 2){
-      var res =  await DashboardHelper.filePiker(context: event.context);
+      var res =  await DashboardHelper.imagePiker(context: event.context);
       if(res !=  null){
         file =  res;
         _eventComplete(emit);

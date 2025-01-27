@@ -151,6 +151,36 @@ class ServerRequest {
     return null;
   }
 
+  static Future<dynamic> postDataForm(
+      {required String urlEndPoint,
+        required var body}) async {
+    try {
+      addToken();
+      String url = Apis.baseUrl + urlEndPoint;
+      Uri uri = Uri.parse(url);
+      log(url);
+      log(body.toString());
+      log(header.toString());
+
+      var request = MultipartRequest("POST", uri);
+      request.fields.addAll(body);
+      request.headers.addAll(header);
+      var response = await request.send();
+      var responseData = await response.stream.toBytes();
+      var result = json.decode(String.fromCharCodes(responseData));
+      log(result.toString());
+      if (response.statusCode == 200) {
+        var result = json.decode(String.fromCharCodes(responseData));
+        log(result.toString());
+        return result;
+      }
+      return null;
+    } catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
+
   static Future<dynamic> postDataWithFile(
       {required String urlEndPoint,
         required var body,
@@ -171,12 +201,12 @@ class ServerRequest {
         for (var fileData in fileList) {
           if (fileData.file.path.isNotEmpty) {
             String fileExtention = fileData.file.path.split(".").last;
-            String filePath0 =
-            (fileExtention.toString().toLowerCase() != "png"
+            String filePath0 = fileData.file.path.toString();
+/*            (fileExtention.toString().toLowerCase() != "png"
                 || fileExtention.toString().toLowerCase() != "jpg"
                 || fileExtention.toString().toLowerCase() != "jpeg")
                 ? fileData.file.path.toString()
-                : await fileCompress(file: fileData.file);
+                : await fileCompress(file: fileData.file);*/
             if (fileData.file.toString().isNotEmpty) {
               var uploadFile = await MultipartFile.fromPath(
                   fileData.keyName, filePath0,
@@ -194,11 +224,12 @@ class ServerRequest {
           if (filePath.isNotEmpty) {
             File file = File(filePath);
             String fileExtention = filePath.split(".").last;
-            String filePath1 = fileExtention.toString().toLowerCase() == "png"
+            String filePath1 = file.path.toString();
+/*            fileExtention.toString().toLowerCase() == "png"
                 || fileExtention.toString().toLowerCase() == "jpg"
                 || fileExtention.toString().toLowerCase() == "jpeg"
                 ? await fileCompress(file: file)
-                : file.path.toString();
+                : file.path.toString();*/
             var uploadFile = await MultipartFile.fromPath(keyWord, filePath1,
                 contentType: MediaType("file", fileExtention));
             request.files.add(uploadFile);
@@ -224,13 +255,14 @@ class ServerRequest {
       }
     } catch (e) {
       log(e.toString());
+      print("------------------------------");
       return null;
     }
   }
 
   static Future<String> fileCompress({required File file}) async {
     final filePath = file.path;
-    final lastIndex = filePath.lastIndexOf(RegExp(r'.jp'));
+    final lastIndex = filePath.lastIndexOf(RegExp(r'.png|.jp'));
     final splitted = filePath.substring(0, (lastIndex));
     final outPath = '${splitted}_out${filePath.substring(lastIndex)}';
     var result = await FlutterImageCompress.compressAndGetFile(

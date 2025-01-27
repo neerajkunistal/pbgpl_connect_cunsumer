@@ -9,4 +9,6 @@ class AppIcon {
 
   static get callIcon => "assets/icons/ic_call.png";
 
+  static get registrationFormIcon => "assets/images/ic_registration.png";
+
 }
