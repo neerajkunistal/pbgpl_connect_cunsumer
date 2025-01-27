@@ -20,6 +20,7 @@ class BPNumberModel {
   InstallLmcModel? installLmcData;
   NgcModel? ngcData;
   List<PaymentHistoryModel>? paymentHistoryList;
+  List<PaymentHistoryModel>? regPaymentHistoryList;
   dynamic mobileChangeStatus;
   dynamic paymentType;
   dynamic paymentTypeHeading;
@@ -43,6 +44,7 @@ class BPNumberModel {
       this.ngcData,
       this.transactionList,
       this.paymentHistoryList,
+      this.regPaymentHistoryList,
       this.mobileChangeStatus,
       this.paymentType,
       this.paymentTypeHeading,
@@ -77,6 +79,7 @@ class BPNumberModel {
       ngcData: json['ngc_data'] != null ? NgcModel.fromJson(json['ngc_data']) : NgcModel(),
       transactionList: json['bill_data'] != null ? transactionListResponse(json['bill_data']) :[],
       paymentHistoryList: json['payment_history'] != null ? paymentHistoryListResponse(json['payment_history']) : [],
+      regPaymentHistoryList: json['reg_payment_history'] != null ? paymentHistoryListResponse(json['reg_payment_history']) : [],
     );
   }
 
