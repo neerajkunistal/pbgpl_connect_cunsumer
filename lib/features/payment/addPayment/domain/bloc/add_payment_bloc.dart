@@ -35,9 +35,14 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
 
   final Razorpay _razorpay = Razorpay();
 
+  bool isPartialPayment =  false;
+
+  TextEditingController partialPaymentController =  TextEditingController();
+
   AddPaymentBloc() : super(AddPaymentInitial()) {
     on<AddPaymentPageLoadEvent>(_pageLoad);
     on<AddPaymentDetailEvent>(_paymentDetail);
+    on<AddPaymentPartialPaymentEvent>(_selectPartialPayment);
     on<AddPaymentPageCheckPaymentEvent>(_checkPayment);
   }
 
@@ -84,12 +89,51 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
      _eventComplete(emit);
   }
 
-  _paymentDetail(AddPaymentDetailEvent event, emit) {
-    _bpNumberData = BlocProvider.of<DashboardBloc>(event.context).bpNumberData;
-    isPayment =  false;
+  _selectPartialPayment(AddPaymentPartialPaymentEvent event, emit) async {
+    isPartialPayment =  event.isPartialPayment;
+    partialPaymentController.text = "";
+    isLoader = true;
     emit(AddPaymentDetailState(
         billAmountData: bpNumberData.billAmountData!,
         bpNumberData: bpNumberData,
+        isPartialPayment: isPartialPayment,
+        partialPaymentController: partialPaymentController,
+        isLoader: isLoader,
+        context: event.context)
+    );
+
+    if(isPartialPayment == true){
+      var res =  await AddPaymentHelper.fetchPartialAmountData(context: event.context,
+          refId: bpNumberData.refId.toString(),
+          schema: userData.schema.toString(),
+          paymentRequest: paymentRequest);
+      if(res != null ){
+
+      }
+    }
+    isLoader = false;
+    emit(AddPaymentDetailState(
+        billAmountData: bpNumberData.billAmountData!,
+        bpNumberData: bpNumberData,
+        isPartialPayment: isPartialPayment,
+        partialPaymentController: partialPaymentController,
+        isLoader: isLoader,
+        context: event.context)
+    );
+  }
+
+  _paymentDetail(AddPaymentDetailEvent event, emit) {
+    _bpNumberData = BlocProvider.of<DashboardBloc>(event.context).bpNumberData;
+    isPayment =  false;
+    isPartialPayment =  false;
+    isLoader = false;
+    partialPaymentController.text = "";
+    emit(AddPaymentDetailState(
+        billAmountData: bpNumberData.billAmountData!,
+        bpNumberData: bpNumberData,
+        isPartialPayment: isPartialPayment,
+        partialPaymentController: partialPaymentController,
+        isLoader: isLoader,
         context: event.context)
     );
   }

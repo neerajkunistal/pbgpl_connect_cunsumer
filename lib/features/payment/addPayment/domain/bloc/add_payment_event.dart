@@ -12,6 +12,14 @@ class AddPaymentPageLoadEvent extends AddPaymentEvent {
   List<Object?> get props => [context, paymentRequest];
 }
 
+class AddPaymentPartialPaymentEvent extends AddPaymentEvent {
+  final bool isPartialPayment;
+  final BuildContext context;
+  AddPaymentPartialPaymentEvent({required this.isPartialPayment, required this.context});
+  @override
+  List<Object?> get props => [isPartialPayment, context];
+}
+
 class AddPaymentDetailEvent extends AddPaymentEvent {
   final BuildContext context;
   AddPaymentDetailEvent({required this.context});

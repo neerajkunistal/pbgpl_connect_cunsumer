@@ -2,10 +2,50 @@ import 'package:customer_connect/features/payment/addPayment/domain/model/paymen
 import 'package:customer_connect/features/payment/addPayment/domain/model/payment_status_model.dart';
 import 'package:customer_connect/service/Apis.dart';
 import 'package:customer_connect/service/server_request.dart';
+import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
 import 'package:customer_connect/utills/res/enums.dart';
 import 'package:flutter/cupertino.dart';
 
 class AddPaymentHelper {
+
+  static Future<bool> partialAmountValidation
+      ({required BuildContext context,
+       required bool isPartialPayment,
+       required String partialAmount,
+       required String fullAmount,
+      }) async {
+    try {
+       if (isPartialPayment == false){
+         return true;
+       }
+       else if(partialAmount.isEmpty && isPartialPayment == true){
+         SnackBarErrorWidget(context).show(message: "Please enter amount");
+         return false;
+       }
+
+       double _partialAmount =  double.parse(partialAmount);
+       double _fullAmount =  double.parse(fullAmount);
+       if(_partialAmount < 1 && isPartialPayment == true){
+         SnackBarErrorWidget(context).show(message: "Please enter minimum amount");
+         return false;
+       }
+       if(_fullAmount < _partialAmount){
+         SnackBarErrorWidget(context).show(message: "Please enter valid amount");
+         return false;
+       }
+       return true;
+    }catch(_){};
+    return true;
+  }
+
+  static Future<dynamic> fetchPartialAmountData({
+    required BuildContext context,
+    required String refId,
+    required String schema,
+    required PaymentRequest paymentRequest,
+  }) async {
+
+  }
 
   static Future<dynamic> fetchCcavenuePaymentData({
     required BuildContext context,

@@ -34,12 +34,22 @@ final class AddPaymentDetailState extends AddPaymentInitial {
   final BuildContext context;
   final BillAmountModel billAmountData;
   final BPNumberModel bpNumberData;
+  final bool isPartialPayment;
+  final bool isLoader;
+  final TextEditingController partialPaymentController;
 
-  AddPaymentDetailState({required this.billAmountData, required this.context, required this.bpNumberData});
+  AddPaymentDetailState({required this.billAmountData, required this.context,
+    required this.bpNumberData,
+    required this.partialPaymentController,
+    required this.isLoader,
+    required this.isPartialPayment});
   @override
   List<Object> get props => [
     billAmountData,
     context,
+    isPartialPayment,
+    partialPaymentController,
+    isLoader,
     bpNumberData
   ];
 }
