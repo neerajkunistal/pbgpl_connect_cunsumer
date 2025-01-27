@@ -54,7 +54,7 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
      if(bpNumberData.paymentGateway == PaymentGateway.ccavenue)
      {
        var res =  await AddPaymentHelper.fetchCcavenuePaymentData(context: event.context,
-           refId: bpNumberData.customerData!.id.toString(),
+           refId: bpNumberData.refId.toString(),
            schema: userData.schema.toString(),
           paymentRequest: paymentRequest,
        );
@@ -73,7 +73,7 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
        _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
        _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
        var res =  await AddPaymentHelper.fetchRazorPaymentData(context: event.context,
-         refId: bpNumberData.customerData!.id.toString(),
+         refId: bpNumberData.refId.toString(),
          schema: userData.schema.toString(),
          paymentRequest: paymentRequest,
        );
@@ -91,6 +91,7 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
     isPayment =  false;
     emit(AddPaymentDetailState(
         billAmountData: bpNumberData.billAmountData!,
+        bpNumberData: bpNumberData,
         context: event.context)
     );
   }

@@ -33,12 +33,14 @@ final class FetchAddPaymentDataState extends AddPaymentInitial {
 final class AddPaymentDetailState extends AddPaymentInitial {
   final BuildContext context;
   final BillAmountModel billAmountData;
+  final BPNumberModel bpNumberData;
 
-  AddPaymentDetailState({required this.billAmountData, required this.context});
+  AddPaymentDetailState({required this.billAmountData, required this.context, required this.bpNumberData});
   @override
   List<Object> get props => [
     billAmountData,
-    context
+    context,
+    bpNumberData
   ];
 }
 

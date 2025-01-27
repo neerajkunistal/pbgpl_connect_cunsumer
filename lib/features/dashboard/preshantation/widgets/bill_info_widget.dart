@@ -21,7 +21,7 @@ class BillInfoWidget extends StatelessWidget {
                     8.0,
                   ),
                   child: SizedBox(
-                    height: MediaQuery.of(context).size.width / 2.2,
+                    height: MediaQuery.of(context).size.width / 2,
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -44,12 +44,23 @@ class BillInfoWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextWidget(
-                              "Current Bill Amount",
+                              state.bpNumberData.paymentTypeHeading.toString().isEmpty ?
+                              "Amount" : state.bpNumberData.paymentTypeHeading.toString(),
                               color: AppColor.white,
                               fontSize: AppFont.font_16,
                               fontWeight: FontWeight.w700,
                             ),
+
+                            state.bpNumberData.message.toString().isNotEmpty ?
+                            TextWidget(
+                              state.bpNumberData.message.toString(),
+                              color: AppColor.themeSecondary,
+                              fontSize: AppFont.font_11,
+                              fontWeight: FontWeight.w700,
+                            ) : const SizedBox.shrink(),
+
                             Spacer(),
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -156,7 +167,7 @@ class BillInfoWidget extends StatelessWidget {
         text: AppString.payNow,
         onPressed: () async {
        BlocProvider.of<AddPaymentBloc>(context).add(
-           AddPaymentPageLoadEvent(context: context, paymentRequest: PaymentRequest.bill));
+           AddPaymentPageLoadEvent(context: context, paymentRequest: state.bpNumberData.paymentRequest));
         var res =   await Navigator.push(
             !context.mounted ? context : context,
             FadeRoute(

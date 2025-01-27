@@ -93,6 +93,7 @@ class PaymentHistoryItemWidget extends StatelessWidget {
                 height: MediaQuery.of(context).size.width * 0.01,
               ),
 
+              paymentHistoryData.paymentType.toString().isNotEmpty ?
               Row(
                 children: [
                   TextWidget("Payment Type : ", fontWeight: FontWeight.w400, fontSize: AppFont.font_14,),
@@ -100,10 +101,12 @@ class PaymentHistoryItemWidget extends StatelessWidget {
                     textAlign: TextAlign.end,
                     fontWeight: FontWeight.w400, fontSize: AppFont.font_14,)),
                 ],
-              ),
+              ) : const SizedBox.shrink(),
+
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.01,
               ),
+
               paymentHistoryData.invoiceDownload.toString().isNotEmpty ?
               Align(
                 alignment: Alignment.centerRight,
