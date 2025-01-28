@@ -52,14 +52,16 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
      isPayment =  true;
      _userData =  UserInfo.instance!.userData!;
      _bpNumberData = BlocProvider.of<DashboardBloc>(event.context).bpNumberData;
-     paymentRequest =  event.paymentRequest;
+      paymentRequest =  BlocProvider.of<DashboardBloc>(event.context).bpNumberData.paymentRequest;
 
      if(bpNumberData.paymentGateway == PaymentGateway.ccavenue)
      {
        var res =  await AddPaymentHelper.fetchCcavenuePaymentData(context: event.context,
            refId: bpNumberData.refId.toString(),
            schema: userData.schema.toString(),
-          paymentRequest: paymentRequest,
+           paymentRequest: paymentRequest,
+           amount: partialPaymentController.text.toString(),
+           partialPaymentType: isPartialPayment == true ? "1" : "0",
        );
        if(res != null){
          _paymentData =  res;
@@ -79,13 +81,14 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
          refId: bpNumberData.refId.toString(),
          schema: userData.schema.toString(),
          paymentRequest: paymentRequest,
+         amount: partialPaymentController.text.toString(),
+         partialPaymentType: isPartialPayment == true ? "1" : "0",
        );
        if(res != null){
          _paymentData =  res;
          _razorpay.open(paymentData.encValue);
        }
      }
-
      _eventComplete(emit);
   }
 
@@ -124,6 +127,7 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
 
   _paymentDetail(AddPaymentDetailEvent event, emit) {
     _bpNumberData = BlocProvider.of<DashboardBloc>(event.context).bpNumberData;
+    paymentRequest =  BlocProvider.of<DashboardBloc>(event.context).bpNumberData.paymentRequest;
     isPayment =  false;
     isPartialPayment =  false;
     isLoader = false;

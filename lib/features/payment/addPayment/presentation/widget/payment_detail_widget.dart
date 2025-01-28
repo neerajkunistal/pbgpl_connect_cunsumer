@@ -115,12 +115,35 @@ class PaymentDetailWidget extends StatelessWidget {
 
   Widget _partialPaymentController({required BuildContext context, required AddPaymentDetailState dataState}) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width/1.3,
-      child: TextFieldWidget(
-        isRequired: true,
-        labelText: "Enter partial amount",
-      controller: dataState.partialPaymentController,
-      textInputType: TextInputType.number,
+      width: MediaQuery.of(context).size.width/1.2,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Padding(
+              padding: EdgeInsets.only(top: 5, bottom: 8),
+          child: Row(
+            children: [
+              TextWidget(
+                  "Minimum Bill Pay Amount",
+                  fontSize: AppFont.font_12,
+                  fontWeight: FontWeight.w700,
+              ),
+              TextWidget("* ", color: AppColor.red,),
+              TextWidget(" : ₹${dataState.bpNumberData.partialPaymentData != null ? dataState.bpNumberData.partialPaymentData!.minPayAmount.toString() : "0"}",
+                fontSize: AppFont.font_12,
+                fontWeight: FontWeight.w700,),
+
+            ],
+          ),
+          ),
+          TextFieldWidget(
+            isRequired: true,
+            labelText: "Amount",
+          controller: dataState.partialPaymentController,
+          textInputType: TextInputType.number,
+          ),
+        ],
       ),
     );
   }
@@ -135,7 +158,10 @@ class PaymentDetailWidget extends StatelessWidget {
          var paymentValidation = await AddPaymentHelper.partialAmountValidation(context: context,
                 isPartialPayment: dataState.isPartialPayment,
                 partialAmount: dataState.partialPaymentController.text.toString(),
-                fullAmount: dataState.billAmountData.totalAmount.toString().replaceAll(",", "").toString()) ;
+                fullAmount: dataState.billAmountData.totalAmount.toString().replaceAll(",", "").toString(),
+                minAmount: dataState.bpNumberData.partialPaymentData != null ?
+                dataState.bpNumberData.partialPaymentData!.minPayAmount.toString().replaceAll(",", "").toString() : "1",
+         ) ;
 
             if(paymentValidation == true){
               BlocProvider.of<AddPaymentBloc>(context).add(AddPaymentPageLoadEvent(

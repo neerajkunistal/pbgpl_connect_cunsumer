@@ -165,8 +165,10 @@ class BillInfoWidget extends StatelessWidget {
     return ButtonWidget(
         text: AppString.payNow,
         onPressed: () async {
+/*       BlocProvider.of<AddPaymentBloc>(context).add(
+           AddPaymentPageLoadEvent(context: context, paymentRequest: state.bpNumberData.paymentRequest));*/
        BlocProvider.of<AddPaymentBloc>(context).add(
-           AddPaymentPageLoadEvent(context: context, paymentRequest: state.bpNumberData.paymentRequest));
+           AddPaymentDetailEvent(context: context));
         var res =   await Navigator.push(
             !context.mounted ? context : context,
             FadeRoute(

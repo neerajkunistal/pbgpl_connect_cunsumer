@@ -13,6 +13,7 @@ class AddPaymentHelper {
        required bool isPartialPayment,
        required String partialAmount,
        required String fullAmount,
+       required String minAmount,
       }) async {
     try {
        if (isPartialPayment == false){
@@ -25,7 +26,8 @@ class AddPaymentHelper {
 
        double _partialAmount =  double.parse(partialAmount);
        double _fullAmount =  double.parse(fullAmount);
-       if(_partialAmount < 1 && isPartialPayment == true){
+       double _minAmount =  double.parse(minAmount.isEmpty ? "1" : minAmount);
+       if(_partialAmount < _minAmount && isPartialPayment == true){
          SnackBarErrorWidget(context).show(message: "Please enter minimum amount");
          return false;
        }
@@ -56,11 +58,13 @@ class AddPaymentHelper {
     required String refId,
     required String schema,
     required PaymentRequest paymentRequest,
+    required String partialPaymentType,
+    required String amount,
   }) async {
     
     try {
        String url = "${paymentRequest == PaymentRequest.bill ? Apis.billFullGeneration
-           : Apis.payRegistrationIciciApi}"+"?ref_id=${refId}&schema=${schema}";
+           : Apis.payRegistrationIciciApi}"+"?ref_id=${refId}&schema=${schema}&amount=${amount}&type=${partialPaymentType}";
        var res = await ServerRequest.getData(urlEndPoint: url);
        if(res != null && res['success'] == 200 && res['data'] != null){
          return PaymentModel.fromJson(res['data']);
@@ -74,10 +78,12 @@ class AddPaymentHelper {
     required String refId,
     required String schema,
     required PaymentRequest paymentRequest,
+    required String partialPaymentType,
+    required String amount,
    }) async {
 
     try {
-      String url = Apis.payRegistrationRazorpayApi+"?ref_id=${refId}&schema=${schema}";
+      String url = Apis.payRegistrationRazorpayApi+"?ref_id=${refId}&schema=${schema}&amount=${amount}&type=${partialPaymentType}";
       var res = await ServerRequest.getData(urlEndPoint: url);
       if(res != null && res['success'] == 200 && res['data'] != null){
         return PaymentModel.fromJson(res['data']);

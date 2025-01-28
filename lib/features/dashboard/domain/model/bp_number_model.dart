@@ -2,6 +2,7 @@ import 'package:customer_connect/features/dashboard/domain/model/bill_amount_mod
 import 'package:customer_connect/features/dashboard/domain/model/customer_model.dart';
 import 'package:customer_connect/features/dashboard/domain/model/instal_lmc_model.dart';
 import 'package:customer_connect/features/dashboard/domain/model/ngc_model.dart';
+import 'package:customer_connect/features/dashboard/domain/model/partial_payment_model.dart';
 import 'package:customer_connect/features/dashboard/domain/model/transaction_model.dart';
 import 'package:customer_connect/features/payment/paymentHistory/domain/model/payment_history_model.dart';
 import 'package:customer_connect/utills/res/enums.dart';
@@ -29,6 +30,7 @@ class BPNumberModel {
   dynamic gateway;
   PaymentGateway paymentGateway;
   PaymentRequest paymentRequest;
+  PartialPaymentModel? partialPaymentData;
 
   BPNumberModel(
       {this.totalAmount,
@@ -52,7 +54,8 @@ class BPNumberModel {
       this.consentUrl,
       this.gateway,
       this.paymentGateway =  PaymentGateway.ccavenue,
-      this.paymentRequest =  PaymentRequest.bill
+      this.paymentRequest =  PaymentRequest.bill,
+      this.partialPaymentData,
       });
 
 
@@ -80,6 +83,7 @@ class BPNumberModel {
       transactionList: json['bill_data'] != null ? transactionListResponse(json['bill_data']) :[],
       paymentHistoryList: json['payment_history'] != null ? paymentHistoryListResponse(json['payment_history']) : [],
       regPaymentHistoryList: json['reg_payment_history'] != null ? paymentHistoryListResponse(json['reg_payment_history']) : [],
+      partialPaymentData: json['minimum_amount'] !=  null ? PartialPaymentModel.fromJson(json['minimum_amount']) : null,
     );
   }
 
