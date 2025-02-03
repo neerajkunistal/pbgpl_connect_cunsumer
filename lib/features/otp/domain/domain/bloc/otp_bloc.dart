@@ -99,7 +99,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
        await ProfileHelper.otpSendUpdateMobile(
           otp: "",
           customerData: customerData,
-          updateMobileNumber: mobileNumber,
+          updateMobileNumber: bpNumber,
           context: event.context);
     }
 
