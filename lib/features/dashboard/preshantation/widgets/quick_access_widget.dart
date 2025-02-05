@@ -77,7 +77,7 @@ class QuickAccessWidget extends StatelessWidget {
       ),
     );
   }
-  void pageNavigation(int index, BuildContext context) {
+/*  void pageNavigation(int index, BuildContext context) {
     if(index == 0)
     {
       Navigator.push(
@@ -119,6 +119,33 @@ class QuickAccessWidget extends StatelessWidget {
       );
     }
     else if(index == 5)
+    {
+      Navigator.push(
+        !context.mounted ? context : context,
+        FadeRoute(
+            page: const ViewComplaintPage()),
+      );
+    }
+  }*/
+
+  void pageNavigation(int index, BuildContext context) {
+    if(index == 0)
+    {
+      Navigator.push(
+        !context.mounted ? context : context,
+        FadeRoute(
+            page: const PaymentHistoryPage()),
+      );
+    }
+    else if(index == 1)
+    {
+      Navigator.push(
+        !context.mounted ? context : context,
+        FadeRoute(
+            page: const AddComplaintPage()),
+      );
+    }
+    else if(index == 2)
     {
       Navigator.push(
         !context.mounted ? context : context,
