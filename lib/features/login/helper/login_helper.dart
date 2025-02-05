@@ -5,6 +5,7 @@ import 'package:customer_connect/features/login/domain/model/login_model.dart';
 import 'package:customer_connect/features/login/presentation/widget/city_widget.dart';
 import 'package:customer_connect/service/Apis.dart';
 import 'package:customer_connect/service/server_request.dart';
+import 'package:customer_connect/utills/commonClass/user_info.dart';
 import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/snack_bar_success_widget.dart';
 import 'package:customer_connect/utills/common_widget/custom_toast.dart';
@@ -113,6 +114,8 @@ class LoginHelper {
            body: jsonString, context: context);
       print("res-->" + res.toString());
       if (res != null && res['users'] != null) {
+        String accessToken =  res['token'] ?? "";
+        UserInfo.instanceInit()!.setToken(accessToken);
         return loginResponse(res['users']);
       } else if(res != null && res['error'] == true) {
         SnackBarErrorWidget(context).show(message: res['messages'].toString());

@@ -23,6 +23,7 @@ class LoginModel {
   dynamic states;
   dynamic sosNumber;
   dynamic customerCareNumber;
+  dynamic token;
 
   LoginModel(
       {this.id,
@@ -45,6 +46,7 @@ class LoginModel {
         this.states,
         this.sosNumber,
         this.customerCareNumber,
+        this.token,
       });
 
   LoginModel.fromJson(Map<String, dynamic> json) {
