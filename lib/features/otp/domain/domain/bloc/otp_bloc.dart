@@ -179,7 +179,7 @@ class OtpBloc extends Bloc<OtpEvent, OtpState> {
       var res = await ProfileHelper.otpSendUpdateMobile(
           otp: otp,
           customerData: customerData,
-          updateMobileNumber: mobileNumber,
+          updateMobileNumber: bpNumber,
           context: event.context);
       if(res != null) {
         BlocProvider.of<DashboardBloc>(event.context)
