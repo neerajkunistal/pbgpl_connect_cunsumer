@@ -40,7 +40,7 @@ class _DashboardPageState extends State<DashboardPage> {
         }
         if (result.toString() == "success") {
           AppUpdateMessage.showAlertDialog(
-              context: context, url: androidPlayStoreUrl);
+              context: context, url: androidPlayStoreUrl, isLater: true);
         }
       } else if (Platform.isIOS) {
         // iOS-specific code
