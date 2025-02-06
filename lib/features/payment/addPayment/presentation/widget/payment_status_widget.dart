@@ -27,7 +27,7 @@ class PaymentStatusWidget extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.width * 0.02,
           ),
-          TextWidget("Your payment was ${dataState.paymentStatusData.transactionStatus.toString() == "1" ? "successful" : "Fail"}",
+          TextWidget("Your payment was ${dataState.paymentStatusData.transactionStatus.toString() == "1" ? "successful" : "failed"}",
             fontSize: AppFont.font_18,
             fontWeight: FontWeight.w700,
             color: AppColor.grey,),
@@ -50,7 +50,7 @@ class PaymentStatusWidget extends StatelessWidget {
             height: MediaQuery.of(context).size.width * 0.01,
           ),
 
-          TextWidget("Payment Methode : ${dataState.paymentStatusData.paymentMode}",
+          TextWidget("Payment Method : ${dataState.paymentStatusData.paymentMode}",
             fontSize: AppFont.font_14,
             fontWeight: FontWeight.w700,
             color: AppColor.black,),
