@@ -23,10 +23,12 @@ class EnvironmentConfig extends InheritedWidget {
     switch (flavours) {
       case EnvironmentFlavours.productionPBGPL:
         return "https://pbgpl.smartgasnet.com/";
+      case EnvironmentFlavours.developmentNMP:
+        return "https://nmpplstations1.smartgasnet.com/";
       case EnvironmentFlavours.developmentPBGPL:
         return "http://142.79.231.30:9097/";
     }
   }
 }
 
-enum EnvironmentFlavours { productionPBGPL, developmentPBGPL }
+enum EnvironmentFlavours { productionPBGPL, developmentPBGPL, developmentNMP}
