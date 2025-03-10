@@ -26,7 +26,7 @@ class EnvironmentConfig extends InheritedWidget {
       case EnvironmentFlavours.developmentNMP:
         return "https://nmpplstations1.smartgasnet.com/";
       case EnvironmentFlavours.developmentPBGPL:
-        return "http://142.79.231.30:9097/";
+        return "https://pbgpluat.smartgasnet.com/";
     }
   }
 }
