@@ -3,6 +3,7 @@ import 'package:customer_connect/features/dashboard/domain/model/bp_number_model
 import 'package:customer_connect/service/Apis.dart';
 import 'package:customer_connect/service/server_request.dart';
 import 'package:customer_connect/utills/LoaderDialog.dart';
+import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:open_file/open_file.dart';
@@ -42,7 +43,6 @@ class DashboardHelper {
     }
     return null;
   }
-
 
   static Future<dynamic> imagePiker({required BuildContext context}) async {
     try {
@@ -102,16 +102,25 @@ class DashboardHelper {
   static Future<dynamic> filePiker({required BuildContext context}) async {
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.image,
-        //allowedExtensions: ['jpg', 'pdf', 'doc', "png"],
+        type: FileType.custom,
+        allowedExtensions: ['jpg', 'pdf', 'doc', "png"],
       );
-      if (result != null) {
+      if(result != null){
         List<File> files = result.paths.map((path) => File(path!)).toList();
-        return files[0];
-      } else {
+        String fileExtension =  files[0].path.toString().split('.').last;
+        if(fileExtension.toString().toLowerCase() == "jpg"
+            || fileExtension.toString().toLowerCase() == "pdf"
+            || fileExtension.toString().toLowerCase() == "doc"
+            || fileExtension.toString().toLowerCase() == "jpeg"
+            || fileExtension.toString().toLowerCase() == "png" ){
+          return files[0];
+        } else {
+          SnackBarErrorWidget(!context.mounted ? context : context).show(message: "Only allow PNG, JPG JPEG, DOC, PFG File.");
+        }
+        return null;
+      } else{
         return null;
       }
-
 
     } catch (e) {
       return null;

@@ -4,8 +4,11 @@ import 'package:customer_connect/features/complaint/addComplaint/domain/bloc/add
 import 'package:customer_connect/features/complaint/viewComplaint/domain/bloc/view_complaint_bloc.dart';
 import 'package:customer_connect/features/connection/addConnection/domain/bloc/add_connection_bloc.dart';
 import 'package:customer_connect/features/dashboard/domain/bloc/dashboard_bloc.dart';
+import 'package:customer_connect/features/disconnection/addDisconnection/domain/bloc/add_disconnection_bloc.dart';
 import 'package:customer_connect/features/forgetPassword/domain/bloc/forget_password_bloc.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_bloc.dart';
+import 'package:customer_connect/features/maintenance/addMaintenance/domain/bloc/add_maintenance_bloc.dart';
+import 'package:customer_connect/features/maintenance/viewMaintenance/domain/bloc/view_maintenance_bloc.dart';
 import 'package:customer_connect/features/otp/domain/domain/bloc/otp_bloc.dart';
 import 'package:customer_connect/features/payment/addPayment/domain/bloc/add_payment_bloc.dart';
 import 'package:customer_connect/features/payment/paymentHistory/domain/bloc/payment_history_bloc.dart';
@@ -30,7 +33,10 @@ MultiProvider blocMultiProvider({required Widget child}) {
         BlocProvider(create: (BuildContext context) => ForgetPasswordBloc()),
         BlocProvider(create: (BuildContext context) => ProfileBloc()),
         BlocProvider(create: (BuildContext context) => ChangePasswordBloc()),
-        BlocProvider(create: (BuildContext context) => AddConnectionBloc())
+        BlocProvider(create: (BuildContext context) => AddConnectionBloc()),
+        BlocProvider(create: (BuildContext context) => AddMaintenanceBloc()),
+        BlocProvider(create: (BuildContext context) => ViewMaintenanceBloc()),
+        BlocProvider(create: (BuildContext context) => AddDisconnectionBloc()),
       ],
     child: child,
   );

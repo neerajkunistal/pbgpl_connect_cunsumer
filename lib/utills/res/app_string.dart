@@ -98,6 +98,29 @@ class AppString {
   static get addressOwnerShipProof => "Address OwnerShip Proof";
   static get ownerShipTypeProperty => "OwnerShip Type Property";
 
+  static get maintenance => "Maintenance";
+  static get addMaintenance => "Add Maintenance";
+
+  static get disconnection => "Disconnection";
+  static get addDisconnection => "Add Disconnection";
+
+  static get disconnectionType  => "Disconnection Type";
+
+  static get disconnectionReason  => "Disconnection Reason";
+
+  static get dateOfRequest => "Date Of Request";
+
+  static get disconnectionRequestDate => "Disconnection Request Date";
+
+  static get updateDisconnectionSignedForm => "Upload Disconnection Singed Form";
+
+  static get serviceType => "Service Type";
+
+  static get other => "Other";
+
+  static get message => "Message";
+
+
   static get logoutMessage =>
       "Are you sure you want to logout? Once you logout, you will be return to login screen";
 }
