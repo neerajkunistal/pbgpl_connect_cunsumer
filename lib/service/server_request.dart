@@ -21,6 +21,7 @@ class ServerRequest {
   static Future<dynamic> getData({required var urlEndPoint}) async {
     try {
       addToken();
+      header['Content-Type'] = "";
       String url = Apis.baseUrl + urlEndPoint;
       log(Uri.parse(url.toString()).toString());
       log(header.toString());
@@ -50,6 +51,7 @@ class ServerRequest {
   static Future<dynamic> putData(
       {required var urlEndPoint, required var body}) async {
     try {
+      header['Content-Type'] = "application/json";
       addToken();
       String url = Apis.baseUrl + urlEndPoint;
       log(url);
@@ -82,6 +84,7 @@ class ServerRequest {
     try {
       String url = Apis.baseUrl + urlEndPoint;
       log(url);
+      header['Content-Type'] = "application/json";
       addToken();
       print(body);
       log(header.toString());
@@ -157,6 +160,7 @@ class ServerRequest {
       {required String urlEndPoint,
         required var body}) async {
     try {
+      header['Content-Type'] = "application/json";
       addToken();
       String url = Apis.baseUrl + urlEndPoint;
       Uri uri = Uri.parse(url);
@@ -191,6 +195,7 @@ class ServerRequest {
         String? keyWord,
         List<FileModel>? fileList}) async {
     try {
+      header['Content-Type'] = "application/json";
       addToken();
       String url = Apis.baseUrl + urlEndPoint;
       Uri uri = Uri.parse(url);
