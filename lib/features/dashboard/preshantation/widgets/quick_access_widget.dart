@@ -77,7 +77,7 @@ class QuickAccessWidget extends StatelessWidget {
       ),
     );
   }
-/*  void pageNavigation(int index, BuildContext context) {
+  void pageNavigation(int index, BuildContext context) {
     if(index == 0)
     {
       Navigator.push(
@@ -126,9 +126,9 @@ class QuickAccessWidget extends StatelessWidget {
             page: const ViewComplaintPage()),
       );
     }
-  }*/
+  }
 
-  void pageNavigation(int index, BuildContext context) {
+/*  void pageNavigation(int index, BuildContext context) {
     if(index == 0)
     {
       Navigator.push(
@@ -153,5 +153,5 @@ class QuickAccessWidget extends StatelessWidget {
             page: const ViewComplaintPage()),
       );
     }
-  }
+  }*/
 }
