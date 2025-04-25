@@ -94,9 +94,11 @@ class SelfBillingBloc extends Bloc<SelfBillingEvent, SelfBillingState> {
 
     if(meterData.lastReading.toString().isNotEmpty){
       int position = 0;
-      for(int i = lastReadingController.length - meterData.lastReading.toString().length;
+      String reading = meterData.lastReading.toString();
+      String lastMeterReading = reading.replaceAll(".", "");
+      for(int i = lastReadingController.length - lastMeterReading.length;
       i < lastReadingController.length; i++){
-        lastReadingController[i].text =  meterData.lastReading[position].toString();
+        lastReadingController[i].text =  lastMeterReading[position].toString();
         position++;
       }
     }
@@ -150,6 +152,12 @@ class SelfBillingBloc extends Bloc<SelfBillingEvent, SelfBillingState> {
       }
     }
     _eventComplete(emit);
+
+    if (currentReading.toString().length >= 3) {
+      String lastThreeDigits = currentReading.toString().substring(currentReading.toString().length - 3);
+      String result = currentReading.toString().substring(0, currentReading.toString().length - 3) + '.' + lastThreeDigits;
+      currentReading = result;
+    }
 
     var textFieldValidation = await SelfBillingHelper.textFiledValidationCheck(context: event.context,
         previousReading: previousReading, currentReading: currentReading, file: file);
