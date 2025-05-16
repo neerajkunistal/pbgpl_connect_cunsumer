@@ -67,10 +67,10 @@ class SelfBillingPreviewWidget extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.01,
                 ),
-                _rowWidget(label: "Serial Number", value: dataState.meterData.serialNumber.toString()),
-                SizedBox(
-                  height: MediaQuery.of(context).size.width * 0.02,
-                ),
+                // _rowWidget(label: "Serial Number", value: dataState.meterData.serialNumber.toString()),
+                // SizedBox(
+                //   height: MediaQuery.of(context).size.width * 0.02,
+                // ),
                 DottedDividerLine(),
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.02,
