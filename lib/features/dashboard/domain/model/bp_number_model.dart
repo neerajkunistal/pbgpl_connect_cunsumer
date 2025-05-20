@@ -31,6 +31,7 @@ class BPNumberModel {
   PaymentGateway paymentGateway;
   PaymentRequest paymentRequest;
   PartialPaymentModel? partialPaymentData;
+  String? consentFormUrl;
 
   BPNumberModel(
       {this.totalAmount,
@@ -56,6 +57,7 @@ class BPNumberModel {
       this.paymentGateway =  PaymentGateway.ccavenue,
       this.paymentRequest =  PaymentRequest.bill,
       this.partialPaymentData,
+      this.consentFormUrl,
       });
 
 
@@ -75,6 +77,7 @@ class BPNumberModel {
       message: json['message'] ?? "",
       consentUrl: json['consentUrl'] ?? "",
       gateway: json['gateway'] ?? "",
+      consentFormUrl: json['consentUrl'] ?? "",
       paymentGateway: getPaymentGateway(json['gateway'] ?? ""),
       paymentRequest: getPaymentRequest(json['payment_type'] ?? ""),
       customerData: json['dmaData'] != null ? CustomerModel.fromJson(json['dmaData']) : CustomerModel(),

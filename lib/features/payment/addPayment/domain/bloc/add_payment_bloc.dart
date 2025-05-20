@@ -68,6 +68,11 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
          url = "${paymentData.url}transaction.do?command=initiateTransaction&encRequest=${paymentData.encValue.toString()}&access_code=${paymentData.accessCode}";
        }
 
+       if(paymentData.message.toString().isNotEmpty){
+         emit(AddPaymentMessageState(message: paymentData.message));
+         return;
+       }
+
        if(url.isNotEmpty){
          _launchInAppWithBrowserOptions(Uri.parse(url));
        }
@@ -86,6 +91,10 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
        );
        if(res != null){
          _paymentData =  res;
+         if(paymentData.message.toString().isNotEmpty){
+           emit(AddPaymentMessageState(message: paymentData.message));
+           return;
+         }
          _razorpay.open(paymentData.encValue);
        }
      }

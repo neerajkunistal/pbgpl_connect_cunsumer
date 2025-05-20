@@ -68,6 +68,11 @@ class AddPaymentHelper {
        var res = await ServerRequest.getData(urlEndPoint: url);
        if(res != null && res['success'] == 200 && res['data'] != null){
          return PaymentModel.fromJson(res['data']);
+       } else if(res != null && res['success'] == 200 && res['message'] != null){
+         var message = {
+           "message" : res['message'],
+         };
+         return PaymentModel.fromJson(message);
        }
     }catch(_){}
     return null;
@@ -88,7 +93,12 @@ class AddPaymentHelper {
       if(res != null && res['success'] == 200 && res['data'] != null){
         return PaymentModel.fromJson(res['data']);
       }
-
+      else if(res != null && res['success'] == 200 && res['message'] != null){
+        var message = {
+          "message" : res['message'],
+        };
+        return PaymentModel.fromJson(message);
+      }
     }catch(_){}
     return null;
   }

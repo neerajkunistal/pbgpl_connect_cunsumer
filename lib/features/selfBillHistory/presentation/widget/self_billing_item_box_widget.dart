@@ -96,7 +96,7 @@ class SelfBillingItemBoxWidget extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.02,
               ),
-              _rowWidget(label: "Enter Reading", value: selfBillData.meterReading.toString()),
+              _rowWidget(label: "Current Reading", value: selfBillData.meterReading.toString()),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.02,
               ),
@@ -104,7 +104,7 @@ class SelfBillingItemBoxWidget extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.02,
               ),
-              _rowWidget(label: "Reading Difference ",
+              _rowWidget(label: "Current Consumption ",
                   value: "${differenceReading.toStringAsFixed(3)}"),
               SizedBox(
                 height: MediaQuery.of(context).size.width * 0.02,
@@ -127,6 +127,10 @@ class SelfBillingItemBoxWidget extends StatelessWidget {
               selfBillData.remarks.toString().isNotEmpty ?
               _rowWidget(label: "Remark ",
                   value: "${selfBillData.remarks}") : const SizedBox.shrink(),
+
+              selfBillData.message.toString().isNotEmpty ?
+              _rowWidget(label: "Message ",
+                  value: "${selfBillData.message}") : const SizedBox.shrink(),
             ],
           ),
         ),

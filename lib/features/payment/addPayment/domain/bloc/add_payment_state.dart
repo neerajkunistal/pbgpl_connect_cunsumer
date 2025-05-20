@@ -63,3 +63,13 @@ final class AddPaymentStatusState extends AddPaymentInitial {
     paymentStatusData,
   ];
 }
+
+final class AddPaymentMessageState extends AddPaymentInitial {
+  final String message;
+
+  AddPaymentMessageState({required this.message});
+  @override
+  List<Object> get props => [
+    message,
+  ];
+}

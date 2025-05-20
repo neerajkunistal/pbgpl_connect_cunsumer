@@ -18,6 +18,7 @@ class SelfBillModel {
   String? billLat;
   String? billLong;
   dynamic remarks;
+  String? message;
 
   SelfBillModel(
       {this.id,
@@ -34,7 +35,9 @@ class SelfBillModel {
         this.prevBillReading,
         this.billLat,
         this.billLong,
-        this.remarks});
+        this.remarks,
+        this.message,
+      });
 
   SelfBillModel.fromJson(Map<String, dynamic> json) {
     id = json['id'] ?? "";
@@ -52,6 +55,7 @@ class SelfBillModel {
     billLat = json['bill_lat'] ?? "";
     billLong = json['bill_long'] ?? "";
     remarks = json['remarks'] ?? "";
+    message = json['message'] ?? "";
   }
 
   Map<String, dynamic> toJson() {

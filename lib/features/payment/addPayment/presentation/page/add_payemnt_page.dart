@@ -12,9 +12,8 @@ class AddPaymentPage extends StatefulWidget {
   State<AddPaymentPage> createState() => _AddPaymentPageState();
 }
 
-class _AddPaymentPageState extends State<AddPaymentPage> with WidgetsBindingObserver {
-
-
+class _AddPaymentPageState extends State<AddPaymentPage>
+    with WidgetsBindingObserver {
   @override
   void initState() {
     WidgetsBinding.instance.addObserver(this);
@@ -48,31 +47,42 @@ class _AddPaymentPageState extends State<AddPaymentPage> with WidgetsBindingObse
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
         title: Center(
-          child: TextWidget("Payment Page",
+          child: TextWidget(
+            "Payment Page",
             fontWeight: FontWeight.w700,
-            color: AppColor.white, fontSize: AppFont.font_16,),
+            color: AppColor.white,
+            fontSize: AppFont.font_16,
+          ),
         ),
       ),
       body: BlocBuilder<AddPaymentBloc, AddPaymentState>(
         builder: (context, state) {
-          if(state is FetchAddPaymentDataState){
+          if (state is FetchAddPaymentDataState) {
             return _itemBuilder(dataState: state);
-          }
-          else if( state is AddPaymentStatusState) {
-            return PaymentStatusWidget(dataState : state);
-          }
-          else if( state is AddPaymentDetailState) {
-            return PaymentDetailWidget(dataState : state);
-          }
-          else {
-            return const Center(child: CenterLoaderWidget(),);
+          } else if (state is AddPaymentStatusState) {
+            return PaymentStatusWidget(dataState: state);
+          } else if (state is AddPaymentDetailState) {
+            return PaymentDetailWidget(dataState: state);
+          } else if (state is AddPaymentMessageState) {
+            return Container(
+                child: Center(
+              child: TextWidget(
+                "${state.message}",
+                fontWeight: FontWeight.bold,
+                fontSize: AppFont.font_16,
+                color: AppColor.black,
+              ),
+            ));
+          } else {
+            return const Center(
+              child: CenterLoaderWidget(),
+            );
           }
         },
       ),
@@ -80,14 +90,21 @@ class _AddPaymentPageState extends State<AddPaymentPage> with WidgetsBindingObse
   }
 
   Widget _itemBuilder({required FetchAddPaymentDataState dataState}) {
-    return  Center(child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        CenterLoaderWidget(),
-        SizedBox(height: MediaQuery.of(context).size.width * 0.03,),
-        TextWidget("Please don't back/refresh page", color: AppColor.black,),
-      ],
-    ),);
+    return Center(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CenterLoaderWidget(),
+          SizedBox(
+            height: MediaQuery.of(context).size.width * 0.03,
+          ),
+          TextWidget(
+            "Please don't back/refresh page",
+            color: AppColor.black,
+          ),
+        ],
+      ),
+    );
   }
 }

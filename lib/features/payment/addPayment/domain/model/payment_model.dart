@@ -6,6 +6,7 @@ class PaymentModel {
   dynamic paymentId;
   dynamic signature;
   dynamic paymentOrderId;
+  dynamic message;
 
   PaymentModel({this.url,
     this.accessCode,
@@ -14,6 +15,7 @@ class PaymentModel {
     this.signature,
     this.paymentId,
     this.paymentOrderId,
+    this.message,
   });
 
   factory PaymentModel.fromJson(Map<String, dynamic> json) {
@@ -22,6 +24,7 @@ class PaymentModel {
       orderId: json['order_id'] ?? "",
       encValue: json['enc_val'] ?? "",
       accessCode: json['access_code'] ?? "",
+      message: json['message'] ?? "",
     );
   }
 }

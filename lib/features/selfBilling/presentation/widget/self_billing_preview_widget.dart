@@ -98,7 +98,7 @@ class SelfBillingPreviewWidget extends StatelessWidget {
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.02,
                 ),
-                _rowWidget(label: "Reading Difference ",
+                _rowWidget(label: "Current Consumption ",
                     value: "${differenceReading.toStringAsFixed(3)}"),
                 SizedBox(
                   height: MediaQuery.of(context).size.width * 0.02,

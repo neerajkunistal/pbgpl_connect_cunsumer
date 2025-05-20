@@ -1,6 +1,7 @@
 import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/payment/addPayment/domain/bloc/add_payment_bloc.dart';
 import 'package:customer_connect/features/payment/addPayment/helper/add_payment_helper.dart';
+import 'package:customer_connect/features/payment/addPayment/presentation/widget/consent_form_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_line_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_loader_widget.dart';
 import 'package:customer_connect/utills/res/enums.dart';
@@ -155,18 +156,36 @@ class PaymentDetailWidget extends StatelessWidget {
       ButtonWidget(text: AppString.payNow,
           onPressed: () async {
 
-         var paymentValidation = await AddPaymentHelper.partialAmountValidation(context: context,
+           bool isValidate = false;
+           if(dataState.bpNumberData.consentFormUrl.toString().isNotEmpty) {
+             bool? result = await showDialog<bool>(
+               context: context,
+               builder: (context) => ConsentFormWidget(
+                 url: dataState.bpNumberData.consentFormUrl.toString(),
+               ),
+             );
+             isValidate = result!;
+           } else {
+             isValidate = true;
+           }
+
+            if (isValidate == true) {
+              var paymentValidation = await AddPaymentHelper.partialAmountValidation(context: context,
                 isPartialPayment: dataState.isPartialPayment,
                 partialAmount: dataState.partialPaymentController.text.toString(),
                 fullAmount: dataState.billAmountData.totalAmount.toString().replaceAll(",", "").toString(),
                 minAmount: dataState.bpNumberData.partialPaymentData != null ?
                 dataState.bpNumberData.partialPaymentData!.minPayAmount.toString().replaceAll(",", "").toString() : "1",
-         ) ;
+              ) ;
 
-            if(paymentValidation == true){
-              BlocProvider.of<AddPaymentBloc>(context).add(AddPaymentPageLoadEvent(
-                  context: context, paymentRequest: dataState.bpNumberData.paymentRequest));
+              if(paymentValidation == true){
+                BlocProvider.of<AddPaymentBloc>(context).add(AddPaymentPageLoadEvent(
+                    context: context, paymentRequest: dataState.bpNumberData.paymentRequest));
+              }
             }
+
+
+
        }) : const DottedLoaderWidget(),
     );
   }
