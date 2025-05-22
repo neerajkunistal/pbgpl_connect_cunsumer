@@ -129,7 +129,9 @@ class _DashboardPageState extends State<DashboardPage> {
       body: BlocBuilder<DashboardBloc, DashboardState>(
         builder: (context, state) {
           if(state is FetchDashboardDataState){
-            return _widgetBuilder(dataState: state);
+            return RefreshIndicator(
+                 onRefresh: _handleRefresh,
+                child: _widgetBuilder(dataState: state));
           } else if(state is DashboardUsersPageState) {
             return UserWidget(dataState: state);
           } else {
@@ -138,6 +140,16 @@ class _DashboardPageState extends State<DashboardPage> {
         },
       ),
     );
+  }
+
+  Future<void> _handleRefresh() async {
+    _pageRefresh(isTimerCondition: false);
+  }
+
+  Future<void> _pageRefresh({required bool isTimerCondition}) async {
+    await Future.delayed(const Duration(seconds: 1));
+    BlocProvider.of<DashboardBloc>(context)
+        .add(DashboardPageLoadEvent(context: context));
   }
 
   Widget _widgetBuilder({required FetchDashboardDataState dataState}) {

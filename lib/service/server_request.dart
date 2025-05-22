@@ -253,6 +253,12 @@ class ServerRequest {
         var result = json.decode(String.fromCharCodes(responseData));
         log(result.toString());
         return result;
+      } else if (response.statusCode == 400) {
+        var result = json.decode(String.fromCharCodes(responseData));
+        if(result.toString().contains("messages")){
+          SnackBarErrorWidget(!context.mounted ? context : context).show(message: result['messages'].toString());
+        }
+        return null;
       } else {
         var result = json.decode(String.fromCharCodes(responseData));
         if(result.toString().contains("message")){

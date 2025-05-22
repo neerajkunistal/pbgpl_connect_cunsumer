@@ -41,7 +41,7 @@ class PaymentStatusWidget extends StatelessWidget {
             height: MediaQuery.of(context).size.width * 0.03,
           ),
 
-          TextWidget("Order Id : ${dataState.paymentStatusData.orderId}",
+          TextWidget("Order Id : ${dataState.paymentStatusData.orderId != null ? dataState.paymentStatusData.orderId : ""}",
             fontSize: AppFont.font_14,
             fontWeight: FontWeight.w700,
             color: AppColor.black,),
@@ -50,7 +50,7 @@ class PaymentStatusWidget extends StatelessWidget {
             height: MediaQuery.of(context).size.width * 0.01,
           ),
 
-          TextWidget("Payment Method : ${dataState.paymentStatusData.paymentMode}",
+          TextWidget("Payment Method : ${dataState.paymentStatusData.paymentMode != null ? dataState.paymentStatusData.paymentMode : ""}",
             fontSize: AppFont.font_14,
             fontWeight: FontWeight.w700,
             color: AppColor.black,),
@@ -59,7 +59,7 @@ class PaymentStatusWidget extends StatelessWidget {
             height: MediaQuery.of(context).size.width * 0.01,
           ),
 
-          TextWidget("Amount : ${dataState.paymentStatusData.amount}",
+          TextWidget("Amount : ${dataState.paymentStatusData.amount != null ? dataState.paymentStatusData.amount : ""}",
             fontSize: AppFont.font_14,
             fontWeight: FontWeight.w700,
             color: AppColor.black,),
@@ -73,7 +73,7 @@ class PaymentStatusWidget extends StatelessWidget {
             child: ButtonWidget(text: "Go To Home",
                 onPressed: () {
               String status =  dataState.paymentStatusData.transactionStatus.toString() == "1" ?  "Complete" : "Fail";
-              Navigator.of(context).pop(status);
+              Navigator.of(context).pop("Complete");
             }),
           ),
         ],

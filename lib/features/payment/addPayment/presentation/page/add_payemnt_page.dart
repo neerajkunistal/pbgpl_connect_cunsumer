@@ -51,7 +51,13 @@ class _AddPaymentPageState extends State<AddPaymentPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: AppColor.white),
+          onPressed: () {
+            Navigator.of(context).pop("Complete");
+          },
+        ),
         title: Center(
           child: TextWidget(
             "Payment Page",
@@ -72,11 +78,26 @@ class _AddPaymentPageState extends State<AddPaymentPage>
           } else if (state is AddPaymentMessageState) {
             return Container(
                 child: Center(
-              child: TextWidget(
-                "${state.message}",
-                fontWeight: FontWeight.bold,
-                fontSize: AppFont.font_16,
-                color: AppColor.black,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextWidget(
+                      "${state.message}",
+                      fontWeight: FontWeight.bold,
+                      fontSize: AppFont.font_16,
+                      color: AppColor.black,
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width/2,
+                    child: ButtonWidget(text: "Go To Home",
+                        onPressed: () {
+                          Navigator.of(context).pop("Complete");
+                        }
+                     ),
+                  ),
+                ],
               ),
             ));
           } else {
