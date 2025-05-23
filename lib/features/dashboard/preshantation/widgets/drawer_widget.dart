@@ -84,55 +84,55 @@ class DrawerWidget extends StatelessWidget {
                 );
               }, label: "Add new connection"),*/
 
-          BlocBuilder<DashboardBloc, DashboardState>(
-            builder: (context, state) {
-              if(state is FetchDashboardDataState){
-                return Column(
-                  children: [
-                    Divider(color: AppColor.grey,),
-                    _rowWidget(
-                        context: context,
-                        icon: Icons.private_connectivity_outlined,
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          Navigator.push(
-                            context,
-                            FadeRoute(
-                                page: const AddDisconnectionPage()),
-                          );
-                        }, label: AppString.disconnection),
-                  ],
-                );
-              } else {
-                return const SizedBox.shrink();
-              }
-            },
-          ),
+          // BlocBuilder<DashboardBloc, DashboardState>(
+          //   builder: (context, state) {
+          //     if(state is FetchDashboardDataState){
+          //       return Column(
+          //         children: [
+          //           Divider(color: AppColor.grey,),
+          //           _rowWidget(
+          //               context: context,
+          //               icon: Icons.private_connectivity_outlined,
+          //               onTap: () {
+          //                 Navigator.of(context).pop();
+          //                 Navigator.push(
+          //                   context,
+          //                   FadeRoute(
+          //                       page: const AddDisconnectionPage()),
+          //                 );
+          //               }, label: AppString.disconnection),
+          //         ],
+          //       );
+          //     } else {
+          //       return const SizedBox.shrink();
+          //     }
+          //   },
+          // ),
 
-          BlocBuilder<DashboardBloc, DashboardState>(
-            builder: (context, state) {
-              if(state is FetchDashboardDataState){
-                return Column(
-                  children: [
-                    Divider(color: AppColor.grey,),
-                    _rowWidget(
-                        context: context,
-                        icon: Icons.miscellaneous_services,
-                        onTap: () {
-                          Navigator.of(context).pop();
-                          Navigator.push(
-                            context,
-                            FadeRoute(
-                                page: const AddMaintenancePage()),
-                          );
-                        }, label: AppString.maintenance),
-                  ],
-                );
-              } else {
-                return const SizedBox.shrink();
-              }
-            },
-          ),
+          // BlocBuilder<DashboardBloc, DashboardState>(
+          //   builder: (context, state) {
+          //     if(state is FetchDashboardDataState){
+          //       return Column(
+          //         children: [
+          //           Divider(color: AppColor.grey,),
+          //           _rowWidget(
+          //               context: context,
+          //               icon: Icons.miscellaneous_services,
+          //               onTap: () {
+          //                 Navigator.of(context).pop();
+          //                 Navigator.push(
+          //                   context,
+          //                   FadeRoute(
+          //                       page: const AddMaintenancePage()),
+          //                 );
+          //               }, label: AppString.maintenance),
+          //         ],
+          //       );
+          //     } else {
+          //       return const SizedBox.shrink();
+          //     }
+          //   },
+          // ),
 
 
           BlocBuilder<DashboardBloc, DashboardState>(
