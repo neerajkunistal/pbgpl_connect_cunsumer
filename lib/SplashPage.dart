@@ -2,6 +2,7 @@ import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_bloc.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_event.dart';
 import 'package:customer_connect/features/login/presentation/pages/login_page.dart';
+import 'package:customer_connect/utills/res/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,8 +27,7 @@ class _SplashPageState extends State<SplashPage> {
             child: Padding(
               padding: const EdgeInsets.all(100.0),
               child: Image(
-                  image: AssetImage(
-                'assets/images/pbgpl_logo.png',
+                  image: AssetImage(AppIcon.appLogo,
               )),
             ),
           ),

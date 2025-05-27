@@ -3,6 +3,7 @@ import 'package:customer_connect/features/login/domain/bloc/login_bloc.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_event.dart';
 import 'package:customer_connect/features/login/domain/bloc/login_state.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_loader_widget.dart';
+import 'package:customer_connect/utills/res/app_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:kenburns_nullsafety/kenburns_nullsafety.dart';
 
@@ -117,7 +118,7 @@ class _LoginViewState extends State<LoginView> {
   }
 
   Widget logoWidget() {
-    return Image.asset('assets/images/pbgpl_logo.png',
+    return Image.asset(AppIcon.appLogo,
       height: MediaQuery.of(context).size.width * 0.20,);
   }
 

@@ -10,6 +10,7 @@ import 'package:customer_connect/features/maintenance/viewMaintenance/presentati
 import 'package:customer_connect/features/profile/presentation/page/profile_page.dart';
 import 'package:customer_connect/utills/commonClass/fade_route.dart';
 import 'package:customer_connect/utills/commonWidgets/dropdown_widget.dart';
+import 'package:customer_connect/utills/res/app_icon.dart';
 import 'package:flutter/material.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -177,7 +178,7 @@ class DrawerWidget extends StatelessWidget {
   }
 
   Widget logoWidget({required BuildContext context}) {
-    return Image.asset('assets/images/pbgpl_logo.png',
+    return Image.asset(AppIcon.appLogo,
       height: MediaQuery.of(context).size.width * 0.20,);
   }
 

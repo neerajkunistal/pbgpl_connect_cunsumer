@@ -34,7 +34,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.unistal.customer_connect"
-    compileSdkVersion 34
+    compileSdkVersion 35
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
     }

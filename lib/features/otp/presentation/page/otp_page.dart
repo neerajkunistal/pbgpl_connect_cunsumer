@@ -2,6 +2,7 @@ import 'package:customer_connect/ExportFile/app_export_file.dart';
 import 'package:customer_connect/features/otp/domain/domain/bloc/otp_bloc.dart';
 import 'package:customer_connect/utills/commonWidgets/center_loader_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_loader_widget.dart';
+import 'package:customer_connect/utills/res/app_icon.dart';
 import 'package:customer_connect/utills/res/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -177,7 +178,7 @@ class _OtpPageState extends State<OtpPage> {
   }
 
   Widget _logoWidget() {
-    return Image.asset('assets/images/pbgpl_logo.png',
+    return Image.asset(AppIcon.appLogo,
       height: MediaQuery.of(context).size.width * 0.20,);
   }
 
