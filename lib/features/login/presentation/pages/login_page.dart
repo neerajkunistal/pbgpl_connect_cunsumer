@@ -78,7 +78,7 @@ class _LoginViewState extends State<LoginView> {
                                 children: <Widget>[
                                   _horizontalSpace(),
                                   logoWidget(),
-                                  TextWidget("Purba Bharati Gas Pvt. Ltd",
+                                  TextWidget("Mahanagar Gas Ltd",
                                     fontWeight: FontWeight.w700,
                                     fontSize: AppFont.font_10,),
                                   _horizontalSpace(),

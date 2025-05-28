@@ -25,7 +25,7 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
 
   static const MethodChannel platform =
-  MethodChannel('pbgpl/consumerConnect');
+  MethodChannel('mgl/consumerConnect');
 
   callMethodeChannel() async {
     try {

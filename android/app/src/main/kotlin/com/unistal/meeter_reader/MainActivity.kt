@@ -11,7 +11,7 @@ import android.util.Log
 
 class MainActivity: FlutterActivity() {
 
-    private val METHOD_CHANNEL = "pbgpl/consumerConnect"
+    private val METHOD_CHANNEL = "mgl/consumerConnect"
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         val appUpdateManager = AppUpdateManagerFactory.create(this)
