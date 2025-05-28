@@ -14,7 +14,7 @@ class BannerWidget extends StatelessWidget {
           blurRadius: 5.0,
         ),]),
       child: Image.asset(
-        "assets/images/banner.png",
+        "assets/images/mgl_banner.png",
         fit: BoxFit.fitWidth,
       ),
     );
