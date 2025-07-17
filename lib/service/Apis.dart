@@ -56,6 +56,8 @@ class Apis {
 
   static String payRegistrationRazorpayApi = "api/payRegistrationRazorpayApi";
 
+  static String payBillRazorpayApi = "api/customer-pay-bills-razorpay";
+
   static String getMeterNumber = "api/customer/getMeterNumber";
 
   static String getMeterReading = "api/customer/getCustomerPrevSelfBillingData";
@@ -72,6 +74,8 @@ class Apis {
 
   static String getRegBillStatusApi = "customer/getRegBillStatus";
 
-  static String getResponseRazorpayApi = "api/getResponseRazorpayApi";
+  static String getResponseRazorpayResApi = "api/getResponseRazorpayApi";
+
+  static String getResponseRazorpayBillApi = "api/getResponseBillRazorpayApi";
 
 }

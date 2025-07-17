@@ -88,7 +88,8 @@ class AddPaymentHelper {
    }) async {
 
     try {
-      String url = Apis.payRegistrationRazorpayApi+"?ref_id=${refId}&schema=${schema}&amount=${amount}&type=${partialPaymentType}";
+      String url = "${paymentRequest == PaymentRequest.bill ? Apis.payBillRazorpayApi
+              : Apis.payRegistrationRazorpayApi}"+"?ref_id=${refId}&schema=${schema}&amount=${amount}&type=${partialPaymentType}";
       var res = await ServerRequest.getData(urlEndPoint: url);
       if(res != null && res['success'] == 200 && res['data'] != null){
         return PaymentModel.fromJson(res['data']);
@@ -138,7 +139,37 @@ class AddPaymentHelper {
     required PaymentModel paymentData,
   }) async {
     try {
-      String url = Apis.getResponseRazorpayApi;
+      String url = Apis.getResponseRazorpayResApi;
+      var json = {
+        "razorpay_payment_id" : paymentData.paymentId.toString(),
+        "razorpay_order_id" : paymentData.paymentOrderId.toString(),
+        "razorpay_signature" : paymentData.signature.toString(),
+      };
+      var res = await ServerRequest.postDataWithFile(urlEndPoint: url, body: json, context: context);
+      if(res != null && res['status'] == 200 && res['data'] != null){
+        var data =  res['data'];
+        var orderStatus  =  data['order_status'] ?? "";
+        var amount  =  data['amount'] ?? "";
+        var transaction_id  =  data['transaction_id'] ?? "";
+        var paymentMethod  =  data['payment_method'] ?? "";
+        PaymentStatusModel paymentStatusData =  PaymentStatusModel(
+          transactionStatus: orderStatus.toString().toLowerCase() == "captured" ? "1" : "0",
+          amount: amount.toString(),
+          paymentMode: paymentMethod.toString(),
+          orderId: transaction_id.toString(),
+        );
+        return paymentStatusData;
+      }
+    }catch(_){}
+    return null;
+  }
+
+  static Future<dynamic> checkBillOrderConfirmRazorPay({
+    required BuildContext context,
+    required PaymentModel paymentData,
+  }) async {
+    try {
+      String url = Apis.getResponseRazorpayBillApi;
       var json = {
         "razorpay_payment_id" : paymentData.paymentId.toString(),
         "razorpay_order_id" : paymentData.paymentOrderId.toString(),
