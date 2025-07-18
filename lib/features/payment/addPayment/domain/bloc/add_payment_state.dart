@@ -37,11 +37,13 @@ final class AddPaymentDetailState extends AddPaymentInitial {
   final bool isPartialPayment;
   final bool isLoader;
   final TextEditingController partialPaymentController;
+  final PaymentGateway paymentGateway;
 
   AddPaymentDetailState({required this.billAmountData, required this.context,
     required this.bpNumberData,
     required this.partialPaymentController,
     required this.isLoader,
+    required this.paymentGateway,
     required this.isPartialPayment});
   @override
   List<Object> get props => [
@@ -50,6 +52,7 @@ final class AddPaymentDetailState extends AddPaymentInitial {
     isPartialPayment,
     partialPaymentController,
     isLoader,
+    paymentGateway,
     bpNumberData
   ];
 }

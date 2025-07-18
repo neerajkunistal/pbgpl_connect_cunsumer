@@ -11,4 +11,10 @@ class AppIcon {
 
   static get registrationFormIcon => "assets/images/ic_registration.png";
 
+  static get razorPayLogo => "assets/icons/ic_razorpay_logo.png";
+
+  static get billDeskLogo => "assets/icons/ic_bill_desk.png";
+
+  static get ccAvenueLogo => "assets/icons/ic_cc_avenue.png";
+
 }

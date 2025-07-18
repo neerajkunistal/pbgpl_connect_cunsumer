@@ -41,12 +41,14 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
   final Razorpay _razorpay = Razorpay();
 
   bool isPartialPayment = false;
+  PaymentGateway paymentGateway =  PaymentGateway.non;
 
   TextEditingController partialPaymentController = TextEditingController();
 
   AddPaymentBloc() : super(AddPaymentInitial()) {
     on<AddPaymentPageLoadEvent>(_pageLoad);
     on<AddPaymentDetailEvent>(_paymentDetail);
+    on<AddPaymentSelectPaymentGatewayEvent>(_selectPaymentGateway);
     on<AddPaymentPartialPaymentEvent>(_selectPartialPayment);
     on<AddPaymentPageCheckPaymentEvent>(_checkPayment);
   }
@@ -60,6 +62,7 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
     paymentRequest = BlocProvider.of<DashboardBloc>(event.context)
         .bpNumberData
         .paymentRequest;
+    bpNumberData.paymentGateway =  paymentGateway;
 
     if (bpNumberData.paymentGateway == PaymentGateway.ccavenue) {
       var res = await AddPaymentHelper.fetchCcavenuePaymentData(
@@ -105,6 +108,30 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
         _razorpay.open(paymentData.encValue);
       }
     }
+    else if (bpNumberData.paymentGateway == PaymentGateway.hdfc) {
+      var res = await AddPaymentHelper.fetchHDFCPaymentData(
+        context: event.context,
+        refId: bpNumberData.refId.toString(),
+        schema: userData.schema.toString(),
+        paymentRequest: paymentRequest,
+        amount: partialPaymentController.text.toString(),
+        partialPaymentType: isPartialPayment == true ? "1" : "0",
+      );
+      if (res != null) {
+        _paymentData = res;
+        url =
+        "${paymentData.url}transaction.do?command=initiateTransaction&encRequest=${paymentData.encValue.toString()}&access_code=${paymentData.accessCode}";
+      }
+
+      if (paymentData.message.toString().isNotEmpty) {
+        emit(AddPaymentMessageState(message: paymentData.message));
+        return;
+      }
+
+      if (url.isNotEmpty) {
+        _launchInAppWithBrowserOptions(Uri.parse(url));
+      }
+    }
     _eventComplete(emit);
   }
 
@@ -118,6 +145,7 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
         isPartialPayment: isPartialPayment,
         partialPaymentController: partialPaymentController,
         isLoader: isLoader,
+        paymentGateway: paymentGateway,
         context: event.context));
 
     if (isPartialPayment == true) {
@@ -135,6 +163,7 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
         isPartialPayment: isPartialPayment,
         partialPaymentController: partialPaymentController,
         isLoader: isLoader,
+        paymentGateway: paymentGateway,
         context: event.context));
   }
 
@@ -147,13 +176,29 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
     isPartialPayment = false;
     isLoader = false;
     partialPaymentController.text = "";
+    paymentGateway = (bpNumberData.paymentGatewayList?.length == 1)
+        ? bpNumberData.paymentGatewayList!.first
+        : PaymentGateway.non;
     emit(AddPaymentDetailState(
         billAmountData: bpNumberData.billAmountData!,
         bpNumberData: bpNumberData,
         isPartialPayment: isPartialPayment,
         partialPaymentController: partialPaymentController,
         isLoader: isLoader,
+        paymentGateway: paymentGateway,
         context: event.context));
+  }
+
+  _selectPaymentGateway(AddPaymentSelectPaymentGatewayEvent event, emit) {
+     paymentGateway = event.paymentGateway;
+     emit(AddPaymentDetailState(
+         billAmountData: bpNumberData.billAmountData!,
+         bpNumberData: bpNumberData,
+         isPartialPayment: isPartialPayment,
+         partialPaymentController: partialPaymentController,
+         isLoader: isLoader,
+         paymentGateway: paymentGateway,
+         context: event.context));
   }
 
   _checkPayment(AddPaymentPageCheckPaymentEvent event, emit) async {
@@ -196,6 +241,31 @@ class AddPaymentBloc extends Bloc<AddPaymentEvent, AddPaymentState> {
         paymentRequest == PaymentRequest.bill) {
       var res = await AddPaymentHelper.checkBillOrderConfirmRazorPay(
           context: event.context, paymentData: paymentData);
+      if (res != null) {
+        _paymentStatusData = res;
+      }
+      isPayment = false;
+      emit(AddPaymentStatusState(paymentStatusData: paymentStatusData));
+    }
+    else if (isPayment == true &&
+        paymentRequest == PaymentRequest.bill &&
+        bpNumberData.paymentGateway == PaymentGateway.hdfc) {
+      var res = await AddPaymentHelper.checkBillOrderConfirmHDFC(
+          context: event.context,
+          orderId: paymentData.orderId.toString(),
+          schema: userData.schema.toString());
+      if (res != null) {
+        _paymentStatusData = res;
+      }
+      isPayment = false;
+      emit(AddPaymentStatusState(paymentStatusData: paymentStatusData));
+    } else if (isPayment == true &&
+        paymentRequest == PaymentRequest.newConnection &&
+        bpNumberData.paymentGateway == PaymentGateway.hdfc) {
+      var res = await AddPaymentHelper.checkResOrderConfirm(
+          context: event.context,
+          orderId: paymentData.orderId.toString(),
+          schema: userData.schema.toString());
       if (res != null) {
         _paymentStatusData = res;
       }

@@ -104,6 +104,32 @@ class AddPaymentHelper {
     return null;
   }
 
+  static Future<dynamic> fetchHDFCPaymentData({
+    required BuildContext context,
+    required String refId,
+    required String schema,
+    required PaymentRequest paymentRequest,
+    required String partialPaymentType,
+    required String amount,
+  }) async {
+
+    try {
+      String url = "${paymentRequest == PaymentRequest.bill ? Apis.payBillHDFCApi
+          : Apis.payRegistrationHdfcApi}"+"?ref_id=${refId}&schema=${schema}&amount=${amount}&type=${partialPaymentType}";
+      var res = await ServerRequest.getData(urlEndPoint: url);
+      if(res != null && res['success'] == 200 && res['data'] != null){
+        return PaymentModel.fromJson(res['data']);
+      }
+      else if(res != null && res['success'] == 200 && res['message'] != null){
+        var message = {
+          "message" : res['message'],
+        };
+        return PaymentModel.fromJson(message);
+      }
+    }catch(_){}
+    return null;
+  }
+
   static Future<dynamic> checkOrderConfirm({
     required BuildContext context,
     required String orderId,
@@ -193,5 +219,37 @@ class AddPaymentHelper {
     }catch(_){}
     return null;
   }
+
+  static Future<dynamic> checkResOrderConfirmHDFC({
+    required BuildContext context,
+    required String orderId,
+    required String schema
+  }) async {
+    try {
+      String url = Apis.getRegHDFCApi+"?order_id=${orderId}&schema=${schema}";
+      var res = await ServerRequest.getData(urlEndPoint: url);
+      if(res != null && res['success'] == 200 && res['data'] != null){
+        return PaymentStatusModel.fromJson(res['data']);
+      }
+    }catch(_){}
+    return null;
+  }
+
+  static Future<dynamic> checkBillOrderConfirmHDFC({
+    required BuildContext context,
+    required String orderId,
+    required String schema
+  }) async {
+    try {
+      String url = Apis.getBillHDFCApi+"?order_id=${orderId}&schema=${schema}";
+      var res = await ServerRequest.getData(urlEndPoint: url);
+      if(res != null && res['success'] == 200 && res['data'] != null){
+        return PaymentStatusModel.fromJson(res['data']);
+      }
+    }catch(_){}
+    return null;
+  }
+
+
 
 }

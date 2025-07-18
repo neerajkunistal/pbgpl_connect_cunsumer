@@ -12,4 +12,4 @@ enum OtpPageConfig { login, forgetPassword, profile}
 
 enum PaymentRequest { newConnection, bill }
 
-enum PaymentGateway { ccavenue, razorPay }
+enum PaymentGateway { non, ccavenue, razorPay, hdfc }

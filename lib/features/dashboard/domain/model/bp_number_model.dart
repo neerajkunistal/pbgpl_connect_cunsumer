@@ -29,6 +29,7 @@ class BPNumberModel {
   dynamic consentUrl;
   dynamic gateway;
   PaymentGateway paymentGateway;
+  List<PaymentGateway>? paymentGatewayList;
   PaymentRequest paymentRequest;
   PartialPaymentModel? partialPaymentData;
   String? consentFormUrl;
@@ -54,7 +55,8 @@ class BPNumberModel {
       this.message,
       this.consentUrl,
       this.gateway,
-      this.paymentGateway =  PaymentGateway.ccavenue,
+      this.paymentGateway  =  PaymentGateway.non,
+      this.paymentGatewayList,
       this.paymentRequest =  PaymentRequest.bill,
       this.partialPaymentData,
       this.consentFormUrl,
@@ -78,7 +80,7 @@ class BPNumberModel {
       consentUrl: json['consentUrl'] ?? "",
       gateway: json['gateway'] ?? "",
       consentFormUrl: json['consentUrl'] ?? "",
-      paymentGateway: getPaymentGateway(json['gateway'] ?? ""),
+      paymentGatewayList: getPaymentGateway(json['gateway'] ?? ""),
       paymentRequest: getPaymentRequest(json['payment_type'] ?? ""),
       customerData: json['dmaData'] != null ? CustomerModel.fromJson(json['dmaData']) : CustomerModel(),
       installLmcData: json['instal_lmcdata'] != null ? InstallLmcModel.fromJson(json['instal_lmcdata']) : InstallLmcModel(),
@@ -90,15 +92,20 @@ class BPNumberModel {
     );
   }
 
-  static PaymentGateway getPaymentGateway(String gateway) {
-    switch(gateway){
-      case "ccavenue" :
-        return PaymentGateway.ccavenue;
-      case "razorpay" :
-        return PaymentGateway.razorPay;
-      default :
-        return PaymentGateway.ccavenue;
-    }
+  static List<PaymentGateway>  getPaymentGateway(List gateway) {
+     List<PaymentGateway> list = [];
+     for(var data in gateway){
+       if(data.toString() == "razorpay") {
+         list.add(PaymentGateway.razorPay);
+       }
+       if(data.toString() == "hdfc") {
+         list.add(PaymentGateway.hdfc);
+       }
+       if(data.toString() == "ccavenue") {
+         list.add(PaymentGateway.ccavenue);
+       }
+     }
+     return list;
   }
 
   static PaymentRequest getPaymentRequest(String gateway) {

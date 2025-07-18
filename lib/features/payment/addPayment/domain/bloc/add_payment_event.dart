@@ -33,3 +33,11 @@ class AddPaymentPageCheckPaymentEvent extends AddPaymentEvent {
   @override
   List<Object?> get props => [context];
 }
+
+class AddPaymentSelectPaymentGatewayEvent extends AddPaymentEvent {
+  final PaymentGateway paymentGateway;
+  final BuildContext context;
+  AddPaymentSelectPaymentGatewayEvent({required this.paymentGateway, required this.context});
+  @override
+  List<Object?> get props => [paymentGateway, context];
+}

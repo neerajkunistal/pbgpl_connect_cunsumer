@@ -4,6 +4,8 @@ import 'package:customer_connect/features/payment/addPayment/helper/add_payment_
 import 'package:customer_connect/features/payment/addPayment/presentation/widget/consent_form_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_line_widget.dart';
 import 'package:customer_connect/utills/commonWidgets/dotted_loader_widget.dart';
+import 'package:customer_connect/utills/commonWidgets/snack_bar_error_widget.dart';
+import 'package:customer_connect/utills/res/app_icon.dart';
 import 'package:customer_connect/utills/res/enums.dart';
 import 'package:flutter/material.dart';
 
@@ -14,11 +16,22 @@ class PaymentDetailWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double totalAmount = double.parse(
+        dataState.billAmountData.totalAmount.toString().isNotEmpty
+            ? dataState.billAmountData.totalAmount
+                .toString()
+                .replaceAll(",", "")
+                .toString()
+            : "0");
+    double lateFee = double.parse(
+        dataState.billAmountData.lateFee.toString().isNotEmpty
+            ? dataState.billAmountData.lateFee
+                .toString()
+                .replaceAll(",", "")
+                .toString()
+            : "0");
 
-    double totalAmount =  double.parse(dataState.billAmountData.totalAmount.toString().isNotEmpty ? dataState.billAmountData.totalAmount.toString().replaceAll(",", "").toString() : "0");
-    double lateFee =  double.parse(dataState.billAmountData.lateFee.toString().isNotEmpty ? dataState.billAmountData.lateFee.toString().replaceAll(",", "").toString() : "0");
-
-    double amount = totalAmount-lateFee;
+    double amount = totalAmount - lateFee;
 
     return Container(
       margin: EdgeInsets.all(10.0),
@@ -40,35 +53,37 @@ class PaymentDetailWidget extends StatelessWidget {
               height: MediaQuery.of(context).size.width * 0.08,
             ),
             DottedDividerLine(),
-            _rowWidget(
-                label: "Amount",
-                value: "${amount}"),
+            _rowWidget(label: "Amount", value: "${amount}"),
             _rowWidget(
                 label: "Late Fee",
                 value: dataState.billAmountData.lateFee.toString()),
             DottedDividerLine(),
-            _rowWidget(
-                label: "Total Amount",
-                value: "${totalAmount}"),
+            _rowWidget(label: "Total Amount", value: "${totalAmount}"),
             DottedDividerLine(),
             SizedBox(
               height: MediaQuery.of(context).size.width * 0.08,
             ),
-
-            dataState.bpNumberData.paymentRequest == PaymentRequest.bill
-                && dataState.isLoader == false ?
-            _checkBoxPartialPayment(context: context, dataState: dataState)
+            dataState.bpNumberData.paymentRequest == PaymentRequest.bill &&
+                    dataState.isLoader == false
+                ? _checkBoxPartialPayment(
+                    context: context, dataState: dataState)
                 : const SizedBox.shrink(),
-
-            dataState.isPartialPayment == true && dataState.isLoader == false ?
-            _partialPaymentController(context: context, dataState: dataState)
+            dataState.isPartialPayment == true && dataState.isLoader == false
+                ? _partialPaymentController(
+                    context: context, dataState: dataState)
                 : const SizedBox.shrink(),
-
-            dataState.isPartialPayment == true && dataState.isLoader == false ?
+            dataState.isPartialPayment == true && dataState.isLoader == false
+                ? SizedBox(
+                    height: MediaQuery.of(context).size.width * 0.08,
+                  )
+                : const SizedBox.shrink(),
             SizedBox(
               height: MediaQuery.of(context).size.width * 0.08,
-            ): const SizedBox.shrink(),
-
+            ),
+            _paymentGatewayList(context: context),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.08,
+            ),
             _payNowButton(context: context, dataState: dataState),
           ],
         ),
@@ -99,94 +114,183 @@ class PaymentDetailWidget extends StatelessWidget {
   }
 
   Widget _checkBoxPartialPayment(
-      {required BuildContext context, required AddPaymentDetailState dataState}) {
+      {required BuildContext context,
+      required AddPaymentDetailState dataState}) {
     return Row(
       children: [
         Checkbox(
             value: dataState.isPartialPayment,
             onChanged: (value) {
-            BlocProvider.of<AddPaymentBloc>(context)
-                .add(AddPaymentPartialPaymentEvent(isPartialPayment: value!, context: context));
-          }
-        ),
-        TextWidget(" Partial Payment",)
+              BlocProvider.of<AddPaymentBloc>(context).add(
+                  AddPaymentPartialPaymentEvent(
+                      isPartialPayment: value!, context: context));
+            }),
+        TextWidget(
+          " Partial Payment",
+        )
       ],
     );
   }
 
-  Widget _partialPaymentController({required BuildContext context, required AddPaymentDetailState dataState}) {
+  Widget _partialPaymentController(
+      {required BuildContext context,
+      required AddPaymentDetailState dataState}) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width/1.2,
+      width: MediaQuery.of(context).size.width / 1.2,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-              padding: EdgeInsets.only(top: 5, bottom: 8),
-          child: Row(
-            children: [
-              TextWidget(
+            padding: EdgeInsets.only(top: 5, bottom: 8),
+            child: Row(
+              children: [
+                TextWidget(
                   "Minimum Bill Pay Amount",
                   fontSize: AppFont.font_12,
                   fontWeight: FontWeight.w700,
-              ),
-              TextWidget("* ", color: AppColor.red,),
-              TextWidget(" : ₹${dataState.bpNumberData.partialPaymentData != null ? dataState.bpNumberData.partialPaymentData!.minPayAmount.toString() : "0"}",
-                fontSize: AppFont.font_12,
-                fontWeight: FontWeight.w700,),
-
-            ],
-          ),
+                ),
+                TextWidget(
+                  "* ",
+                  color: AppColor.red,
+                ),
+                TextWidget(
+                  " : ₹${dataState.bpNumberData.partialPaymentData != null ? dataState.bpNumberData.partialPaymentData!.minPayAmount.toString() : "0"}",
+                  fontSize: AppFont.font_12,
+                  fontWeight: FontWeight.w700,
+                ),
+              ],
+            ),
           ),
           TextFieldWidget(
             isRequired: true,
             labelText: "Amount",
-          controller: dataState.partialPaymentController,
-          textInputType: TextInputType.number,
+            controller: dataState.partialPaymentController,
+            textInputType: TextInputType.number,
           ),
         ],
       ),
     );
   }
 
-  Widget _payNowButton({required BuildContext context, required AddPaymentDetailState dataState}) {
+  Widget _payNowButton(
+      {required BuildContext context,
+      required AddPaymentDetailState dataState}) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width/2,
-      child: dataState.isLoader == false ?
-      ButtonWidget(text: AppString.payNow,
-          onPressed: () async {
+      width: MediaQuery.of(context).size.width / 2,
+      child: dataState.isLoader == false
+          ? ButtonWidget(
+              text: AppString.payNow,
+              onPressed: () async {
+                bool isValidate = false;
+                if (dataState.bpNumberData.consentFormUrl
+                    .toString()
+                    .isNotEmpty) {
+                  bool? result = await showDialog<bool>(
+                    context: context,
+                    builder: (context) => ConsentFormWidget(
+                      url: dataState.bpNumberData.consentFormUrl.toString(),
+                    ),
+                  );
+                  isValidate = result!;
+                } else {
+                  isValidate = true;
+                }
 
-           bool isValidate = false;
-           if(dataState.bpNumberData.consentFormUrl.toString().isNotEmpty) {
-             bool? result = await showDialog<bool>(
-               context: context,
-               builder: (context) => ConsentFormWidget(
-                 url: dataState.bpNumberData.consentFormUrl.toString(),
-               ),
-             );
-             isValidate = result!;
-           } else {
-             isValidate = true;
-           }
+                if(dataState.paymentGateway == PaymentGateway.non){
+                  SnackBarErrorWidget(context).show(message: "Please select payment option");
+                  return;
+                }
 
-            if (isValidate == true) {
-              var paymentValidation = await AddPaymentHelper.partialAmountValidation(context: context,
-                isPartialPayment: dataState.isPartialPayment,
-                partialAmount: dataState.partialPaymentController.text.toString(),
-                fullAmount: dataState.billAmountData.totalAmount.toString().replaceAll(",", "").toString(),
-                minAmount: dataState.bpNumberData.partialPaymentData != null ?
-                dataState.bpNumberData.partialPaymentData!.minPayAmount.toString().replaceAll(",", "").toString() : "1",
-              ) ;
+                if (isValidate == true) {
+                  var paymentValidation =
+                      await AddPaymentHelper.partialAmountValidation(
+                    context: context,
+                    isPartialPayment: dataState.isPartialPayment,
+                    partialAmount:
+                        dataState.partialPaymentController.text.toString(),
+                    fullAmount: dataState.billAmountData.totalAmount
+                        .toString()
+                        .replaceAll(",", "")
+                        .toString(),
+                    minAmount: dataState.bpNumberData.partialPaymentData != null
+                        ? dataState
+                            .bpNumberData.partialPaymentData!.minPayAmount
+                            .toString()
+                            .replaceAll(",", "")
+                            .toString()
+                        : "1",
+                  );
 
-              if(paymentValidation == true){
-                BlocProvider.of<AddPaymentBloc>(context).add(AddPaymentPageLoadEvent(
-                    context: context, paymentRequest: dataState.bpNumberData.paymentRequest));
-              }
-            }
+                  if (paymentValidation == true) {
+                    BlocProvider.of<AddPaymentBloc>(context).add(
+                        AddPaymentPageLoadEvent(
+                            context: context,
+                            paymentRequest:
+                                dataState.bpNumberData.paymentRequest));
+                  }
+                }
+              })
+          : const DottedLoaderWidget(),
+    );
+  }
 
+  Widget _paymentGatewayList({required BuildContext context}) {
+    return Container(
+      child: Column(
+        children: [
+          TextWidget("Payment Options : ", fontWeight: FontWeight.w700,),
+          ListView.builder(
+              itemCount: dataState.bpNumberData.paymentGatewayList!.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: (context, index) {
+                PaymentGateway paymentGateway =
+                    dataState.bpNumberData.paymentGatewayList![index];
+                return _paymentOption(
+                    imageUrl: paymentGateway == PaymentGateway.ccavenue
+                        ? AppIcon.ccAvenueLogo
+                        : paymentGateway == PaymentGateway.razorPay
+                            ? AppIcon.razorPayLogo
+                            : paymentGateway == PaymentGateway.hdfc
+                                ? AppIcon.billDeskLogo
+                                : "",
+                    onChanged: (value) {
+                      print(paymentGateway);
+                      print(value);
+                      BlocProvider.of<AddPaymentBloc>(context).add(
+                          AddPaymentSelectPaymentGatewayEvent(
+                              paymentGateway: value!, context: context));
+                    },
+                    value: paymentGateway,
+                    groupValue: dataState.paymentGateway);
+              }),
+        ],
+      ),
+    );
+  }
 
-
-       }) : const DottedLoaderWidget(),
+  Widget _paymentOption({
+    required String imageUrl,
+    required PaymentGateway value,
+    required PaymentGateway groupValue,
+    required ValueChanged<PaymentGateway?> onChanged,
+  }) {
+    return RadioListTile<PaymentGateway>(
+      value: value,
+      groupValue: groupValue,
+      onChanged: onChanged,
+      title: SizedBox(
+        height: 30,
+        width: 100,
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Image.asset(
+            imageUrl,
+            fit: BoxFit.contain,
+          ),
+        ),
+      ),
     );
   }
 }

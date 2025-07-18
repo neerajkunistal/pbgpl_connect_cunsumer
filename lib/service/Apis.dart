@@ -78,4 +78,12 @@ class Apis {
 
   static String getResponseRazorpayBillApi = "api/getResponseBillRazorpayApi";
 
+  static String payRegistrationHdfcApi = "api/payRegistrationHdfcApi";
+
+  static String getRegHDFCApi = "customer/getRegBillStatusHdfc";
+
+  static String payBillHDFCApi = "api/customer-pay-bills-hdfc";
+
+  static String getBillHDFCApi = "customer/getBillStatusHdfc";
+
 }

@@ -121,6 +121,7 @@ class AppString {
   static get message => "Message";
 
 
+
   static get logoutMessage =>
       "Are you sure you want to logout? Once you logout, you will be return to login screen";
 }
