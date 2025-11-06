@@ -65,6 +65,7 @@ class PaymentDetailWidget extends StatelessWidget {
             ),
             dataState.bpNumberData.paymentRequest == PaymentRequest.bill &&
                     dataState.isLoader == false
+                 && dataState.bpNumberData.partialPaymentFlag.toString() == "1"
                 ? _checkBoxPartialPayment(
                     context: context, dataState: dataState)
                 : const SizedBox.shrink(),
@@ -238,6 +239,7 @@ class PaymentDetailWidget extends StatelessWidget {
   Widget _paymentGatewayList({required BuildContext context}) {
     return Container(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextWidget("Payment Options : ", fontWeight: FontWeight.w700,),
           ListView.builder(

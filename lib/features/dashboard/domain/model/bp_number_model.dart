@@ -33,6 +33,7 @@ class BPNumberModel {
   PaymentRequest paymentRequest;
   PartialPaymentModel? partialPaymentData;
   String? consentFormUrl;
+  dynamic partialPaymentFlag;
 
   BPNumberModel(
       {this.totalAmount,
@@ -60,6 +61,7 @@ class BPNumberModel {
       this.paymentRequest =  PaymentRequest.bill,
       this.partialPaymentData,
       this.consentFormUrl,
+      this.partialPaymentFlag,
       });
 
 
@@ -89,6 +91,7 @@ class BPNumberModel {
       paymentHistoryList: json['payment_history'] != null ? paymentHistoryListResponse(json['payment_history']) : [],
       regPaymentHistoryList: json['reg_payment_history'] != null ? paymentHistoryListResponse(json['reg_payment_history']) : [],
       partialPaymentData: json['minimum_amount'] !=  null ? PartialPaymentModel.fromJson(json['minimum_amount']) : null,
+      partialPaymentFlag: json['partial_payment_flag']  ?? "1",
     );
   }
 
