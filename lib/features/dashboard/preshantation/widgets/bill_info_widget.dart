@@ -104,7 +104,9 @@ class BillInfoWidget extends StatelessWidget {
                                 state.bpNumberData.billAmountData != null
                                     && state.bpNumberData.billAmountData!.billStatus  != null
                                     && state.bpNumberData.billAmountData!.billStatus.toString() != "1"
+                                    ? state.bpNumberData.billAmountData!.totalAmount.toString() != "0"
                                     ? _payNowButton(context: context, state: state)
+                                    : const SizedBox.shrink()
                                     : const SizedBox.shrink(),
                               ],
                             ),
